@@ -1,0 +1,423 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		155655C21A4855F90041AE4F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 155655C11A4855F90041AE4F /* main.m */; };
+		155655C51A4855F90041AE4F /* JSTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 155655C41A4855F90041AE4F /* JSTAppDelegate.m */; };
+		155655C81A4855F90041AE4F /* JitterTISensorTag.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 155655C61A4855F90041AE4F /* JitterTISensorTag.xcdatamodeld */; };
+		155655CB1A4855FA0041AE4F /* JSTRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 155655CA1A4855FA0041AE4F /* JSTRootViewController.m */; };
+		155655D01A4855FA0041AE4F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 155655CF1A4855FA0041AE4F /* Images.xcassets */; };
+		155655DF1A4855FA0041AE4F /* JitterTISensorTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 155655DE1A4855FA0041AE4F /* JitterTISensorTagTests.m */; };
+		155655EB1A4857280041AE4F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 155655EA1A4857280041AE4F /* Default-568h@2x.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		155655D91A4855FA0041AE4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 155655B41A4855F90041AE4F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 155655BB1A4855F90041AE4F;
+			remoteInfo = JitterTISensorTag;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		155655BC1A4855F90041AE4F /* JitterTISensorTag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JitterTISensorTag.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		155655C01A4855F90041AE4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		155655C11A4855F90041AE4F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		155655C31A4855F90041AE4F /* JSTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSTAppDelegate.h; sourceTree = "<group>"; };
+		155655C41A4855F90041AE4F /* JSTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSTAppDelegate.m; sourceTree = "<group>"; };
+		155655C71A4855F90041AE4F /* JitterTISensorTag.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JitterTISensorTag.xcdatamodel; sourceTree = "<group>"; };
+		155655C91A4855F90041AE4F /* JSTRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSTRootViewController.h; sourceTree = "<group>"; };
+		155655CA1A4855FA0041AE4F /* JSTRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSTRootViewController.m; sourceTree = "<group>"; };
+		155655CF1A4855FA0041AE4F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		155655D81A4855FA0041AE4F /* JitterTISensorTagTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JitterTISensorTagTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		155655DD1A4855FA0041AE4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		155655DE1A4855FA0041AE4F /* JitterTISensorTagTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JitterTISensorTagTests.m; sourceTree = "<group>"; };
+		155655EA1A4857280041AE4F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		155655B91A4855F90041AE4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		155655D51A4855FA0041AE4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		155655B31A4855F90041AE4F = {
+			isa = PBXGroup;
+			children = (
+				155655EA1A4857280041AE4F /* Default-568h@2x.png */,
+				155655BE1A4855F90041AE4F /* JitterTISensorTag */,
+				155655DB1A4855FA0041AE4F /* JitterTISensorTagTests */,
+				155655BD1A4855F90041AE4F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		155655BD1A4855F90041AE4F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				155655BC1A4855F90041AE4F /* JitterTISensorTag.app */,
+				155655D81A4855FA0041AE4F /* JitterTISensorTagTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		155655BE1A4855F90041AE4F /* JitterTISensorTag */ = {
+			isa = PBXGroup;
+			children = (
+				155655C31A4855F90041AE4F /* JSTAppDelegate.h */,
+				155655C41A4855F90041AE4F /* JSTAppDelegate.m */,
+				155655C91A4855F90041AE4F /* JSTRootViewController.h */,
+				155655CA1A4855FA0041AE4F /* JSTRootViewController.m */,
+				155655CF1A4855FA0041AE4F /* Images.xcassets */,
+				155655C61A4855F90041AE4F /* JitterTISensorTag.xcdatamodeld */,
+				155655BF1A4855F90041AE4F /* Supporting Files */,
+			);
+			path = JitterTISensorTag;
+			sourceTree = "<group>";
+		};
+		155655BF1A4855F90041AE4F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				155655C01A4855F90041AE4F /* Info.plist */,
+				155655C11A4855F90041AE4F /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		155655DB1A4855FA0041AE4F /* JitterTISensorTagTests */ = {
+			isa = PBXGroup;
+			children = (
+				155655DE1A4855FA0041AE4F /* JitterTISensorTagTests.m */,
+				155655DC1A4855FA0041AE4F /* Supporting Files */,
+			);
+			path = JitterTISensorTagTests;
+			sourceTree = "<group>";
+		};
+		155655DC1A4855FA0041AE4F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				155655DD1A4855FA0041AE4F /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		155655BB1A4855F90041AE4F /* JitterTISensorTag */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 155655E21A4855FA0041AE4F /* Build configuration list for PBXNativeTarget "JitterTISensorTag" */;
+			buildPhases = (
+				155655B81A4855F90041AE4F /* Sources */,
+				155655B91A4855F90041AE4F /* Frameworks */,
+				155655BA1A4855F90041AE4F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JitterTISensorTag;
+			productName = JitterTISensorTag;
+			productReference = 155655BC1A4855F90041AE4F /* JitterTISensorTag.app */;
+			productType = "com.apple.product-type.application";
+		};
+		155655D71A4855FA0041AE4F /* JitterTISensorTagTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 155655E51A4855FA0041AE4F /* Build configuration list for PBXNativeTarget "JitterTISensorTagTests" */;
+			buildPhases = (
+				155655D41A4855FA0041AE4F /* Sources */,
+				155655D51A4855FA0041AE4F /* Frameworks */,
+				155655D61A4855FA0041AE4F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				155655DA1A4855FA0041AE4F /* PBXTargetDependency */,
+			);
+			name = JitterTISensorTagTests;
+			productName = JitterTISensorTagTests;
+			productReference = 155655D81A4855FA0041AE4F /* JitterTISensorTagTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		155655B41A4855F90041AE4F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = mceconf.com;
+				TargetAttributes = {
+					155655BB1A4855F90041AE4F = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					155655D71A4855FA0041AE4F = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 155655BB1A4855F90041AE4F;
+					};
+				};
+			};
+			buildConfigurationList = 155655B71A4855F90041AE4F /* Build configuration list for PBXProject "JitterTISensorTag" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 155655B31A4855F90041AE4F;
+			productRefGroup = 155655BD1A4855F90041AE4F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				155655BB1A4855F90041AE4F /* JitterTISensorTag */,
+				155655D71A4855FA0041AE4F /* JitterTISensorTagTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		155655BA1A4855F90041AE4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				155655D01A4855FA0041AE4F /* Images.xcassets in Resources */,
+				155655EB1A4857280041AE4F /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		155655D61A4855FA0041AE4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		155655B81A4855F90041AE4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				155655C51A4855F90041AE4F /* JSTAppDelegate.m in Sources */,
+				155655C81A4855F90041AE4F /* JitterTISensorTag.xcdatamodeld in Sources */,
+				155655CB1A4855FA0041AE4F /* JSTRootViewController.m in Sources */,
+				155655C21A4855F90041AE4F /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		155655D41A4855FA0041AE4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				155655DF1A4855FA0041AE4F /* JitterTISensorTagTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		155655DA1A4855FA0041AE4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 155655BB1A4855F90041AE4F /* JitterTISensorTag */;
+			targetProxy = 155655D91A4855FA0041AE4F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		155655E01A4855FA0041AE4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		155655E11A4855FA0041AE4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		155655E31A4855FA0041AE4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = JitterTISensorTag/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		155655E41A4855FA0041AE4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = JitterTISensorTag/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		155655E61A4855FA0041AE4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = JitterTISensorTagTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JitterTISensorTag.app/JitterTISensorTag";
+			};
+			name = Debug;
+		};
+		155655E71A4855FA0041AE4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = JitterTISensorTagTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JitterTISensorTag.app/JitterTISensorTag";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		155655B71A4855F90041AE4F /* Build configuration list for PBXProject "JitterTISensorTag" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				155655E01A4855FA0041AE4F /* Debug */,
+				155655E11A4855FA0041AE4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		155655E21A4855FA0041AE4F /* Build configuration list for PBXNativeTarget "JitterTISensorTag" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				155655E31A4855FA0041AE4F /* Debug */,
+				155655E41A4855FA0041AE4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		155655E51A4855FA0041AE4F /* Build configuration list for PBXNativeTarget "JitterTISensorTagTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				155655E61A4855FA0041AE4F /* Debug */,
+				155655E71A4855FA0041AE4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		155655C61A4855F90041AE4F /* JitterTISensorTag.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				155655C71A4855F90041AE4F /* JitterTISensorTag.xcdatamodel */,
+			);
+			currentVersion = 155655C71A4855F90041AE4F /* JitterTISensorTag.xcdatamodel */;
+			path = JitterTISensorTag.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 155655B41A4855F90041AE4F /* Project object */;
+}
