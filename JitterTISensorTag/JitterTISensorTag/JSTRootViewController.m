@@ -7,15 +7,24 @@
 //
 
 #import "JSTRootViewController.h"
+#import "JSTSensorManager.h"
 
 @interface JSTRootViewController ()
 
+@property(nonatomic, strong) JSTSensorManager *sensorManager;
 @end
 
 @implementation JSTRootViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+        
+    self.sensorManager = [[JSTSensorManager alloc] init];
+    if (![self.sensorManager hasPreviouslyConnectedSensor]) {
+        [self.sensorManager connectNearestSensor];
+    } else {
+        [self.sensorManager connectLastSensor];
+    }
     // Do any additional setup after loading the view, typically from a nib.
 }
 
