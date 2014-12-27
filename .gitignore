@@ -2,3 +2,4 @@
 *.xccheckout
 .idea
 *.xcworkspace/
+JitterTISensorTag/Pods

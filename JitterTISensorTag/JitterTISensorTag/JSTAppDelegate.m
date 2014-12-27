@@ -6,16 +6,26 @@
 //  Copyright (c) 2014 mceconf.com. All rights reserved.
 //
 
+#import <CocoaLumberjack/DDLog.h>
+#import <CocoaLumberjack/DDASLLogger.h>
+#import <CocoaLumberjack/DDTTYLogger.h>
 #import "JSTAppDelegate.h"
+#import "JSTSensorManager.h"
+#import "JSTRootViewController.h"
 
 @interface JSTAppDelegate ()
-
 @end
 
 @implementation JSTAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+//    [DDLog addLogger:[DDASLLogger sharedInstance]];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.rootViewController = [[JSTRootViewController alloc] init];
+    [self.window makeKeyAndVisible];
     // Override point for customization after application launch.
     return YES;
 }

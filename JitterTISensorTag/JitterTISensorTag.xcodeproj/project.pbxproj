@@ -14,6 +14,12 @@
 		155655D01A4855FA0041AE4F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 155655CF1A4855FA0041AE4F /* Images.xcassets */; };
 		155655DF1A4855FA0041AE4F /* JitterTISensorTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 155655DE1A4855FA0041AE4F /* JitterTISensorTagTests.m */; };
 		155655EB1A4857280041AE4F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 155655EA1A4857280041AE4F /* Default-568h@2x.png */; };
+		386536F43E08D1BBF7F13395 /* JSTSensorTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 3865357A7AE28FEC7611DE0C /* JSTSensorTag.m */; };
+		38653A07364FB9C45CC0906C /* JSTSensorConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3865352A3013414A0ED78616 /* JSTSensorConstants.m */; };
+		38653DDD343714937308BF0C /* CBUUID+StringRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 386537046D2C4C924EEC0026 /* CBUUID+StringRepresentation.m */; };
+		38653F88434FEF10EDBF6D23 /* JSTSensorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 38653B1E939555F6F37BE245 /* JSTSensorManager.m */; };
+		67BDBC681A4EE1B7000AF79C /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BDBC671A4EE1B7000AF79C /* CoreBluetooth.framework */; };
+		EF3164A947D847E821A1C3E4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1481FE7D94BCC8BB2B7285B7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1481FE7D94BCC8BB2B7285B7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		155655BC1A4855F90041AE4F /* JitterTISensorTag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JitterTISensorTag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		155655C01A4855F90041AE4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		155655C11A4855F90041AE4F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -40,6 +47,18 @@
 		155655DD1A4855FA0041AE4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		155655DE1A4855FA0041AE4F /* JitterTISensorTagTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JitterTISensorTagTests.m; sourceTree = "<group>"; };
 		155655EA1A4857280041AE4F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		386532DFDAC113E37EA8C5A4 /* JitterTISensorTag-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JitterTISensorTag-Prefix.pch"; sourceTree = "<group>"; };
+		3865352A3013414A0ED78616 /* JSTSensorConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTSensorConstants.m; sourceTree = "<group>"; };
+		3865357A7AE28FEC7611DE0C /* JSTSensorTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTSensorTag.m; sourceTree = "<group>"; };
+		386535F9FF59C795BB450426 /* JSTSensorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTSensorManager.h; sourceTree = "<group>"; };
+		386537046D2C4C924EEC0026 /* CBUUID+StringRepresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBUUID+StringRepresentation.m"; sourceTree = "<group>"; };
+		386539514F153E7C5A3BD049 /* CBUUID+StringRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBUUID+StringRepresentation.h"; sourceTree = "<group>"; };
+		38653A5DE98156EA426C69C1 /* JSTSensorConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTSensorConstants.h; sourceTree = "<group>"; };
+		38653B1E939555F6F37BE245 /* JSTSensorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTSensorManager.m; sourceTree = "<group>"; };
+		38653D3DF6B19A90D26EDA54 /* JSTSensorTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTSensorTag.h; sourceTree = "<group>"; };
+		67BDBC671A4EE1B7000AF79C /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		78CEF60169CCCE839EF3BA72 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		7D5BEF8888945879B4E185CD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +66,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67BDBC681A4EE1B7000AF79C /* CoreBluetooth.framework in Frameworks */,
+				EF3164A947D847E821A1C3E4 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +88,8 @@
 				155655BE1A4855F90041AE4F /* JitterTISensorTag */,
 				155655DB1A4855FA0041AE4F /* JitterTISensorTagTests */,
 				155655BD1A4855F90041AE4F /* Products */,
+				490531F82321D5259DA9EC9C /* Pods */,
+				57C63614F9254CC1034E98FC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -89,6 +112,7 @@
 				155655CF1A4855FA0041AE4F /* Images.xcassets */,
 				155655C61A4855F90041AE4F /* JitterTISensorTag.xcdatamodeld */,
 				155655BF1A4855F90041AE4F /* Supporting Files */,
+				38653499D4BA027A9809C100 /* Device */,
 			);
 			path = JitterTISensorTag;
 			sourceTree = "<group>";
@@ -98,6 +122,7 @@
 			children = (
 				155655C01A4855F90041AE4F /* Info.plist */,
 				155655C11A4855F90041AE4F /* main.m */,
+				386532DFDAC113E37EA8C5A4 /* JitterTISensorTag-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -119,6 +144,39 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		38653499D4BA027A9809C100 /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				38653B1E939555F6F37BE245 /* JSTSensorManager.m */,
+				386535F9FF59C795BB450426 /* JSTSensorManager.h */,
+				3865357A7AE28FEC7611DE0C /* JSTSensorTag.m */,
+				38653D3DF6B19A90D26EDA54 /* JSTSensorTag.h */,
+				38653A5DE98156EA426C69C1 /* JSTSensorConstants.h */,
+				3865352A3013414A0ED78616 /* JSTSensorConstants.m */,
+				386537046D2C4C924EEC0026 /* CBUUID+StringRepresentation.m */,
+				386539514F153E7C5A3BD049 /* CBUUID+StringRepresentation.h */,
+			);
+			path = Device;
+			sourceTree = "<group>";
+		};
+		490531F82321D5259DA9EC9C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				78CEF60169CCCE839EF3BA72 /* Pods.debug.xcconfig */,
+				7D5BEF8888945879B4E185CD /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		57C63614F9254CC1034E98FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				67BDBC671A4EE1B7000AF79C /* CoreBluetooth.framework */,
+				1481FE7D94BCC8BB2B7285B7 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,9 +184,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 155655E21A4855FA0041AE4F /* Build configuration list for PBXNativeTarget "JitterTISensorTag" */;
 			buildPhases = (
+				4AD8EF72EF428D20AD68B425 /* Check Pods Manifest.lock */,
 				155655B81A4855F90041AE4F /* Sources */,
 				155655B91A4855F90041AE4F /* Frameworks */,
 				155655BA1A4855F90041AE4F /* Resources */,
+				00D06073BF4D3DE937DD1B98 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -214,6 +274,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		00D06073BF4D3DE937DD1B98 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4AD8EF72EF428D20AD68B425 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		155655B81A4855F90041AE4F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -223,6 +316,10 @@
 				155655C81A4855F90041AE4F /* JitterTISensorTag.xcdatamodeld in Sources */,
 				155655CB1A4855FA0041AE4F /* JSTRootViewController.m in Sources */,
 				155655C21A4855F90041AE4F /* main.m in Sources */,
+				38653F88434FEF10EDBF6D23 /* JSTSensorManager.m in Sources */,
+				386536F43E08D1BBF7F13395 /* JSTSensorTag.m in Sources */,
+				38653A07364FB9C45CC0906C /* JSTSensorConstants.m in Sources */,
+				38653DDD343714937308BF0C /* CBUUID+StringRepresentation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,25 +420,33 @@
 		};
 		155655E31A4855FA0041AE4F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 78CEF60169CCCE839EF3BA72 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JitterTISensorTag/JitterTISensorTag-Prefix.pch";
 				INFOPLIST_FILE = JitterTISensorTag/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 			};
 			name = Debug;
 		};
 		155655E41A4855FA0041AE4F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D5BEF8888945879B4E185CD /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JitterTISensorTag/JitterTISensorTag-Prefix.pch";
 				INFOPLIST_FILE = JitterTISensorTag/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 			};
 			name = Release;
 		};
