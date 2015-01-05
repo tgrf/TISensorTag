@@ -16,7 +16,9 @@
 		155655EB1A4857280041AE4F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 155655EA1A4857280041AE4F /* Default-568h@2x.png */; };
 		38653448054449F665EB9404 /* JSTBaseSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 386539A57EEB43A02AA6681D /* JSTBaseSensor.m */; };
 		386536F43E08D1BBF7F13395 /* JSTSensorTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 3865357A7AE28FEC7611DE0C /* JSTSensorTag.m */; };
+		386537B52CF6C10ACF11359E /* JSTKeysSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3865347D114AD66F1E077E32 /* JSTKeysSensor.m */; };
 		386537BB0D9CA077027C3C13 /* JSTIRSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 386537669231FF0A3D6C2D64 /* JSTIRSensor.m */; };
+		386538D2E3A4650277A553E2 /* JSTPressureSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3865308B5F59543B5BBF159F /* JSTPressureSensor.m */; };
 		38653A07364FB9C45CC0906C /* JSTSensorConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3865352A3013414A0ED78616 /* JSTSensorConstants.m */; };
 		38653B71DA077FC9C4896461 /* JSTHumiditySensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 38653C7FD4D1A9A89B339FBA /* JSTHumiditySensor.m */; };
 		38653BD155B305DB0C53EBA5 /* JSTAccelerometerSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 38653EA17B3A59525108BC6C /* JSTAccelerometerSensor.m */; };
@@ -54,8 +56,11 @@
 		155655DE1A4855FA0041AE4F /* JitterTISensorTagTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JitterTISensorTagTests.m; sourceTree = "<group>"; };
 		155655EA1A4857280041AE4F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3865305208B42852B5E93765 /* JSTBaseSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTBaseSensor.h; sourceTree = "<group>"; };
+		3865308B5F59543B5BBF159F /* JSTPressureSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTPressureSensor.m; sourceTree = "<group>"; };
 		386532DFDAC113E37EA8C5A4 /* JitterTISensorTag-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JitterTISensorTag-Prefix.pch"; sourceTree = "<group>"; };
 		386532F52394F9668DC1061A /* JSTHumiditySensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTHumiditySensor.h; sourceTree = "<group>"; };
+		3865339B60D8566D86474AF1 /* JSTPressureSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTPressureSensor.h; sourceTree = "<group>"; };
+		3865347D114AD66F1E077E32 /* JSTKeysSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTKeysSensor.m; sourceTree = "<group>"; };
 		3865351E938502183C28E12A /* JSTMagnetometerSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTMagnetometerSensor.h; sourceTree = "<group>"; };
 		3865352A3013414A0ED78616 /* JSTSensorConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTSensorConstants.m; sourceTree = "<group>"; };
 		386535472A68C29A49838C0A /* JSTGyroscopeSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTGyroscopeSensor.h; sourceTree = "<group>"; };
@@ -74,6 +79,7 @@
 		38653CE9A09239C919DAD187 /* JSTMagnetometerSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTMagnetometerSensor.m; sourceTree = "<group>"; };
 		38653D3DF6B19A90D26EDA54 /* JSTSensorTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTSensorTag.h; sourceTree = "<group>"; };
 		38653EA17B3A59525108BC6C /* JSTAccelerometerSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTAccelerometerSensor.m; sourceTree = "<group>"; };
+		38653F66B0778CDAAD0844B4 /* JSTKeysSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTKeysSensor.h; sourceTree = "<group>"; };
 		67BDBC671A4EE1B7000AF79C /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		78CEF60169CCCE839EF3BA72 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7D5BEF8888945879B4E185CD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -193,6 +199,10 @@
 				38653879E284CFE79250AE47 /* JSTAccelerometerSensor.h */,
 				386539A070FBD21D292E1E21 /* JSTGyroscopeSensor.m */,
 				386535472A68C29A49838C0A /* JSTGyroscopeSensor.h */,
+				3865308B5F59543B5BBF159F /* JSTPressureSensor.m */,
+				3865339B60D8566D86474AF1 /* JSTPressureSensor.h */,
+				3865347D114AD66F1E077E32 /* JSTKeysSensor.m */,
+				38653F66B0778CDAAD0844B4 /* JSTKeysSensor.h */,
 			);
 			path = Sensors;
 			sourceTree = "<group>";
@@ -364,6 +374,8 @@
 				38653EB9ADED557CF4579587 /* JSTMagnetometerSensor.m in Sources */,
 				38653BD155B305DB0C53EBA5 /* JSTAccelerometerSensor.m in Sources */,
 				38653C4B72CC4AA3680C3BE5 /* JSTGyroscopeSensor.m in Sources */,
+				386538D2E3A4650277A553E2 /* JSTPressureSensor.m in Sources */,
+				386537B52CF6C10ACF11359E /* JSTKeysSensor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

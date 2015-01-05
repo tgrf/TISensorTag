@@ -32,8 +32,8 @@ static NSString *const JSTSensorIRTemperaturePeriodCharacteristicUUID = @"F000AA
     return JSTSensorIRTemperaturePeriodCharacteristicUUID;
 }
 
-- (BOOL)processCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-    if (![super processCharacteristic:characteristic error:error]) {
+- (BOOL)processReadFromCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    if (![super processReadFromCharacteristic:characteristic error:error]) {
         return NO;
     }
 

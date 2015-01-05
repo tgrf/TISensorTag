@@ -1,6 +1,14 @@
 #import "JSTSensorTag.h"
 #import "JSTSensorConstants.h"
 #import "JSTSensorManager.h"
+#import "JSTIRSensor.h"
+#import "JSTAccelerometerSensor.h"
+#import "JSTHumiditySensor.h"
+#import "JSTMagnetometerSensor.h"
+#import "JSTPressureSensor.h"
+#import "JSTGyroscopeSensor.h"
+#import "JSTKeysSensor.h"
+#import "CBUUID+StringRepresentation.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static int ddLogLevel = DDLogLevelAll;
 
@@ -8,13 +16,18 @@ NSString *const JSTSensorTagDidFinishDiscoveryNotification = @"JSTSensorTagDidFi
 NSString *const JSTSensorTagConnectionFailureNotification = @"JSTSensorTagConnectionFailureNotification";
 NSString *const JSTSensorTagConnectionFailureNotificationErrorKey = @"JSTSensorTagConnectionFailureNotificationErrorKey";
 
-static NSString *const JSTSensorOptionUnavailableError = @"Option unavailable.";
-
 @interface JSTSensorTag () <CBPeripheralDelegate>
 @property(nonatomic, readwrite) CBPeripheral *peripheral;
 @property(nonatomic) int numberOfDiscoveredServices;
 @property(nonatomic) UInt16 *calibrationDataUnsigned;
 @property(nonatomic) int16_t *calibrationDataSigned;
+@property(nonatomic, readwrite) JSTIRSensor *irSensor;
+@property(nonatomic, readwrite) JSTAccelerometerSensor *accelerometerSensor;
+@property(nonatomic, readwrite) JSTGyroscopeSensor *gyroscopeSensor;
+@property(nonatomic, readwrite) JSTHumiditySensor *humiditySensor;
+@property(nonatomic, readwrite) JSTKeysSensor *keysSensor;
+@property(nonatomic, readwrite) JSTMagnetometerSensor *magnetometerSensor;
+@property(nonatomic, readwrite) JSTPressureSensor *pressureSensor;
 @end
 
 @implementation JSTSensorTag {
@@ -30,6 +43,14 @@ static NSString *const JSTSensorOptionUnavailableError = @"Option unavailable.";
         self.calibrationDataUnsigned = (UInt16 *)malloc(sizeof(UInt16) * 8);
         self.calibrationDataSigned = (int16_t *)malloc(sizeof(int16_t) * 8);
         self.numberOfDiscoveredServices = 0;
+        
+        self.irSensor = [[JSTIRSensor alloc] initWithPeripheral:peripheral];
+        self.accelerometerSensor = [[JSTAccelerometerSensor alloc] initWithPeripheral:peripheral];
+        self.gyroscopeSensor = [[JSTGyroscopeSensor alloc] initWithPeripheral:peripheral];
+        self.humiditySensor = [[JSTHumiditySensor alloc] initWithPeripheral:peripheral];
+        self.keysSensor = [[JSTKeysSensor alloc] initWithPeripheral:peripheral];
+        self.magnetometerSensor = [[JSTMagnetometerSensor alloc] initWithPeripheral:peripheral];
+        self.pressureSensor = [[JSTPressureSensor alloc] initWithPeripheral:peripheral];
     }
     return self;
 }
@@ -41,40 +62,6 @@ static NSString *const JSTSensorOptionUnavailableError = @"Option unavailable.";
 
     if (self.calibrationDataSigned) {
         free(self.calibrationDataSigned);
-    }
-}
-
-- (void)configureSensor:(JSTSensorTagSensor)sensor withValue:(unsigned char)value {
-    CBService *service;
-    CBCharacteristic *characteristic;
-    NSString *serviceIdentifier = [self serviceUUIDForSensor:sensor];
-    NSString *characteristicIdentifier = [self configurationCharacteristicUUIDForSensor:sensor];
-
-    if (serviceIdentifier && characteristicIdentifier) {
-        service = [[self.peripheral.services filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K == %@", NSStringFromSelector(@selector(UUID)), [CBUUID UUIDWithString:serviceIdentifier]]] firstObject];
-        characteristic = [[service.characteristics filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K == %@", NSStringFromSelector(@selector(UUID)), [CBUUID UUIDWithString:characteristicIdentifier]]] firstObject];
-        if (characteristic) {
-            [self.peripheral writeValue:[NSData dataWithBytes:&value length:sizeof(value)] forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
-        }
-    } else {
-        [self.sensorDelegate sensor:self didFailBLECommunicationWithError:[NSError errorWithDomain:JSTSensorTagErrorDomain code:JSTSensorTagOptionUnavailable userInfo:@{NSLocalizedDescriptionKey : JSTSensorOptionUnavailableError}]];
-    }
-}
-
-- (void)configurePeriodForSensor:(JSTSensorTagSensor)sensor withValue:(unsigned char)value {
-    CBService *service;
-    CBCharacteristic *characteristic;
-    NSString *serviceIdentifier = [self serviceUUIDForSensor:sensor];
-    NSString *characteristicIdentifier = [self periodCharacteristicUUIDForSensor:sensor];
-
-    if (serviceIdentifier && characteristicIdentifier) {
-        service = [[self.peripheral.services filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K == %@", NSStringFromSelector(@selector(UUID)), [CBUUID UUIDWithString:serviceIdentifier]]] firstObject];
-        characteristic = [[service.characteristics filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K == %@", NSStringFromSelector(@selector(UUID)), [CBUUID UUIDWithString:characteristicIdentifier]]] firstObject];
-        if (characteristic) {
-            [self.peripheral writeValue:[NSData dataWithBytes:&value length:sizeof(value)] forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
-        }
-    } else {
-        [self.sensorDelegate sensor:self didFailBLECommunicationWithError:[NSError errorWithDomain:JSTSensorTagErrorDomain code:JSTSensorTagOptionUnavailable userInfo:@{NSLocalizedDescriptionKey : JSTSensorOptionUnavailableError}]];
     }
 }
 
@@ -109,27 +96,17 @@ static NSString *const JSTSensorOptionUnavailableError = @"Option unavailable.";
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     DDLogInfo(@"%s %@ %@", __PRETTY_FUNCTION__, peripheral.identifier, characteristic);
-    if (error) {
-        DDLogError(@"%s %@", __PRETTY_FUNCTION__, error);
-        [self.sensorDelegate sensor:self didFailBLECommunicationWithError:error];
-    }
+    [[self sensorForCharacteristic:characteristic] processReadFromCharacteristic:characteristic error:error];
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-    if (error) {
-        DDLogError(@"%s %@", __PRETTY_FUNCTION__, error);
-        [self.sensorDelegate sensor:self didFailBLECommunicationWithError:error];
-    } else {
-        DDLogInfo(@"%s %@ %@", __PRETTY_FUNCTION__, peripheral.identifier, characteristic);
-    }
+    DDLogInfo(@"%s %@", __PRETTY_FUNCTION__, peripheral.identifier);
+    [[self sensorForCharacteristic:characteristic] processWriteFromCharacteristic:characteristic error:error];
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     DDLogInfo(@"%s %@", __PRETTY_FUNCTION__, peripheral.identifier);
-    if (error) {
-        DDLogError(@"%s %@", __PRETTY_FUNCTION__, error);
-        [self.sensorDelegate sensor:self didFailBLECommunicationWithError:error];
-    }
+    [[self sensorForCharacteristic:characteristic] processNotificationsUpdateFromCharacteristic:characteristic error:error];
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray *)invalidatedServices {
@@ -143,193 +120,41 @@ static NSString *const JSTSensorOptionUnavailableError = @"Option unavailable.";
     [self.peripheral discoverServices:[JSTSensorTag availableServicesUUIDArray]];
 }
 
-- (void)setUpdatingSensor:(JSTSensorTagSensor)sensor enabled:(BOOL)enabled {
-    BOOL characteristicFound = NO;
-    NSString *serviceUUID = [self serviceUUIDForSensor:sensor];
-    NSString *characteristicUUID = [self dataCharacteristicForSensor:sensor];
-
-    for (CBService *service in self.peripheral.services)
-
-    if (!characteristicFound) {
-        [self.sensorDelegate sensor:self didFailBLECommunicationWithError:[NSError errorWithDomain:JSTSensorTagErrorDomain code:JSTSensorTagOptionUnavailable userInfo:@{NSLocalizedDescriptionKey : JSTSensorOptionUnavailableError}]];
-    }
-}
-
-- (void)calibratePressure {
-
-}
-
 #pragma mark -
 + (NSArray *)availableServicesUUIDArray {
     return @[
-            [CBUUID UUIDWithString:JSTSensorIRTemperatureServiceUUID],
-            [CBUUID UUIDWithString:JSTSensorAccelerometerServiceUUID],
-            [CBUUID UUIDWithString:JSTSensorHumidityServiceUUID],
-            [CBUUID UUIDWithString:JSTSensorMagnetometerServiceUUID],
-            [CBUUID UUIDWithString:JSTSensorBarometerServiceUUID],
-            [CBUUID UUIDWithString:JSTSensorGyroscopeServiceUUID],
+            [CBUUID UUIDWithString:[JSTIRSensor serviceUUID]],
+            [CBUUID UUIDWithString:[JSTAccelerometerSensor serviceUUID]],
+            [CBUUID UUIDWithString:[JSTHumiditySensor serviceUUID]],
+            [CBUUID UUIDWithString:[JSTMagnetometerSensor serviceUUID]],
+            [CBUUID UUIDWithString:[JSTPressureSensor serviceUUID]],
+            [CBUUID UUIDWithString:[JSTGyroscopeSensor serviceUUID]],
             [CBUUID UUIDWithString:JSTSensorTestServiceUUID],
             [CBUUID UUIDWithString:JSTSensorOADServiceUUID],
-            [CBUUID UUIDWithString:JSTSensorSimpleKeysServiceUUID]
+            [CBUUID UUIDWithString:[JSTKeysSensor serviceUUID]]
     ];
 }
 
-+ (NSArray *)availableCharacteristicsUUIDArrayForServiceUUID:(NSString *)service {
-    if ([service isEqualToString:JSTSensorIRTemperatureServiceUUID]) {
-        return @[
-                [CBUUID UUIDWithString:JSTSensorIRTemperatureDataCharacteristicUUID],
-                [CBUUID UUIDWithString:JSTSensorIRTemperatureConfigCharacteristicUUID],
-                [CBUUID UUIDWithString:JSTSensorIRTemperaturePeriodCharacteristicUUID],
-        ];
-    } else if ([service isEqualToString:JSTSensorAccelerometerServiceUUID]) {
-        return @[
-                [CBUUID UUIDWithString:JSTSensorAccelerometerDataCharacteristicUUID],
-                [CBUUID UUIDWithString:JSTSensorAccelerometerConfigCharacteristicUUID],
-                [CBUUID UUIDWithString:JSTSensorAccelerometerPeriodCharacteristicUUID],
-        ];
-    } else if ([service isEqualToString:JSTSensorHumidityServiceUUID]) {
-        return @[
-                [CBUUID UUIDWithString:JSTSensorHumidityDataCharacteristicUUID],
-                [CBUUID UUIDWithString:JSTSensorHumidityConfigCharacteristicUUID],
-                [CBUUID UUIDWithString:JSTSensorHumidityPeriodCharacteristicUUID],
-        ];
-    } else if ([service isEqualToString:JSTSensorMagnetometerServiceUUID]) {
-        return @[
-                [CBUUID UUIDWithString:JSTSensorMagnetometerDataCharacteristicUUID],
-                [CBUUID UUIDWithString:JSTSensorMagnetometerConfigCharacteristicUUID],
-                [CBUUID UUIDWithString:JSTSensorMagnetometerPeriodCharacteristicUUID],
-        ];
-    } else if ([service isEqualToString:JSTSensorBarometerServiceUUID]) {
-        return @[
-                [CBUUID UUIDWithString:JSTSensorBarometerDataCharacteristicUUID],
-                [CBUUID UUIDWithString:JSTSensorBarometerConfigCharacteristicUUID],
-                [CBUUID UUIDWithString:JSTSensorBarometerPeriodCharacteristicUUID],
-                [CBUUID UUIDWithString:JSTSensorBarometerCalibrationCharacteristicUUID],
-        ];
-    } else if ([service isEqualToString:JSTSensorGyroscopeServiceUUID]) {
-        return @[
-                [CBUUID UUIDWithString:JSTSensorGyroscopeDataCharacteristicUUID],
-                [CBUUID UUIDWithString:JSTSensorGyroscopeConfigCharacteristicUUID],
-                [CBUUID UUIDWithString:JSTSensorGyroscopePeriodCharacteristicUUID],
-        ];
-    } else if ([service isEqualToString:JSTSensorSimpleKeysServiceUUID]) {
-        return @[
-                [CBUUID UUIDWithString:JSTSensorSimpleKeysCharacteristicUUID],
-        ];
-    }
-    return nil;
-}
 
 #pragma mark -
-
-- (NSString *)periodCharacteristicUUIDForSensor:(JSTSensorTagSensor)sensor {
-    NSString *characteristicIdentifier;
-    switch (sensor) {
-        case JSTSensorTagSensorIRTemperature:
-            characteristicIdentifier = JSTSensorIRTemperaturePeriodCharacteristicUUID;
-            break;
-        case JSTSensorTagSensorAccelerometer:
-            characteristicIdentifier = JSTSensorAccelerometerPeriodCharacteristicUUID;
-            break;
-        case JSTSensorTagSensorHumidity:
-            characteristicIdentifier = JSTSensorHumidityPeriodCharacteristicUUID;
-            break;
-        case JSTSensorTagSensorMagnetometer:
-            characteristicIdentifier = JSTSensorMagnetometerPeriodCharacteristicUUID;
-            break;
-        case JSTSensorTagSensorBarometer:
-            characteristicIdentifier = JSTSensorBarometerPeriodCharacteristicUUID;
-            break;
-        case JSTSensorTagSensorGyroscope:
-            characteristicIdentifier = JSTSensorGyroscopePeriodCharacteristicUUID;
-            break;
-        case JSTSensorTagSensorKey:
-            break;
+- (JSTBaseSensor *)sensorForCharacteristic:(CBCharacteristic *)characteristic {
+    NSString *uuid = [[characteristic.service.UUID stringRepresentation] lowercaseString];
+    if ([uuid isEqualToString:[[JSTIRSensor serviceUUID] lowercaseString] ]) {
+        return self.irSensor;
+    } else if ([uuid isEqualToString:[[JSTAccelerometerSensor serviceUUID] lowercaseString] ]) {
+        return self.accelerometerSensor;
+    } else if ([uuid isEqualToString:[[JSTHumiditySensor serviceUUID] lowercaseString] ]) {
+        return self.humiditySensor;
+    } else if ([uuid isEqualToString:[[JSTMagnetometerSensor serviceUUID] lowercaseString] ]) {
+        return self.magnetometerSensor;
+    } else if ([uuid isEqualToString:[[JSTPressureSensor serviceUUID] lowercaseString] ]) {
+        return self.pressureSensor;
+    } else if ([uuid isEqualToString:[[JSTGyroscopeSensor serviceUUID] lowercaseString] ]) {
+        return self.gyroscopeSensor;
+    } else if ([uuid isEqualToString:[[JSTKeysSensor serviceUUID] lowercaseString] ]) {
+        return self.keysSensor;
     }
-    return characteristicIdentifier;
-}
-
-- (NSString *)serviceUUIDForSensor:(JSTSensorTagSensor)sensor {
-    NSString *serviceIdentifier;
-    switch (sensor) {
-        case JSTSensorTagSensorIRTemperature:
-            serviceIdentifier = JSTSensorIRTemperatureServiceUUID;
-            break;
-        case JSTSensorTagSensorAccelerometer:
-            serviceIdentifier = JSTSensorAccelerometerServiceUUID;
-            break;
-        case JSTSensorTagSensorHumidity:
-            serviceIdentifier = JSTSensorHumidityServiceUUID;
-            break;
-        case JSTSensorTagSensorMagnetometer:
-            serviceIdentifier = JSTSensorMagnetometerServiceUUID;
-            break;
-        case JSTSensorTagSensorBarometer:
-            serviceIdentifier = JSTSensorBarometerServiceUUID;
-            break;
-        case JSTSensorTagSensorGyroscope:
-            serviceIdentifier = JSTSensorGyroscopeServiceUUID;
-            break;
-        case JSTSensorTagSensorKey:
-            serviceIdentifier = JSTSensorSimpleKeysServiceUUID;
-            break;
-    }
-    return serviceIdentifier;
-}
-
-- (NSString *)configurationCharacteristicUUIDForSensor:(JSTSensorTagSensor)sensor {
-    NSString *characteristicIdentifier;
-    switch (sensor) {
-        case JSTSensorTagSensorIRTemperature:
-            characteristicIdentifier = JSTSensorIRTemperatureConfigCharacteristicUUID;
-            break;
-        case JSTSensorTagSensorAccelerometer:
-            characteristicIdentifier = JSTSensorAccelerometerConfigCharacteristicUUID;
-            break;
-        case JSTSensorTagSensorHumidity:
-            characteristicIdentifier = JSTSensorHumidityConfigCharacteristicUUID;
-            break;
-        case JSTSensorTagSensorMagnetometer:
-            characteristicIdentifier = JSTSensorMagnetometerConfigCharacteristicUUID;
-            break;
-        case JSTSensorTagSensorBarometer:
-            characteristicIdentifier = JSTSensorBarometerConfigCharacteristicUUID;
-            break;
-        case JSTSensorTagSensorGyroscope:
-            characteristicIdentifier = JSTSensorGyroscopeConfigCharacteristicUUID;
-            break;
-        case JSTSensorTagSensorKey:
-            break;
-    }
-    return characteristicIdentifier;
-}
-
-
-- (NSString *)dataCharacteristicForSensor:(JSTSensorTagSensor)sensor {
-    NSString *characteristicIdentifier;
-    switch (sensor) {
-        case JSTSensorTagSensorIRTemperature:
-            characteristicIdentifier = JSTSensorIRTemperatureConfigCharacteristicUUID;
-            break;
-        case JSTSensorTagSensorAccelerometer:
-            characteristicIdentifier = JSTSensorAccelerometerConfigCharacteristicUUID;
-            break;
-        case JSTSensorTagSensorHumidity:
-            characteristicIdentifier = JSTSensorHumidityConfigCharacteristicUUID;
-            break;
-        case JSTSensorTagSensorMagnetometer:
-            characteristicIdentifier = JSTSensorMagnetometerConfigCharacteristicUUID;
-            break;
-        case JSTSensorTagSensorBarometer:
-            characteristicIdentifier = JSTSensorBarometerConfigCharacteristicUUID;
-            break;
-        case JSTSensorTagSensorGyroscope:
-            characteristicIdentifier = JSTSensorGyroscopeConfigCharacteristicUUID;
-            break;
-        case JSTSensorTagSensorKey:
-            break;
-    }
-    return characteristicIdentifier;
+    return nil;
 }
 
 @end

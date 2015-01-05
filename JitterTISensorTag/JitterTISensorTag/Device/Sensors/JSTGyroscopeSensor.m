@@ -26,8 +26,8 @@ static NSString *const JSTSensorGyroscopePeriodCharacteristicUUID = @"F000AA53-0
     return JSTSensorGyroscopeDataCharacteristicUUID;
 }
 
-- (BOOL)processCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-    if (![super processCharacteristic:characteristic error:error]) {
+- (BOOL)processReadFromCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    if (![super processReadFromCharacteristic:characteristic error:error]) {
         return NO;
     }
 
@@ -50,6 +50,7 @@ static NSString *const JSTSensorGyroscopePeriodCharacteristicUUID = @"F000AA53-0
     self.calX = self.lastX;
     self.calY = self.lastY;
     self.calZ = self.lastZ;
+    [self.sensorDelegate sensorDidFinishCalibration:self];
 }
 
 + (NSString *)serviceUUID {

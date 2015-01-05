@@ -2,28 +2,19 @@
 #import "JSTSensorConstants.h"
 
 @class JSTSensorTag;
+@class JSTIRSensor;
+@class JSTAccelerometerSensor;
+@class JSTGyroscopeSensor;
+@class JSTHumiditySensor;
+@class JSTKeysSensor;
+@class JSTMagnetometerSensor;
+@class JSTPressureSensor;
 
 typedef struct {
     float x, y, z;
 } JSTVector3D;
 
 extern NSString *const JSTSensorTagDidFinishDiscoveryNotification;
-extern NSString *const JSTSensorTagConnectionFailureNotification;
-extern NSString *const JSTSensorTagConnectionFailureNotificationErrorKey;
-
-@protocol JSTSensorTagDelegate<NSObject>
-- (void)sensor:(JSTSensorTag *)sensorTag didConfigureSensor:(JSTSensorTagSensor)sensor;
-- (void)sensor:(JSTSensorTag *)sensorTag didConfigurePeriodForSensor:(JSTSensorTagSensor)sensor;
-- (void)sensorDidCalibratePressureSensor:(JSTSensorTag *)sensorTag;
-- (void)sensor:(JSTSensorTag *)sensorTag didReadMagnetometerValue:(JSTVector3D)vector;
-- (void)sensor:(JSTSensorTag *)sensorTag didReadAccelerometerValue:(JSTVector3D)vector;
-- (void)sensor:(JSTSensorTag *)sensorTag didReadGyroscopeValue:(JSTVector3D)vector;
-- (void)sensor:(JSTSensorTag *)sensorTag didReadIRObjectTemperature:(float)objectTemp ambientTemperature:(float)ambientTemp;
-- (void)sensor:(JSTSensorTag *)sensorTag didReadHumidityTemperature:(float)objectTemp humidity:(float)ambientTemp;
-- (void)sensor:(JSTSensorTag *)sensorTag didReadBarometerTemperature:(float)objectTemp pressure:(float)ambientTemp;
-
-- (void)sensor:(JSTSensorTag *)sensorTag didFailBLECommunicationWithError:(NSError *)error;
-@end
 
 @interface JSTSensorTag : NSObject
 
@@ -31,7 +22,20 @@ extern NSString *const JSTSensorTagConnectionFailureNotificationErrorKey;
 
 @property(nonatomic) NSInteger rssi;
 
-@property(nonatomic, weak) id<JSTSensorTagDelegate> sensorDelegate;
+
+@property(nonatomic, readonly) JSTIRSensor *irSensor;
+
+@property(nonatomic, readonly) JSTAccelerometerSensor *accelerometerSensor;
+
+@property(nonatomic, readonly) JSTGyroscopeSensor *gyroscopeSensor;
+
+@property(nonatomic, readonly) JSTHumiditySensor *humiditySensor;
+
+@property(nonatomic, readonly) JSTKeysSensor *keysSensor;
+
+@property(nonatomic, readonly) JSTMagnetometerSensor *magnetometerSensor;
+
+@property(nonatomic, readonly) JSTPressureSensor *pressureSensor;
 
 + (NSArray *)availableServicesUUIDArray;
 
@@ -39,13 +43,4 @@ extern NSString *const JSTSensorTagConnectionFailureNotificationErrorKey;
 
 - (void)discoverServices;
 
-- (void)configureSensor:(JSTSensorTagSensor)sensor withValue:(unsigned char)value;
-
-- (void)configurePeriodForSensor:(JSTSensorTagSensor)sensor withValue:(unsigned char)value;
-
-- (void)setUpdatingSensor:(JSTSensorTagSensor)sensor enabled:(BOOL)enabled;
-
-- (void)calibratePressure;
-
-+ (NSArray *)availableCharacteristicsUUIDArrayForServiceUUID:(NSString *)service;
 @end
