@@ -4,9 +4,11 @@
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static int ddLogLevel = DDLogLevelDebug;
+static NSTimeInterval JSTWatchdogInterval = 15.f;
 
 static NSString *const kJSTSensorManagerLastDeviceUUID = @"kJSTSensorManagerLastDeviceUUID";
 static NSString *const JSTSensorManagerNoDeviceError = @"No device found.";
+static NSString *const JSTSensorManagerConnectionTimeoutError = @"Connection timeout.";
 
 NSString *const JSTSensorTagErrorDomain = @"JSTSensorTagErrorDomain";
 
@@ -15,6 +17,8 @@ NSString *const JSTSensorTagErrorDomain = @"JSTSensorTagErrorDomain";
 @property(nonatomic) BOOL shouldStartScanning;
 @property(nonatomic, strong) NSMutableDictionary *peripherals;
 @property(nonatomic) BOOL isScanning;
+@property(nonatomic, strong) JSTSensorTag *connectingSensor;
+@property(nonatomic, strong) NSTimer *watchdogTimer;
 @end
 
 @implementation JSTSensorManager {
@@ -35,10 +39,12 @@ NSString *const JSTSensorTagErrorDomain = @"JSTSensorTagErrorDomain";
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self stopWatchdog];
 }
 
 
 - (void)finishedDiscovery:(NSNotification *)finishedDiscovery {
+    [self stopWatchdog];
     [self.delegate manager:self didConnectSensor:finishedDiscovery.object];
 }
 
@@ -60,16 +66,38 @@ NSString *const JSTSensorTagErrorDomain = @"JSTSensorTagErrorDomain";
     JSTSensorTag *sensorTag = self.peripherals[uuid.UUIDString];
     if (sensorTag) {
         [self.centralManager connectPeripheral:sensorTag.peripheral options:nil];
+        [self startWatchdogForSensor:sensorTag];
     } else {
         CBPeripheral *peripheral = [[self.centralManager retrievePeripheralsWithIdentifiers:@[uuid]] firstObject];
         if (peripheral) {
             sensorTag = [[JSTSensorTag alloc] initWithPeripheral:peripheral];
             self.peripherals[uuid.UUIDString] = sensorTag;
             [self.centralManager connectPeripheral:peripheral options:nil];
+            [self startWatchdogForSensor:sensorTag];
         } else {
             [self.delegate manager:self didFailToConnectToSensorWithError:[NSError errorWithDomain:JSTSensorTagErrorDomain code:JSTSensorManagerErrorNoDeviceFound userInfo:@{NSLocalizedDescriptionKey : JSTSensorManagerNoDeviceError}]];
         }
     }
+}
+
+- (void)startWatchdogForSensor:(JSTSensorTag *)sensor {
+    [self stopWatchdog];
+    self.connectingSensor = sensor;
+    self.watchdogTimer = [NSTimer timerWithTimeInterval:JSTWatchdogInterval
+                                                     target:self
+                                                   selector:@selector(watchdogFired)
+                                                   userInfo:nil
+                                                    repeats:NO];
+    [[NSRunLoop mainRunLoop] addTimer:self.watchdogTimer forMode:NSDefaultRunLoopMode];
+}
+
+- (void)watchdogFired {
+    DDLogError(@"%s", __PRETTY_FUNCTION__);
+    [self.centralManager cancelPeripheralConnection:self.connectingSensor.peripheral];
+    [self.delegate manager:self didFailToConnectToSensorWithError:[NSError errorWithDomain:JSTSensorTagErrorDomain code:JSTSensorManagerTimeout userInfo:@{NSLocalizedDescriptionKey : JSTSensorManagerConnectionTimeoutError}]];
+
+    [self.watchdogTimer invalidate];
+    self.watchdogTimer = nil;
 }
 
 - (void)connectNearestSensor {
@@ -95,7 +123,7 @@ NSString *const JSTSensorTagErrorDomain = @"JSTSensorTagErrorDomain";
         [self.delegate manager:self didFailToConnectToSensorWithError:[NSError errorWithDomain:JSTSensorTagErrorDomain code:JSTSensorManagerErrorNoDeviceFound userInfo:@{NSLocalizedDescriptionKey : JSTSensorManagerNoDeviceError}]];
     } else {
         JSTSensorTag *tag = [sortedPeripherals firstObject];
-        [self.centralManager connectPeripheral:tag.peripheral options:nil];
+        [self connectSensorWithUUID:tag.peripheral.identifier];
     }
 }
 
@@ -149,7 +177,13 @@ NSString *const JSTSensorTagErrorDomain = @"JSTSensorTagErrorDomain";
 }
 
 - (void)disconnectSensor:(JSTSensorTag *)sensorTag {
+    [self stopWatchdog];
     [self.centralManager cancelPeripheralConnection:sensorTag.peripheral];
+}
+
+- (void)stopWatchdog {
+    [self.watchdogTimer invalidate];
+    self.watchdogTimer = nil;
 }
 
 - (NSArray *)sensors {
