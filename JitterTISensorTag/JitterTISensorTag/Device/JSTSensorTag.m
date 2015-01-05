@@ -10,7 +10,7 @@
 #import "JSTKeysSensor.h"
 #import "CBUUID+StringRepresentation.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
-static int ddLogLevel = DDLogLevelAll;
+static int ddLogLevel = DDLogLevelWarning;
 
 NSString *const JSTSensorTagDidFinishDiscoveryNotification = @"JSTSensorTagDidFinishDiscoveryNotification";
 NSString *const JSTSensorTagConnectionFailureNotification = @"JSTSensorTagConnectionFailureNotification";

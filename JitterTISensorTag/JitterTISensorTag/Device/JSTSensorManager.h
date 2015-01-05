@@ -4,7 +4,8 @@ extern NSString *const JSTSensorTagErrorDomain;
 
 typedef enum {
     JSTSensorManagerErrorNoDeviceFound,
-    JSTSensorTagOptionUnavailable
+    JSTSensorTagOptionUnavailable,
+    JSTSensorManagerTimeout
 } JSTSensorTagError;
 
 @class JSTSensorManager;
