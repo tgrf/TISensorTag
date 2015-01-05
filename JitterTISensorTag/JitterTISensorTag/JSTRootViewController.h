@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JSTSensorManager.h"
 
 @class JSTSensorManager;
 
-@interface JSTRootViewController : UIViewController
+@interface JSTRootViewController : UIViewController <JSTSensorManagerDelegate>
 
 
 @end

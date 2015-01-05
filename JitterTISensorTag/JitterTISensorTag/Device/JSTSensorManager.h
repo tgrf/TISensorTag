@@ -1,10 +1,11 @@
 #import <Foundation/Foundation.h>
 
-extern NSString *const JSTSensorManagerErrorDomain;
+extern NSString *const JSTSensorTagErrorDomain;
 
 typedef enum {
-    JSTSensorManagerErrorNoDeviceFound
-} JSTSensorManagerError;
+    JSTSensorManagerErrorNoDeviceFound,
+    JSTSensorTagOptionUnavailable
+} JSTSensorTagError;
 
 @class JSTSensorManager;
 @class JSTSensorTag;
@@ -14,6 +15,7 @@ typedef enum {
 - (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor;
 - (void)manager:(JSTSensorManager *)manager didFailToConnectToSensorWithError:(NSError *)error;
 - (void)manager:(JSTSensorManager *)manager didDiscoverSensor:(JSTSensorTag *)sensor;
+- (void)manager:(JSTSensorManager *)manager didChangeStateTo:(CBCentralManagerState)state;
 @end
 
 @interface JSTSensorManager : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>
@@ -26,6 +28,8 @@ typedef enum {
 - (void)connectNearestSensor;
 - (void)connectLastSensor;
 - (BOOL)hasPreviouslyConnectedSensor;
+- (CBCentralManagerState)state;
+- (void)disconnectSensor:(JSTSensorTag *)sensorTag;
 
 - (NSArray *)sensors;
 

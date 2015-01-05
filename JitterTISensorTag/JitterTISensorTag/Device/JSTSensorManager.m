@@ -6,7 +6,9 @@
 static int ddLogLevel = DDLogLevelDebug;
 
 static NSString *const kJSTSensorManagerLastDeviceUUID = @"kJSTSensorManagerLastDeviceUUID";
-NSString *const JSTSensorManagerErrorDomain = @"JSTSensorManagerErrorDomain";
+static NSString *const JSTSensorManagerNoDeviceError = @"No device found.";
+
+NSString *const JSTSensorTagErrorDomain = @"JSTSensorTagErrorDomain";
 
 @interface JSTSensorManager ()
 @property(nonatomic, strong) CBCentralManager *centralManager;
@@ -24,9 +26,28 @@ NSString *const JSTSensorManagerErrorDomain = @"JSTSensorManagerErrorDomain";
     if (self) {
         self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_queue_create("JitterTISensorTagManagerQueue", DISPATCH_QUEUE_SERIAL)];
         self.peripherals = [NSMutableDictionary dictionary];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedDiscovery:) name:JSTSensorTagDidFinishDiscoveryNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionFailed:) name:JSTSensorTagConnectionFailureNotification object:nil];
     }
 
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+- (void)finishedDiscovery:(NSNotification *)finishedDiscovery {
+    [self.delegate manager:self didConnectSensor:finishedDiscovery.object];
+}
+
+- (void)connectionFailed:(NSNotification *)connectionFailed {
+    JSTSensorTag *sensorTag = connectionFailed.object;
+    [self disconnectSensor:sensorTag];
+
+    [self.delegate manager:self didFailToConnectToSensorWithError:connectionFailed.userInfo[JSTSensorTagConnectionFailureNotificationErrorKey]];
 }
 
 #pragma mark -
@@ -54,7 +75,7 @@ NSString *const JSTSensorManagerErrorDomain = @"JSTSensorManagerErrorDomain";
             self.peripherals[uuid.UUIDString] = sensorTag;
             [self.centralManager connectPeripheral:peripheral options:nil];
         } else {
-            [self.delegate manager:self didFailToConnectToSensorWithError:[NSError errorWithDomain:JSTSensorManagerErrorDomain code:JSTSensorManagerErrorNoDeviceFound userInfo:nil]];
+            [self.delegate manager:self didFailToConnectToSensorWithError:[NSError errorWithDomain:JSTSensorTagErrorDomain code:JSTSensorManagerErrorNoDeviceFound userInfo:@{NSLocalizedDescriptionKey : JSTSensorManagerNoDeviceError}]];
         }
     }
 }
@@ -79,7 +100,7 @@ NSString *const JSTSensorManagerErrorDomain = @"JSTSensorManagerErrorDomain";
     [self stopScanning];
     NSArray *sortedPeripherals = [[self.peripherals allValues] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:NSStringFromSelector(@selector(rssi)) ascending:NO]]];
     if (sortedPeripherals.count == 0) {
-        [self.delegate manager:self didFailToConnectToSensorWithError:[NSError errorWithDomain:JSTSensorManagerErrorDomain code:JSTSensorManagerErrorNoDeviceFound userInfo:nil]];
+        [self.delegate manager:self didFailToConnectToSensorWithError:[NSError errorWithDomain:JSTSensorTagErrorDomain code:JSTSensorManagerErrorNoDeviceFound userInfo:@{NSLocalizedDescriptionKey : JSTSensorManagerNoDeviceError}]];
     } else {
         JSTSensorTag *tag = [sortedPeripherals firstObject];
         [self.centralManager connectPeripheral:tag.peripheral options:nil];
@@ -97,9 +118,7 @@ NSString *const JSTSensorManagerErrorDomain = @"JSTSensorManagerErrorDomain";
 #pragma mark - CBCentralManagerDelegate
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central {
-    if (central.state == CBCentralManagerStatePoweredOn) {
-        [self scan];
-    }
+    [self.delegate manager:self didChangeStateTo:central.state];
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
@@ -121,8 +140,6 @@ NSString *const JSTSensorManagerErrorDomain = @"JSTSensorManagerErrorDomain";
 
     JSTSensorTag *sensor = self.peripherals[peripheral.identifier.UUIDString];
     [sensor discoverServices];
-
-    [self.delegate manager:self didConnectSensor:self.peripherals[peripheral.identifier.UUIDString]];
 }
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
@@ -133,6 +150,14 @@ NSString *const JSTSensorManagerErrorDomain = @"JSTSensorManagerErrorDomain";
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
     DDLogInfo(@"%s %@ %@", __PRETTY_FUNCTION__, peripheral, error);
     [self.delegate manager:self didDisconnectSensor:self.peripherals[peripheral.identifier.UUIDString]];
+}
+
+- (CBCentralManagerState)state {
+    return self.centralManager.state;
+}
+
+- (void)disconnectSensor:(JSTSensorTag *)sensorTag {
+    [self.centralManager cancelPeripheralConnection:sensorTag.peripheral];
 }
 
 - (NSArray *)sensors {
