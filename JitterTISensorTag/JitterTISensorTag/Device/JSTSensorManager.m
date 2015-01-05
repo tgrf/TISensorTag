@@ -28,7 +28,6 @@ NSString *const JSTSensorTagErrorDomain = @"JSTSensorTagErrorDomain";
         self.peripherals = [NSMutableDictionary dictionary];
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedDiscovery:) name:JSTSensorTagDidFinishDiscoveryNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionFailed:) name:JSTSensorTagConnectionFailureNotification object:nil];
     }
 
     return self;
@@ -41,13 +40,6 @@ NSString *const JSTSensorTagErrorDomain = @"JSTSensorTagErrorDomain";
 
 - (void)finishedDiscovery:(NSNotification *)finishedDiscovery {
     [self.delegate manager:self didConnectSensor:finishedDiscovery.object];
-}
-
-- (void)connectionFailed:(NSNotification *)connectionFailed {
-    JSTSensorTag *sensorTag = connectionFailed.object;
-    [self disconnectSensor:sensorTag];
-
-    [self.delegate manager:self didFailToConnectToSensorWithError:connectionFailed.userInfo[JSTSensorTagConnectionFailureNotificationErrorKey]];
 }
 
 #pragma mark -

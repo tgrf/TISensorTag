@@ -22,14 +22,15 @@ static NSString *const JSTSensorMagnetometerPeriodCharacteristicUUID = @"F000AA3
 
 }
 
--(void) calibrate {
+-(void)calibrate {
     self.calX = self.lastX;
     self.calY = self.lastY;
     self.calZ = self.lastZ;
+    [self.sensorDelegate sensorDidFinishCalibration:self];
 }
 
-- (BOOL)processCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-    if (![super processCharacteristic:characteristic error:error]) {
+- (BOOL)processReadFromCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    if (![super processReadFromCharacteristic:characteristic error:error]) {
         return NO;
     }
 

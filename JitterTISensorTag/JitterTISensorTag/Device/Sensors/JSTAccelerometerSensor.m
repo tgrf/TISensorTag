@@ -27,8 +27,8 @@ static NSString *const JSTSensorAccelerometerPeriodCharacteristicUUID = @"F000AA
     return JSTSensorAccelerometerDataCharacteristicUUID;
 }
 
-- (BOOL)processCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-    if (![super processCharacteristic:characteristic error:error]) {
+- (BOOL)processReadFromCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    if (![super processReadFromCharacteristic:characteristic error:error]) {
         return NO;
     }
 

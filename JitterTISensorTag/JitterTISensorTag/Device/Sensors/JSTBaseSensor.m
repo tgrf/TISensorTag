@@ -1,6 +1,9 @@
+#import <CocoaLumberjack/DDLegacy.h>
 #import "JSTBaseSensor.h"
 #import "CBUUID+StringRepresentation.h"
+#import "DDLog.h"
 
+static int ddLogLevel = DDLogLevelDebug;
 
 @interface JSTBaseSensor ()
 @property (nonatomic, readwrite) CBPeripheral *peripheral;
@@ -52,9 +55,11 @@
 - (CBCharacteristic *)characteristicForUUID:(NSString *)UUID {
     CBCharacteristic *configurationCharacteristic;
     for (CBService *service in self.peripheral.services) {
-        if ([[service.UUID stringRepresentation] isEqualToString:[[self class] serviceUUID]]) {
+        NSString *string = [[service.UUID stringRepresentation] lowercaseString];
+        NSString *aString = [[[self class] serviceUUID] lowercaseString];
+        if ([string isEqualToString:aString]) {
             for (CBCharacteristic *characteristic in service.characteristics) {
-                if ([[service.UUID stringRepresentation] isEqualToString:UUID]) {
+                if ([[[characteristic.UUID stringRepresentation] lowercaseString] isEqualToString:[UUID lowercaseString] ]) {
                     configurationCharacteristic = characteristic;
                 }
             }
@@ -64,9 +69,37 @@
 }
 
 #pragma mark - Override in subclasses
-- (BOOL)processCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-    if ([characteristic.UUID.stringRepresentation isEqualToString:[[self class] dataCharacteristicUUID]]) {
+- (BOOL)processReadFromCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    if ([[characteristic.UUID.stringRepresentation lowercaseString] isEqualToString:[[[self class] dataCharacteristicUUID] lowercaseString]] &&
+            [[characteristic.service.UUID stringRepresentation] isEqualToString:[[[self class] serviceUUID] lowercaseString]]) {
         if (error) {
+            DDLogError(@"%s %@", __PRETTY_FUNCTION__, error);
+            [self.sensorDelegate sensorDidFailCommunicating:self withError:error];
+            return NO;
+        }
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)processWriteFromCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    if ([[characteristic.UUID.stringRepresentation lowercaseString] isEqualToString:[[[self class] configurationCharacteristicUUID] lowercaseString] ] &&
+            [[[characteristic.service.UUID stringRepresentation] lowercaseString] isEqualToString:[[[self class] serviceUUID] lowercaseString] ]) {
+        if (error) {
+            DDLogError(@"%s %@", __PRETTY_FUNCTION__, error);
+            [self.sensorDelegate sensorDidFailCommunicating:self withError:error];
+            return NO;
+        }
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)processNotificationsUpdateFromCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    if ([[characteristic.UUID.stringRepresentation lowercaseString] isEqualToString:[[[self class] dataCharacteristicUUID] lowercaseString] ] &&
+            [[[characteristic.service.UUID stringRepresentation] lowercaseString] isEqualToString:[[[self class] serviceUUID] lowercaseString] ]) {
+        if (error) {
+            DDLogError(@"%s %@", __PRETTY_FUNCTION__, error);
             [self.sensorDelegate sensorDidFailCommunicating:self withError:error];
             return NO;
         }

@@ -9,4 +9,5 @@ typedef enum {
 
 @interface JSTMagnetometerSensor : JSTBaseSensor
 - (JSTVector3D)value;
+-(void)calibrate;
 @end
