@@ -8,47 +8,60 @@
 
 #import "JSTRootViewController.h"
 #import "JSTSensorTag.h"
-#import "JSTKeysSensor.h"
-#import "JSTGyroscopeSensor.h"
-#import "JSTAccelerometerSensor.h"
-#import "JSTHumiditySensor.h"
-#import "JSTIRSensor.h"
-#import "JSTMagnetometerSensor.h"
 #import "JSTPressureSensor.h"
-#import "JSTAppDelegate.h"
 #import "JSTRootView.h"
 #import "JSTCadenceViewController.h"
+#import "JSTMagnetometerGameViewController.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static int ddLogLevel = DDLogLevelAll;
 
-@interface JSTRootViewController ()
-
-@property(nonatomic, strong) JSTSensorManager *sensorManager;
+@interface JSTRootViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong, readonly) JSTSensorManager *sensorManager;
+@property (nonatomic, strong, readonly) NSArray *gamesConfiguration;
 @end
+
+NSString *JSTRootViewControllerCellIdentifier = @"JSTRootViewTableViewCell";
 
 @implementation JSTRootViewController
 
-- (void)loadView {
-    JSTRootView *view = [[JSTRootView alloc] init];
-    self.view = view;
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        _gamesConfiguration = @[
+                @{ @"name" : @"Cadence",    @"class" : NSStringFromClass(JSTCadenceViewController.class),           @"icon" : @"icon_name" },
+                @{ @"name" : @"Wand",       @"class" : NSStringFromClass(JSTMagnetometerGameViewController.class),  @"icon" : @"icon_name" },
+                @{ @"name" : @"Handshake",  @"class" : NSStringFromClass(JSTCadenceViewController.class),           @"icon" : @"icon_name" },
+                @{ @"name" : @"Dice",       @"class" : NSStringFromClass(JSTCadenceViewController.class),           @"icon" : @"icon_name" },
+                @{ @"name" : @"Pressure",   @"class" : NSStringFromClass(JSTCadenceViewController.class),           @"icon" : @"icon_name" },
+                @{ @"name" : @"Morse",      @"class" : NSStringFromClass(JSTCadenceViewController.class),           @"icon" : @"icon_name" },
+                @{ @"name" : @"Fast click", @"class" : NSStringFromClass(JSTCadenceViewController.class),           @"icon" : @"icon_name" },
+                @{ @"name" : @"Blow",       @"class" : NSStringFromClass(JSTCadenceViewController.class),           @"icon" : @"icon_name" },
+        ];
+    }
 
-    [view.cadenceButton addTarget:self action:@selector(didTapCadenceButton) forControlEvents:UIControlEventTouchUpInside];
+    return self;
 }
 
-- (void)didTapCadenceButton {
-    [self.navigationController pushViewController:[[JSTCadenceViewController alloc] init] animated:YES];
+- (void)loadView {
+    JSTRootView *view = [[JSTRootView alloc] initWithFrame:CGRectZero];
+    self.view = view;
 }
 
 - (JSTRootView *)rootView {
     if (self.isViewLoaded) {
-        return (JSTRootView *) self.view;
+        return (JSTRootView *)self.view;
     }
     return nil;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        
+
+    self.rootView.gamesTableView.delegate = self;
+    self.rootView.gamesTableView.dataSource = self;
+    [self.rootView.gamesTableView registerClass:[UITableViewCell class]
+                         forCellReuseIdentifier:JSTRootViewControllerCellIdentifier];
+
 //    self.sensorManager = [JSTSensorManager sharedInstance];
 //    self.sensorManager.delegate = self;
 }
@@ -59,6 +72,28 @@ static int ddLogLevel = DDLogLevelAll;
     self.sensorManager.delegate = self;
 }
 
+#pragma mark - UITableViewDelegate & UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _gamesConfiguration.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *tableViewCell = [self.rootView.gamesTableView dequeueReusableCellWithIdentifier:JSTRootViewControllerCellIdentifier
+                                                                                        forIndexPath:indexPath];
+    tableViewCell.textLabel.text = _gamesConfiguration[(NSUInteger)indexPath.row][@"name"];
+
+    return tableViewCell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.rootView.gamesTableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    Class controllerClass = NSClassFromString(_gamesConfiguration[(NSUInteger)indexPath.row][@"class"]);
+    UIViewController *viewController = (UIViewController *)[controllerClass new];
+
+    [self.navigationController pushViewController:viewController animated:YES];
+}
 
 #pragma mark - JSTSensorManagerDelegate
 

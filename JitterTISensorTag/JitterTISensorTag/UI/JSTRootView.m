@@ -4,37 +4,30 @@
 //
 
 #import "JSTRootView.h"
+#import "View+MASAdditions.h"
 
+@implementation JSTRootView
 
-@interface JSTRootView ()
-@property(nonatomic, readwrite) UIButton *cadenceButton;
-@end
-
-@implementation JSTRootView {
-
-}
-
-- (instancetype)init {
-    self = [super init];
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
 
-        self.cadenceButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.cadenceButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        self.cadenceButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [self.cadenceButton setTitle:@"Cadence" forState:UIControlStateNormal];
-        [self addSubview:self.cadenceButton];
+        _gamesTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        [self addSubview:_gamesTableView];
+
+        [self updateConstraints];
     }
 
     return self;
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
+- (void)updateConstraints {
+    [_gamesTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
 
-    [self.cadenceButton sizeToFit];
-    self.cadenceButton.center = CGPointMake(self.bounds.size.width * 0.5f, self.bounds.size.height * 0.5f);
+    [super updateConstraints];
 }
-
 
 @end
