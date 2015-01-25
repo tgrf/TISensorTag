@@ -7,9 +7,7 @@
 //
 
 #import "JSTRootViewController.h"
-#import "JSTSensorManager.h"
 #import "JSTSensorTag.h"
-#import "JSTBaseSensor.h"
 #import "JSTKeysSensor.h"
 #import "JSTGyroscopeSensor.h"
 #import "JSTAccelerometerSensor.h"
@@ -17,6 +15,7 @@
 #import "JSTIRSensor.h"
 #import "JSTMagnetometerSensor.h"
 #import "JSTPressureSensor.h"
+#import "JSTAppDelegate.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static int ddLogLevel = DDLogLevelAll;
 
@@ -30,7 +29,7 @@ static int ddLogLevel = DDLogLevelAll;
 - (void)viewDidLoad {
     [super viewDidLoad];
         
-    self.sensorManager = [[JSTSensorManager alloc] init];
+    self.sensorManager = [JSTSensorManager sharedInstance];
     self.sensorManager.delegate = self;
 }
 

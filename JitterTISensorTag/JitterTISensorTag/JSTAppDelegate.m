@@ -14,14 +14,20 @@
 #import "JSTRootViewController.h"
 
 @interface JSTAppDelegate ()
+@property (readonly, strong, nonatomic) JSTSensorManager *sensorTagManager;
 @end
 
 @implementation JSTAppDelegate
 
++ (JSTAppDelegate *)sharedInstance {
+    return (JSTAppDelegate *)[UIApplication sharedApplication].delegate;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 //    [DDLog addLogger:[DDASLLogger sharedInstance]];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
+
+    _sensorTagManager = [[JSTSensorManager alloc] init];
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = [[JSTRootViewController alloc] init];
@@ -135,3 +141,12 @@
 }
 
 @end
+
+@implementation JSTSensorManager (SharedInstance)
+
++ (JSTSensorManager *)sharedInstance {
+    return [JSTAppDelegate sharedInstance].sensorTagManager;
+}
+
+@end
+
