@@ -1,5 +1,5 @@
 //
-//  JSTMagnetometerGameViewController.h
+//  JSTWandView.h
 //  JitterTISensorTag
 //
 //  Created by Tomasz Grynfelder on 23/01/15.
@@ -7,7 +7,6 @@
 //
 #import <Foundation/Foundation.h>
 
-@class JSTSensorManager;
-
-@interface JSTMagnetometerGameViewController : UIViewController
+@interface JSTWandView : UIView
+@property (nonatomic, strong, readonly) UILabel *valuesLabel;
 @end

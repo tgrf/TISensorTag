@@ -219,8 +219,11 @@
 				38653E583E0ECE97E53F0F10 /* JSTRootView.h */,
 				38653F8B56D4EA4BCBF0FFDB /* JSTRootView.m */,
 				386531648A947B8D9168F5C6 /* Safe */,
-				364BEF81B961B90400EA7FA6 /* Handshake */,
+<<<<<<< HEAD
 				3865337421CBE7E5861C3F32 /* Morse */,
+=======
+				364BEF81B961B90400EA7FA6 /* Handshake */,
+>>>>>>> wand + handshake;
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -503,11 +506,14 @@
 				38653E60BBCAED2440081DE1 /* JSTSafeView.m in Sources */,
 				38653C0DDCF1B568E4A3924F /* JSTSafe.m in Sources */,
 				3865317CE8BEB005C66541FC /* JSTSafeCombinationValue.m in Sources */,
-				364BEE3E9F3F5AF001071AEC /* JSTHandshakeView.m in Sources */,
-				364BE4FDE6D6BCBE2F62E439 /* JSTHandshakeViewController.m in Sources */,
+<<<<<<< HEAD
 				386537103BF9B83839200242 /* JSTMorseViewController.m in Sources */,
 				38653472EA11C4D380748083 /* JSTMorseView.m in Sources */,
 				3865332A1FD887DA823AF9D7 /* JSTMorseDetector.m in Sources */,
+=======
+				364BEE3E9F3F5AF001071AEC /* JSTHandshakeView.m in Sources */,
+				364BE4FDE6D6BCBE2F62E439 /* JSTHandshakeViewController.m in Sources */,
+>>>>>>> wand + handshake;
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
