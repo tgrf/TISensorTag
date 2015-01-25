@@ -30,7 +30,7 @@
     _sensorTagManager = [[JSTSensorManager alloc] init];
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = [[JSTRootViewController alloc] init];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[JSTRootViewController alloc] init]];
     [self.window makeKeyAndVisible];
     // Override point for customization after application launch.
     return YES;

@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
-
-@class JSTSensorManager;
+#import "JSTSensorManager.h"
 
 @interface JSTAppDelegate : UIResponder <UIApplicationDelegate>
 

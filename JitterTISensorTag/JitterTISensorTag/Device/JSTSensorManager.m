@@ -102,8 +102,10 @@ NSString *const JSTSensorTagErrorDomain = @"JSTSensorTagErrorDomain";
 
 - (void)connectNearestSensor {
     DDLogInfo(@"%s", __PRETTY_FUNCTION__);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self performSelector:@selector(findNearestAndConnect) withObject:nil afterDelay:10 inModes:@[NSRunLoopCommonModes, NSDefaultRunLoopMode]];
+    });
     [self startScanning];
-    [self performSelector:@selector(findNearestAndConnect) withObject:nil afterDelay:10];
 }
 
 - (void)connectLastSensor {
@@ -144,7 +146,7 @@ NSString *const JSTSensorTagErrorDomain = @"JSTSensorTagErrorDomain";
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
     DDLogVerbose(@"%s %@", __PRETTY_FUNCTION__, peripheral);
     JSTSensorTag *sensor = self.peripherals[peripheral.identifier.UUIDString];
-    if (!sensor && [peripheral.name isEqualToString:@"TI BLE Sensor Tag"]) {
+    if (!sensor && ([peripheral.name isEqualToString:@"SensorTag"] || [peripheral.name isEqualToString:@"TI BLE Sensor Tag"])) {
         sensor = [[JSTSensorTag alloc] initWithPeripheral:peripheral];
         self.peripherals[peripheral.identifier.UUIDString] = sensor;
     }
