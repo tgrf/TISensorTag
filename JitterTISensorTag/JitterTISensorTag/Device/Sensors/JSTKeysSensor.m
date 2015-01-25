@@ -6,7 +6,8 @@ NSString *const JSTSensorSimpleKeysServiceUUID = @"FFE0";
 NSString *const JSTSensorSimpleKeysCharacteristicUUID = @"FFE1";    // Key press state
 
 @interface JSTKeysSensor ()
-@property(nonatomic, readwrite) char pressedButton;
+@property(nonatomic, readwrite) BOOL pressedLeftButton;
+@property(nonatomic, readwrite) BOOL pressedRightButton;
 @end
 
 @implementation JSTKeysSensor {
@@ -30,7 +31,8 @@ NSString *const JSTSensorSimpleKeysCharacteristicUUID = @"FFE1";    // Key press
     char scratchVal[data.length];
     [data getBytes:&scratchVal length:data.length];
 
-    self.pressedButton = scratchVal[0];
+    self.pressedLeftButton = (scratchVal[0] & 0x02) != 0;
+    self.pressedRightButton = (scratchVal[0] & 0x01) != 0;
     [self.sensorDelegate sensorDidUpdateValue:self];
     return YES;
 }

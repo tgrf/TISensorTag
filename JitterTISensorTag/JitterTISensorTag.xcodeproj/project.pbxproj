@@ -17,11 +17,14 @@
 		364BEBD72C480CA15EFDA362 /* JSTMagnetometerGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BEE9F091E23C0CF50A3FB /* JSTMagnetometerGameViewController.m */; };
 		364BEBE463E1ACC9EF663D7C /* JSTRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BE52908B3E5E6E638098E /* JSTRootViewController.m */; };
 		3865317CE8BEB005C66541FC /* JSTSafeCombinationValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3865338C580E537D80960DCF /* JSTSafeCombinationValue.m */; };
+		3865332A1FD887DA823AF9D7 /* JSTMorseDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 386532CA90AF2C1D6928E174 /* JSTMorseDetector.m */; };
 		38653448054449F665EB9404 /* JSTBaseSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 386539A57EEB43A02AA6681D /* JSTBaseSensor.m */; };
+		38653472EA11C4D380748083 /* JSTMorseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 386534282B40AB788CE265EF /* JSTMorseView.m */; };
 		386534BFD4BC7255B555715F /* JSTCadenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38653AB8B07F3A5CC4590836 /* JSTCadenceViewController.m */; };
 		386536B3DF8129C6A50941B1 /* JSTSafeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 386538CE5D69BC05727E2797 /* JSTSafeViewController.m */; };
 		386536CFEAED484BF6BBB134 /* JSTCadenceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 386536575994D5002A8330E1 /* JSTCadenceView.m */; };
 		386536F43E08D1BBF7F13395 /* JSTSensorTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 3865357A7AE28FEC7611DE0C /* JSTSensorTag.m */; };
+		386537103BF9B83839200242 /* JSTMorseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38653BB4782E159E032642C6 /* JSTMorseViewController.m */; };
 		3865371045199DF9975570ED /* JSTRootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38653F8B56D4EA4BCBF0FFDB /* JSTRootView.m */; };
 		386537B52CF6C10ACF11359E /* JSTKeysSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3865347D114AD66F1E077E32 /* JSTKeysSensor.m */; };
 		386537BB0D9CA077027C3C13 /* JSTIRSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 386537669231FF0A3D6C2D64 /* JSTIRSensor.m */; };
@@ -71,16 +74,20 @@
 		38653011F511A0D923A30667 /* JSTSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTSafe.h; sourceTree = "<group>"; };
 		3865305208B42852B5E93765 /* JSTBaseSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTBaseSensor.h; sourceTree = "<group>"; };
 		3865308B5F59543B5BBF159F /* JSTPressureSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTPressureSensor.m; sourceTree = "<group>"; };
+		38653126FEED55E381FE3836 /* JSTMorseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTMorseView.h; sourceTree = "<group>"; };
 		38653131C099C07F4F99AC0F /* JSTSafeCombinationValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTSafeCombinationValue.h; sourceTree = "<group>"; };
 		3865314BC16F584CA5C032C2 /* JSTSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTSafe.m; sourceTree = "<group>"; };
 		38653207DEB2AAFDFECF6D1F /* JSTCadenceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTCadenceView.h; sourceTree = "<group>"; };
+		386532CA90AF2C1D6928E174 /* JSTMorseDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTMorseDetector.m; sourceTree = "<group>"; };
 		386532DFDAC113E37EA8C5A4 /* JitterTISensorTag-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JitterTISensorTag-Prefix.pch"; sourceTree = "<group>"; };
 		386532F52394F9668DC1061A /* JSTHumiditySensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTHumiditySensor.h; sourceTree = "<group>"; };
 		3865332E285F74BB57BA1729 /* JSTSafeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTSafeView.m; sourceTree = "<group>"; };
 		3865338C580E537D80960DCF /* JSTSafeCombinationValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTSafeCombinationValue.m; sourceTree = "<group>"; };
 		3865339B60D8566D86474AF1 /* JSTPressureSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTPressureSensor.h; sourceTree = "<group>"; };
+		386533D8243B4FFABFB78418 /* JSTMorseDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTMorseDetector.h; sourceTree = "<group>"; };
 		386534056F7FC605196B6719 /* JSTSafeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTSafeViewController.h; sourceTree = "<group>"; };
 		3865341C0F64DF13A8184181 /* JSTSafeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTSafeView.h; sourceTree = "<group>"; };
+		386534282B40AB788CE265EF /* JSTMorseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTMorseView.m; sourceTree = "<group>"; };
 		3865347D114AD66F1E077E32 /* JSTKeysSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTKeysSensor.m; sourceTree = "<group>"; };
 		3865351E938502183C28E12A /* JSTMagnetometerSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTMagnetometerSensor.h; sourceTree = "<group>"; };
 		3865352A3013414A0ED78616 /* JSTSensorConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTSensorConstants.m; sourceTree = "<group>"; };
@@ -91,6 +98,7 @@
 		386536575994D5002A8330E1 /* JSTCadenceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTCadenceView.m; sourceTree = "<group>"; };
 		3865366424F4B2E2668A64BA /* JSTCadenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTCadenceViewController.h; sourceTree = "<group>"; };
 		386537046D2C4C924EEC0026 /* CBUUID+StringRepresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBUUID+StringRepresentation.m"; sourceTree = "<group>"; };
+		38653749FD252C97D816D991 /* JSTMorseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTMorseViewController.h; sourceTree = "<group>"; };
 		386537669231FF0A3D6C2D64 /* JSTIRSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTIRSensor.m; sourceTree = "<group>"; };
 		38653879E284CFE79250AE47 /* JSTAccelerometerSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTAccelerometerSensor.h; sourceTree = "<group>"; };
 		386538CE5D69BC05727E2797 /* JSTSafeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTSafeViewController.m; sourceTree = "<group>"; };
@@ -100,6 +108,7 @@
 		38653A5DE98156EA426C69C1 /* JSTSensorConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTSensorConstants.h; sourceTree = "<group>"; };
 		38653AB8B07F3A5CC4590836 /* JSTCadenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTCadenceViewController.m; sourceTree = "<group>"; };
 		38653B1E939555F6F37BE245 /* JSTSensorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTSensorManager.m; sourceTree = "<group>"; };
+		38653BB4782E159E032642C6 /* JSTMorseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTMorseViewController.m; sourceTree = "<group>"; };
 		38653C7FD4D1A9A89B339FBA /* JSTHumiditySensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTHumiditySensor.m; sourceTree = "<group>"; };
 		38653CE9A09239C919DAD187 /* JSTMagnetometerSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTMagnetometerSensor.m; sourceTree = "<group>"; };
 		38653D3DF6B19A90D26EDA54 /* JSTSensorTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTSensorTag.h; sourceTree = "<group>"; };
@@ -204,6 +213,7 @@
 				38653E583E0ECE97E53F0F10 /* JSTRootView.h */,
 				38653F8B56D4EA4BCBF0FFDB /* JSTRootView.m */,
 				386531648A947B8D9168F5C6 /* Safe */,
+				3865337421CBE7E5861C3F32 /* Morse */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -232,6 +242,19 @@
 				38653131C099C07F4F99AC0F /* JSTSafeCombinationValue.h */,
 			);
 			path = Safe;
+			sourceTree = "<group>";
+		};
+		3865337421CBE7E5861C3F32 /* Morse */ = {
+			isa = PBXGroup;
+			children = (
+				38653BB4782E159E032642C6 /* JSTMorseViewController.m */,
+				38653749FD252C97D816D991 /* JSTMorseViewController.h */,
+				386534282B40AB788CE265EF /* JSTMorseView.m */,
+				38653126FEED55E381FE3836 /* JSTMorseView.h */,
+				386532CA90AF2C1D6928E174 /* JSTMorseDetector.m */,
+				386533D8243B4FFABFB78418 /* JSTMorseDetector.h */,
+			);
+			path = Morse;
 			sourceTree = "<group>";
 		};
 		38653499D4BA027A9809C100 /* Device */ = {
@@ -462,6 +485,9 @@
 				38653E60BBCAED2440081DE1 /* JSTSafeView.m in Sources */,
 				38653C0DDCF1B568E4A3924F /* JSTSafe.m in Sources */,
 				3865317CE8BEB005C66541FC /* JSTSafeCombinationValue.m in Sources */,
+				386537103BF9B83839200242 /* JSTMorseViewController.m in Sources */,
+				38653472EA11C4D380748083 /* JSTMorseView.m in Sources */,
+				3865332A1FD887DA823AF9D7 /* JSTMorseDetector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
