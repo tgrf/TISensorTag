@@ -14,12 +14,12 @@
 
 }
 
-- (instancetype)init {
-    self = [super init];
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
 
-        self.resultLabel = [[UILabel alloc] init];
+        self.resultLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         self.resultLabel.font = [UIFont systemFontOfSize:30];
         self.resultLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.resultLabel];
@@ -34,6 +34,5 @@
     [self.resultLabel sizeToFit];
     self.resultLabel.center = CGPointMake(self.bounds.size.width * 0.5f, self.bounds.size.height * 0.5f);
 }
-
 
 @end

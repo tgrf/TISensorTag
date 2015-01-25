@@ -14,6 +14,5 @@
 
 @interface JSTRootViewController : UIViewController <JSTSensorManagerDelegate, JSTBaseSensorDelegate>
 
-
 @end
 

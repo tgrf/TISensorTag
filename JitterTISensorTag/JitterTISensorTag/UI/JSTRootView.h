@@ -7,5 +7,5 @@
 
 
 @interface JSTRootView : UIView
-@property(nonatomic, readonly) UIButton *cadenceButton;
+@property(nonatomic, strong, readonly) UITableView *gamesTableView;
 @end

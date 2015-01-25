@@ -3,3 +3,4 @@
 .idea
 *.xcworkspace/
 JitterTISensorTag/Pods
+JitterTISensorTag/Podfile.lock
