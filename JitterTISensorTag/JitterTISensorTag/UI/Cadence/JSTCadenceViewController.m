@@ -14,6 +14,7 @@
 @interface JSTCadenceViewController ()
 @property(nonatomic, strong) JSTSensorManager *sensorManager;
 @property(nonatomic) BOOL isCalibrated;
+@property(nonatomic, strong) JSTSensorTag *sensor;
 @end
 
 @implementation JSTCadenceViewController {
@@ -28,6 +29,11 @@
     }
 
     return self;
+}
+
+- (void)dealloc {
+    self.sensor.gyroscopeSensor.sensorDelegate = nil;
+    [self.sensorManager disconnectSensor:self.sensor];
 }
 
 - (void)loadView {
@@ -51,6 +57,7 @@
 
 #pragma mark - Sensor manager delegate
 - (void)manager:(JSTSensorManager *)manager didConnectSensor:(JSTSensorTag *)sensor {
+    self.sensor = sensor;
     sensor.gyroscopeSensor.sensorDelegate = self;
     [sensor.gyroscopeSensor configureWithValue:JSTSensorGyroscopeAllAxis];
     [sensor.gyroscopeSensor setPeriodValue:10];

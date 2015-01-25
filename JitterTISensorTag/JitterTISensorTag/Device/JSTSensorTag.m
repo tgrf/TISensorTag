@@ -129,8 +129,6 @@ NSString *const JSTSensorTagConnectionFailureNotificationErrorKey = @"JSTSensorT
             [CBUUID UUIDWithString:[JSTMagnetometerSensor serviceUUID]],
             [CBUUID UUIDWithString:[JSTPressureSensor serviceUUID]],
             [CBUUID UUIDWithString:[JSTGyroscopeSensor serviceUUID]],
-            [CBUUID UUIDWithString:JSTSensorTestServiceUUID],
-            [CBUUID UUIDWithString:JSTSensorOADServiceUUID],
             [CBUUID UUIDWithString:[JSTKeysSensor serviceUUID]]
     ];
 }

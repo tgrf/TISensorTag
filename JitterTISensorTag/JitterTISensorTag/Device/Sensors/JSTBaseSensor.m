@@ -25,6 +25,8 @@ static int ddLogLevel = DDLogLevelDebug;
     CBCharacteristic *configurationCharacteristic = [self characteristicForUUID:[[self class] configurationCharacteristicUUID]];
     if (configurationCharacteristic) {
         [self.peripheral writeValue:[NSData dataWithBytes:&value length:sizeof(value)] forCharacteristic:configurationCharacteristic type:CBCharacteristicWriteWithResponse];
+    } else {
+        DDLogError(@"Cannot configure value for sensor %@", self);
     }
 }
 
@@ -32,6 +34,8 @@ static int ddLogLevel = DDLogLevelDebug;
     CBCharacteristic *configurationCharacteristic = [self characteristicForUUID:[[self class] periodCharacteristicUUID]];
     if (configurationCharacteristic) {
         [self.peripheral writeValue:[NSData dataWithBytes:&periodValue length:sizeof(periodValue)] forCharacteristic:configurationCharacteristic type:CBCharacteristicWriteWithResponse];
+    } else {
+        DDLogError(@"Cannot configure period for sensor %@", self);
     }
 }
 
