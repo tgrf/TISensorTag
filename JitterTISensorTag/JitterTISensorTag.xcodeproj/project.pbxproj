@@ -10,10 +10,12 @@
 		155655C21A4855F90041AE4F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 155655C11A4855F90041AE4F /* main.m */; };
 		155655C51A4855F90041AE4F /* JSTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 155655C41A4855F90041AE4F /* JSTAppDelegate.m */; };
 		155655C81A4855F90041AE4F /* JitterTISensorTag.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 155655C61A4855F90041AE4F /* JitterTISensorTag.xcdatamodeld */; };
-		155655CB1A4855FA0041AE4F /* JSTRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 155655CA1A4855FA0041AE4F /* JSTRootViewController.m */; };
 		155655D01A4855FA0041AE4F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 155655CF1A4855FA0041AE4F /* Images.xcassets */; };
 		155655DF1A4855FA0041AE4F /* JitterTISensorTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 155655DE1A4855FA0041AE4F /* JitterTISensorTagTests.m */; };
 		155655EB1A4857280041AE4F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 155655EA1A4857280041AE4F /* Default-568h@2x.png */; };
+		364BEA5E25D9E57308ACED8E /* JSTMagnetometerGameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BE4DA2F0ECB6E3B33B5E0 /* JSTMagnetometerGameView.m */; };
+		364BEBD72C480CA15EFDA362 /* JSTMagnetometerGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BEE9F091E23C0CF50A3FB /* JSTMagnetometerGameViewController.m */; };
+		364BEBE463E1ACC9EF663D7C /* JSTRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BE52908B3E5E6E638098E /* JSTRootViewController.m */; };
 		38653448054449F665EB9404 /* JSTBaseSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 386539A57EEB43A02AA6681D /* JSTBaseSensor.m */; };
 		386536F43E08D1BBF7F13395 /* JSTSensorTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 3865357A7AE28FEC7611DE0C /* JSTSensorTag.m */; };
 		386537B52CF6C10ACF11359E /* JSTKeysSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3865347D114AD66F1E077E32 /* JSTKeysSensor.m */; };
@@ -48,13 +50,17 @@
 		155655C31A4855F90041AE4F /* JSTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSTAppDelegate.h; sourceTree = "<group>"; };
 		155655C41A4855F90041AE4F /* JSTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSTAppDelegate.m; sourceTree = "<group>"; };
 		155655C71A4855F90041AE4F /* JitterTISensorTag.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JitterTISensorTag.xcdatamodel; sourceTree = "<group>"; };
-		155655C91A4855F90041AE4F /* JSTRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSTRootViewController.h; sourceTree = "<group>"; };
-		155655CA1A4855FA0041AE4F /* JSTRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSTRootViewController.m; sourceTree = "<group>"; };
 		155655CF1A4855FA0041AE4F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		155655D81A4855FA0041AE4F /* JitterTISensorTagTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JitterTISensorTagTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		155655DD1A4855FA0041AE4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		155655DE1A4855FA0041AE4F /* JitterTISensorTagTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JitterTISensorTagTests.m; sourceTree = "<group>"; };
 		155655EA1A4857280041AE4F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		364BE0B83FCE54864BD06DF0 /* JSTRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTRootViewController.h; sourceTree = "<group>"; };
+		364BE20A5FB6FCE0CE5C3C30 /* JSTMagnetometerGameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTMagnetometerGameView.h; sourceTree = "<group>"; };
+		364BE4DA2F0ECB6E3B33B5E0 /* JSTMagnetometerGameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTMagnetometerGameView.m; sourceTree = "<group>"; };
+		364BE52908B3E5E6E638098E /* JSTRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTRootViewController.m; sourceTree = "<group>"; };
+		364BED82824039320024CD9E /* JSTMagnetometerGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTMagnetometerGameViewController.h; sourceTree = "<group>"; };
+		364BEE9F091E23C0CF50A3FB /* JSTMagnetometerGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTMagnetometerGameViewController.m; sourceTree = "<group>"; };
 		3865305208B42852B5E93765 /* JSTBaseSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTBaseSensor.h; sourceTree = "<group>"; };
 		3865308B5F59543B5BBF159F /* JSTPressureSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTPressureSensor.m; sourceTree = "<group>"; };
 		386532DFDAC113E37EA8C5A4 /* JitterTISensorTag-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JitterTISensorTag-Prefix.pch"; sourceTree = "<group>"; };
@@ -131,12 +137,11 @@
 			children = (
 				155655C31A4855F90041AE4F /* JSTAppDelegate.h */,
 				155655C41A4855F90041AE4F /* JSTAppDelegate.m */,
-				155655C91A4855F90041AE4F /* JSTRootViewController.h */,
-				155655CA1A4855FA0041AE4F /* JSTRootViewController.m */,
 				155655CF1A4855FA0041AE4F /* Images.xcassets */,
 				155655C61A4855F90041AE4F /* JitterTISensorTag.xcdatamodeld */,
 				155655BF1A4855F90041AE4F /* Supporting Files */,
 				38653499D4BA027A9809C100 /* Device */,
+				364BE0D621B564105340FD7E /* UI */,
 			);
 			path = JitterTISensorTag;
 			sourceTree = "<group>";
@@ -166,6 +171,27 @@
 				155655DD1A4855FA0041AE4F /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		364BE0D621B564105340FD7E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				364BE0B83FCE54864BD06DF0 /* JSTRootViewController.h */,
+				364BE52908B3E5E6E638098E /* JSTRootViewController.m */,
+				364BECFC0D822D94CA56AEE9 /* Magnetometer */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		364BECFC0D822D94CA56AEE9 /* Magnetometer */ = {
+			isa = PBXGroup;
+			children = (
+				364BEE9F091E23C0CF50A3FB /* JSTMagnetometerGameViewController.m */,
+				364BED82824039320024CD9E /* JSTMagnetometerGameViewController.h */,
+				364BE4DA2F0ECB6E3B33B5E0 /* JSTMagnetometerGameView.m */,
+				364BE20A5FB6FCE0CE5C3C30 /* JSTMagnetometerGameView.h */,
+			);
+			path = Magnetometer;
 			sourceTree = "<group>";
 		};
 		38653499D4BA027A9809C100 /* Device */ = {
@@ -362,7 +388,6 @@
 			files = (
 				155655C51A4855F90041AE4F /* JSTAppDelegate.m in Sources */,
 				155655C81A4855F90041AE4F /* JitterTISensorTag.xcdatamodeld in Sources */,
-				155655CB1A4855FA0041AE4F /* JSTRootViewController.m in Sources */,
 				155655C21A4855F90041AE4F /* main.m in Sources */,
 				38653F88434FEF10EDBF6D23 /* JSTSensorManager.m in Sources */,
 				386536F43E08D1BBF7F13395 /* JSTSensorTag.m in Sources */,
@@ -376,6 +401,9 @@
 				38653C4B72CC4AA3680C3BE5 /* JSTGyroscopeSensor.m in Sources */,
 				386538D2E3A4650277A553E2 /* JSTPressureSensor.m in Sources */,
 				386537B52CF6C10ACF11359E /* JSTKeysSensor.m in Sources */,
+				364BEBE463E1ACC9EF663D7C /* JSTRootViewController.m in Sources */,
+				364BEBD72C480CA15EFDA362 /* JSTMagnetometerGameViewController.m in Sources */,
+				364BEA5E25D9E57308ACED8E /* JSTMagnetometerGameView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
