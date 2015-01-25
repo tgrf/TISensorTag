@@ -12,6 +12,7 @@
 #import "JSTRootView.h"
 #import "JSTCadenceViewController.h"
 #import "JSTMagnetometerGameViewController.h"
+#import "JSTSafeViewController.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static int ddLogLevel = DDLogLevelAll;
 
@@ -30,6 +31,7 @@ NSString *JSTRootViewControllerCellIdentifier = @"JSTRootViewTableViewCell";
         _gamesConfiguration = @[
                 @{ @"name" : @"Cadence",    @"class" : NSStringFromClass(JSTCadenceViewController.class),           @"icon" : @"icon_name" },
                 @{ @"name" : @"Wand",       @"class" : NSStringFromClass(JSTMagnetometerGameViewController.class),  @"icon" : @"icon_name" },
+                @{ @"name" : @"Safe",       @"class" : NSStringFromClass(JSTSafeViewController .class),             @"icon" : @"icon_name" },
                 @{ @"name" : @"Handshake",  @"class" : NSStringFromClass(JSTCadenceViewController.class),           @"icon" : @"icon_name" },
                 @{ @"name" : @"Dice",       @"class" : NSStringFromClass(JSTCadenceViewController.class),           @"icon" : @"icon_name" },
                 @{ @"name" : @"Pressure",   @"class" : NSStringFromClass(JSTCadenceViewController.class),           @"icon" : @"icon_name" },
