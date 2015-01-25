@@ -12,9 +12,12 @@
 #import "JSTRootView.h"
 #import "JSTCadenceViewController.h"
 #import "JSTSafeViewController.h"
+<<<<<<< HEAD
+#import "JSTMorseViewController.h"
+=======
 #import "JSTWandViewController.h"
 #import "JSTHandshakeViewController.h"
-#import "JSTMorseViewController.h"
+>>>>>>> wand + handshake;
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static int ddLogLevel = DDLogLevelAll;
 
