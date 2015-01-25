@@ -65,6 +65,7 @@ NSString *const JSTSensorPressureCalibrationCharacteristicUUID = @"F000AA43-0451
         long long O = (self.c6 * ((long long)1 << 14)) + (((self.c7 * tempTemp)/((long long)1 << 3))) + ((self.c8 * (tempTemp * tempTemp)) / ((long long)1 << 19));
         long long Pa = (((S * (long long)pressure) + O) / ((long long)1 << 14));
 
+        DDLogInfo(@"%s pressure = %ld(%lx)", __PRETTY_FUNCTION__, Pa / 100, Pa / 100);
         self.pressure = (int) (Pa / 100);
         self.temperature = temperature;
     }
