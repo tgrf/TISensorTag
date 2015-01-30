@@ -8,7 +8,8 @@
 
 @interface JSTMorseDetector : NSObject
 
-- (void)updateWithKeyPress:(BOOL)isPressed;
+- (void)updateWithLeftKeyPress:(BOOL)leftKeyPressed rightKeyPressed:(BOOL)rightKeyPressed;
 
 - (NSString *)text;
+
 @end
