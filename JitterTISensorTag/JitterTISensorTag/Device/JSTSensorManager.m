@@ -180,7 +180,9 @@ NSString *const JSTSensorTagErrorDomain = @"JSTSensorTagErrorDomain";
 
 - (void)disconnectSensor:(JSTSensorTag *)sensorTag {
     [self stopWatchdog];
-    [self.centralManager cancelPeripheralConnection:sensorTag.peripheral];
+    if (sensorTag.peripheral) {
+        [self.centralManager cancelPeripheralConnection:sensorTag.peripheral];
+    }
 }
 
 - (void)stopWatchdog {

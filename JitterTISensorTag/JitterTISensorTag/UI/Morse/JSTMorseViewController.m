@@ -31,6 +31,8 @@
         self.morseDetector = [[JSTMorseDetector alloc] init];
         self.sensorManager = [JSTSensorManager sharedInstance];
         self.sensorManager.delegate = self;
+
+        [self.morseDetector addObserver:self forKeyPath:NSStringFromSelector(@selector(text)) options:NSKeyValueObservingOptionNew context:nil];
     }
 
     return self;
@@ -39,6 +41,8 @@
 - (void)dealloc {
     self.sensor.keysSensor.sensorDelegate = nil;
     [self.sensorManager disconnectSensor:self.sensor];
+
+    [self.morseDetector removeObserver:self forKeyPath:NSStringFromSelector(@selector(text))];
 }
 
 - (void)loadView {
@@ -94,24 +98,26 @@
     }
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (object == self.morseDetector) {
+        __weak JSTMorseViewController *weakSelf = self;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weakSelf.morseView.resultLabel.text = weakSelf.morseDetector.text;
+            [weakSelf.morseView setNeedsLayout];
+        });
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+
 #pragma mark - Sensor delegate
 
 - (void)sensorDidUpdateValue:(JSTBaseSensor *)sensor {
     if ([sensor isKindOfClass:[JSTKeysSensor class]]) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self];
         JSTKeysSensor *keysSensor = (JSTKeysSensor *) sensor;
-        [self.morseDetector updateWithKeyPress:keysSensor.pressedLeftButton];
-        __weak JSTMorseViewController *weakSelf = self;
-        if (!keysSensor.pressedLeftButton) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf performSelector:@selector(sensorDidUpdateValue:) withObject:sensor afterDelay:1.f inModes:@[NSRunLoopCommonModes]];
-            });
-        }
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            weakSelf.morseView.resultLabel.text = weakSelf.morseDetector.text;
-            [weakSelf.morseView setNeedsLayout];
-        });
+        [self.morseDetector updateWithLeftKeyPress:keysSensor.pressedLeftButton rightKeyPressed:keysSensor.pressedRightButton];
     }
 }
 
