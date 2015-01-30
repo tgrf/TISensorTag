@@ -94,7 +94,7 @@
             float cadence = 0.f;
             float length = gyroscopeSensor.value.x * gyroscopeSensor.value.x + gyroscopeSensor.value.y * gyroscopeSensor.value.y + gyroscopeSensor.value.z * gyroscopeSensor.value.z;
             length = sqrtf(length);
-            cadence = length / 6.f;
+            cadence = length / 6.f; // length / 360 deg * 60s (to get RPM)
             NSLog(@"Values %f %f %f length %f cadence %f", gyroscopeSensor.value.x, gyroscopeSensor.value.y, gyroscopeSensor.value.z, length, cadence);
 
             __weak JSTCadenceViewController *weakSelf = self;

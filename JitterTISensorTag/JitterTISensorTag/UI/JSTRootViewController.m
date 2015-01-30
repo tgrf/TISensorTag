@@ -15,6 +15,7 @@
 #import "JSTWandViewController.h"
 #import "JSTHandshakeViewController.h"
 #import "JSTMorseViewController.h"
+#import "JSTDiceViewController.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static int ddLogLevel = DDLogLevelAll;
 
@@ -35,7 +36,7 @@ NSString *JSTRootViewControllerCellIdentifier = @"JSTRootViewTableViewCell";
                 @{ @"name" : @"Safe",       @"class" : NSStringFromClass(JSTSafeViewController.class),              @"icon" : @"icon_name" },
                 @{ @"name" : @"Wand",       @"class" : NSStringFromClass(JSTWandViewController.class),              @"icon" : @"icon_name" },
                 @{ @"name" : @"Handshake",  @"class" : NSStringFromClass(JSTHandshakeViewController.class),         @"icon" : @"icon_name" },
-                @{ @"name" : @"Dice",       @"class" : NSStringFromClass(JSTCadenceViewController.class),           @"icon" : @"icon_name" },
+                @{ @"name" : @"Dice",       @"class" : NSStringFromClass(JSTDiceViewController.class),              @"icon" : @"icon_name" },
                 @{ @"name" : @"Pressure",   @"class" : NSStringFromClass(JSTCadenceViewController.class),           @"icon" : @"icon_name" },
                 @{ @"name" : @"Morse",      @"class" : NSStringFromClass(JSTMorseViewController.class),             @"icon" : @"icon_name" },
                 @{ @"name" : @"Fast click", @"class" : NSStringFromClass(JSTCadenceViewController.class),           @"icon" : @"icon_name" },
