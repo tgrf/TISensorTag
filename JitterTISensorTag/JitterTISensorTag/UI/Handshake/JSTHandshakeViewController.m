@@ -23,7 +23,8 @@ static int ddLogLevel = DDLogLevelAll;
 @property (nonatomic) NSUInteger valuesIdx;
 @end
 
-const NSUInteger JSTWandViewControllerValuesRange  = 10; // 0,1s/value
+const NSUInteger JSTHandshakeViewControllerValuesDifferentialThreshold  = 15;
+const NSUInteger JSTHandshakeViewControllerValuesRange  = 20; // 0,1s/value
 
 @implementation JSTHandshakeViewController
 
@@ -33,7 +34,7 @@ const NSUInteger JSTWandViewControllerValuesRange  = 10; // 0,1s/value
         self.sensorManager = [JSTSensorManager sharedInstance];
         self.sensorManager.delegate = self;
 
-        self.values = (float *) malloc(JSTWandViewControllerValuesRange * sizeof(float));
+        self.values = (float *) malloc(JSTHandshakeViewControllerValuesRange * sizeof(float));
         self.valuesIdx = 0;
     }
 
@@ -104,14 +105,8 @@ const NSUInteger JSTWandViewControllerValuesRange  = 10; // 0,1s/value
     if ([sensor isKindOfClass:[JSTIRSensor class]]) {
         JSTIRSensor *irSensor = (JSTIRSensor *) sensor;
         self.values[self.valuesIdx] = irSensor.objectTemperature;
-        self.valuesIdx = (self.valuesIdx + 1) % JSTWandViewControllerValuesRange;
+        self.valuesIdx = (self.valuesIdx + 1) % JSTHandshakeViewControllerValuesRange;
         [self estimateValues];
-
-        __weak JSTHandshakeViewController *weakSelf = self;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            weakSelf.handshakeView.valuesLabel.text = [NSString stringWithFormat:@"Temperature: %f", irSensor.objectTemperature];
-            [weakSelf.handshakeView setNeedsLayout];
-        });
     }
 }
 
@@ -124,11 +119,22 @@ const NSUInteger JSTWandViewControllerValuesRange  = 10; // 0,1s/value
 }
 
 - (void)estimateValues {
-    float diff = 0.0f;
-    for (NSUInteger idx = 0; idx < self.valuesIdx; ++idx) {
-        diff += self.values[idx];
+    float min = FLT_MAX;
+    float max = 0.0f;
+    float avg = 0.0f;
+
+    for (NSUInteger idx = 0; idx < JSTHandshakeViewControllerValuesRange; ++idx) {
+        avg += self.values[idx];
+        min = (min > self.values[idx] ? self.values[idx] : min);
+        max = (max < self.values[idx] ? self.values[idx] : max);
     }
-    NSLog(@"diff = %f", diff);
+    if (max - min > JSTHandshakeViewControllerValuesDifferentialThreshold && !(self.valuesIdx % 10)) {
+        __weak JSTHandshakeViewController *weakSelf = self;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weakSelf.handshakeView.valuesLabel.text = [NSString stringWithFormat:@"Hug me now! %f\t Temp: %f", max-min, self.values[self.valuesIdx]];
+            [weakSelf.handshakeView setNeedsLayout];
+        });
+    }
 }
 
 @end
