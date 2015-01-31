@@ -23,7 +23,9 @@ static int ddLogLevel = DDLogLevelAll;
 @property (nonatomic) NSUInteger valuesIdx;
 @end
 
-const NSUInteger JSTWandViewControllerValuesRange  = 10; // 0,1s/value
+const NSUInteger JSTWandViewControllerValuesRange  = 5; // 0,1s/value
+const float JSTWandViewControllerValuesDifferentialThreshold = 100.0f;
+
 
 @implementation JSTWandViewController
 
@@ -115,12 +117,6 @@ const NSUInteger JSTWandViewControllerValuesRange  = 10; // 0,1s/value
             self.values[self.valuesIdx] = length;
             self.valuesIdx = (self.valuesIdx + 1) % JSTWandViewControllerValuesRange;
             [self estimateValues];
-
-            __weak JSTWandViewController *weakSelf = self;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                weakSelf.wandView.valuesLabel.text = [NSString stringWithFormat:@"Length: %f\nValues: %f\n%f\n%f", length, magnetometerSensor.value.x, magnetometerSensor.value.y, magnetometerSensor.value.z];
-                [weakSelf.wandView setNeedsLayout];
-            });
         }
     }
 }
@@ -134,11 +130,22 @@ const NSUInteger JSTWandViewControllerValuesRange  = 10; // 0,1s/value
 }
 
 - (void)estimateValues {
-    float diff = 0.0f;
-    for (NSUInteger idx = 0; idx < self.valuesIdx; ++idx) {
-        diff += self.values[idx];
+    float min = FLT_MAX;
+    float max = 0.0f;
+    float avg = 0.0f;
+
+    for (NSUInteger idx = 0; idx < JSTWandViewControllerValuesRange; ++idx) {
+        avg += self.values[idx];
+        min = (min > self.values[idx] ? self.values[idx] : min);
+        max = (max < self.values[idx] ? self.values[idx] : max);
     }
-    NSLog(@"diff = %f", diff);
+    if (max - min > JSTWandViewControllerValuesDifferentialThreshold && !(self.valuesIdx % 10)) {
+        __weak JSTWandViewController *weakSelf = self;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weakSelf.wandView.valuesLabel.text = [NSString stringWithFormat:@"Magia kurwaaaa! %f", max-min];
+            [weakSelf.wandView setNeedsLayout];
+        });
+    }
 }
 
 @end
