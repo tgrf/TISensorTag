@@ -15,9 +15,11 @@
 		155655EB1A4857280041AE4F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 155655EA1A4857280041AE4F /* Default-568h@2x.png */; };
 		364BE4FDE6D6BCBE2F62E439 /* JSTHandshakeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BE8886FF1DBB0A0353739 /* JSTHandshakeViewController.m */; };
 		364BEA5E25D9E57308ACED8E /* JSTWandView.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BE4DA2F0ECB6E3B33B5E0 /* JSTWandView.m */; };
+		364BEB24123CE542BAF2607E /* JSTBlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BE930A0451EFA117F4F4A /* JSTBlowViewController.m */; };
 		364BEBD72C480CA15EFDA362 /* JSTWandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BEE9F091E23C0CF50A3FB /* JSTWandViewController.m */; };
 		364BEBE463E1ACC9EF663D7C /* JSTRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BE52908B3E5E6E638098E /* JSTRootViewController.m */; };
 		364BEE3E9F3F5AF001071AEC /* JSTHandshakeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BEEED4B58374DB306586D /* JSTHandshakeView.m */; };
+		364BEF7C19ADB1ED844BF289 /* JSTBlowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BE8F46393D86B2568088E /* JSTBlowView.m */; };
 		3865317CE8BEB005C66541FC /* JSTSafeCombinationValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3865338C580E537D80960DCF /* JSTSafeCombinationValue.m */; };
 		3865332A1FD887DA823AF9D7 /* JSTMorseDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 386532CA90AF2C1D6928E174 /* JSTMorseDetector.m */; };
 		3865335197807DB328DBC7BD /* JSTDiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3865389BF461D4DEA955AFC3 /* JSTDiceViewController.m */; };
@@ -76,8 +78,12 @@
 		364BE52908B3E5E6E638098E /* JSTRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTRootViewController.m; sourceTree = "<group>"; };
 		364BE8886FF1DBB0A0353739 /* JSTHandshakeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTHandshakeViewController.m; sourceTree = "<group>"; };
 		364BE8B37A16AC27E0B56B40 /* JSTHandshakeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTHandshakeView.h; sourceTree = "<group>"; };
+		364BE8F46393D86B2568088E /* JSTBlowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTBlowView.m; sourceTree = "<group>"; };
+		364BE930A0451EFA117F4F4A /* JSTBlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTBlowViewController.m; sourceTree = "<group>"; };
 		364BEBD3306D360251C9C552 /* JSTHandshakeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTHandshakeViewController.h; sourceTree = "<group>"; };
+		364BEBF99B326B2CC31B253D /* JSTBlowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTBlowViewController.h; sourceTree = "<group>"; };
 		364BED82824039320024CD9E /* JSTWandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTWandViewController.h; sourceTree = "<group>"; };
+		364BEDD67A5813E9FE4228D1 /* JSTBlowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTBlowView.h; sourceTree = "<group>"; };
 		364BEE9F091E23C0CF50A3FB /* JSTWandViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTWandViewController.m; sourceTree = "<group>"; };
 		364BEEED4B58374DB306586D /* JSTHandshakeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTHandshakeView.m; sourceTree = "<group>"; };
 		38653011F511A0D923A30667 /* JSTSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTSafe.h; sourceTree = "<group>"; };
@@ -231,8 +237,20 @@
 				364BEF81B961B90400EA7FA6 /* Handshake */,
 				3865337421CBE7E5861C3F32 /* Morse */,
 				38653518E4C79F64C87BDF01 /* Dice */,
+				364BE5D835DF544D251BBACA /* Blow */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		364BE5D835DF544D251BBACA /* Blow */ = {
+			isa = PBXGroup;
+			children = (
+				364BE930A0451EFA117F4F4A /* JSTBlowViewController.m */,
+				364BEBF99B326B2CC31B253D /* JSTBlowViewController.h */,
+				364BE8F46393D86B2568088E /* JSTBlowView.m */,
+				364BEDD67A5813E9FE4228D1 /* JSTBlowView.h */,
+			);
+			path = Blow;
 			sourceTree = "<group>";
 		};
 		364BECFC0D822D94CA56AEE9 /* Wand */ = {
@@ -534,6 +552,8 @@
 				3865335197807DB328DBC7BD /* JSTDiceViewController.m in Sources */,
 				3865392909AE283B4E866461 /* JSTDiceView.m in Sources */,
 				386535772BC8E97D11109519 /* JSTDice.m in Sources */,
+				364BEB24123CE542BAF2607E /* JSTBlowViewController.m in Sources */,
+				364BEF7C19ADB1ED844BF289 /* JSTBlowView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

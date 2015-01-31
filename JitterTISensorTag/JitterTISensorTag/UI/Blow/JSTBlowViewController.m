@@ -1,32 +1,33 @@
 //
-//  JSTHandshakeViewController.m
+//  JSTBlowViewController.m
 //  JitterTISensorTag
 //
-//  Created by Tomasz Grynfelder on 25/01/15.
+//  Created by Tomasz Grynfelder on 31/01/15.
 //  ***REMOVED***
 //
-#import "JSTHandshakeViewController.h"
+#import "JSTBlowViewController.h"
 #import "JSTBaseSensor.h"
 #import "JSTSensorManager.h"
-#import "JSTMagnetometerSensor.h"
+#import "JSTHumiditySensor.h"
 #import "JSTAppDelegate.h"
-#import "JSTIRSensor.h"
-#import "JSTHandshakeView.h"
+#import "JSTBlowView.h"
+#import "JSTSensorTag.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 static int ddLogLevel = DDLogLevelAll;
 
-@interface JSTHandshakeViewController () <JSTSensorManagerDelegate, JSTBaseSensorDelegate>
+@interface JSTBlowViewController () <JSTSensorManagerDelegate, JSTBaseSensorDelegate>
 @property (nonatomic, strong) JSTSensorManager *sensorManager;
 @property (nonatomic, strong) JSTSensorTag *sensorTag;
 @property (nonatomic) float *values;
 @property (nonatomic) NSUInteger valuesIdx;
 @end
 
-const NSUInteger JSTHandshakeViewControllerValuesDifferentialThreshold  = 15;
-const NSUInteger JSTHandshakeViewControllerValuesRange  = 20; // 0,1s/value
+const float JSTBlowViewControllerValuesDifferentialThreshold = 20;
+const NSUInteger JSTBlowViewControllerValuesRange = 6; // 0,1s/value
+const NSUInteger JSTBlowViewControllerValuesEdgesRange = 2;
 
-@implementation JSTHandshakeViewController
+@implementation JSTBlowViewController
 
 - (instancetype)init {
     self = [super init];
@@ -34,7 +35,7 @@ const NSUInteger JSTHandshakeViewControllerValuesRange  = 20; // 0,1s/value
         self.sensorManager = [JSTSensorManager sharedInstance];
         self.sensorManager.delegate = self;
 
-        self.values = (float *) malloc(JSTHandshakeViewControllerValuesRange * sizeof(float));
+        self.values = (float *) malloc(JSTBlowViewControllerValuesRange * sizeof(float));
         self.valuesIdx = 0;
     }
 
@@ -52,12 +53,12 @@ const NSUInteger JSTHandshakeViewControllerValuesRange  = 20; // 0,1s/value
 }
 
 - (void)loadView {
-    self.view = [[JSTHandshakeView alloc] initWithFrame:CGRectZero];
+    self.view = [[JSTBlowView alloc] initWithFrame:CGRectZero];
 }
 
-- (JSTHandshakeView *)handshakeView {
+- (JSTBlowView *)blowView {
     if (self.isViewLoaded) {
-        return (JSTHandshakeView *)self.view;
+        return (JSTBlowView *)self.view;
     }
     return nil;
 }
@@ -75,10 +76,9 @@ const NSUInteger JSTHandshakeViewControllerValuesRange  = 20; // 0,1s/value
 - (void)manager:(JSTSensorManager *)manager didConnectSensor:(JSTSensorTag *)sensor {
     self.sensorTag = sensor;
 
-    sensor.irSensor.sensorDelegate = self;
-    [sensor.irSensor configureWithValue:JSTSensorIRTemperatureEnabled];
-    [sensor.irSensor setPeriodValue:10];
-    [sensor.irSensor setNotificationsEnabled:YES];
+    sensor.humiditySensor.sensorDelegate = self;
+    [sensor.humiditySensor configureWithValue:JSTSensorHumidityEnabled];
+    [sensor.humiditySensor setNotificationsEnabled:YES];
 }
 
 - (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor {
@@ -102,10 +102,13 @@ const NSUInteger JSTHandshakeViewControllerValuesRange  = 20; // 0,1s/value
 #pragma mark - Sensor delegate
 
 - (void)sensorDidUpdateValue:(JSTBaseSensor *)sensor {
-    if ([sensor isKindOfClass:[JSTIRSensor class]]) {
-        JSTIRSensor *irSensor = (JSTIRSensor *) sensor;
-        self.values[self.valuesIdx] = irSensor.objectTemperature;
-        self.valuesIdx = (self.valuesIdx + 1) % JSTHandshakeViewControllerValuesRange;
+    if ([sensor isKindOfClass:[JSTHumiditySensor class]]) {
+        JSTHumiditySensor *humiditySensor = (JSTHumiditySensor *) sensor;
+        self.values[self.valuesIdx] = humiditySensor.humidity;
+
+        NSLog(@"humiditySensor.humidity = %f", humiditySensor.humidity);
+
+        self.valuesIdx = (self.valuesIdx + 1) % JSTBlowViewControllerValuesRange;
         [self estimateValues];
     }
 }
@@ -123,18 +126,32 @@ const NSUInteger JSTHandshakeViewControllerValuesRange  = 20; // 0,1s/value
     float max = 0.0f;
     float avg = 0.0f;
 
-    for (NSUInteger idx = 0; idx < JSTHandshakeViewControllerValuesRange; ++idx) {
+    for (NSUInteger idx = 0; idx < JSTBlowViewControllerValuesRange; ++idx) {
         avg += self.values[idx];
         min = (min > self.values[idx] ? self.values[idx] : min);
         max = (max < self.values[idx] ? self.values[idx] : max);
     }
-    if (max - min > JSTHandshakeViewControllerValuesDifferentialThreshold && !(self.valuesIdx % JSTHandshakeViewControllerValuesRange)) {
-        __weak JSTHandshakeViewController *weakSelf = self;
+    if (!self.hasRaised && max - min > JSTBlowViewControllerValuesDifferentialThreshold && !(self.valuesIdx % JSTBlowViewControllerValuesRange)) {
+        __weak JSTBlowViewController *weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^{
-            weakSelf.handshakeView.valuesLabel.text = [NSString stringWithFormat:@"Hug me now! %f\tTemp: %f", max-min, self.values[self.valuesIdx]];
-            [weakSelf.handshakeView setNeedsLayout];
+            weakSelf.blowView.valuesLabel.text = [NSString stringWithFormat:@"Stop blowing! %f\tHumidity: %f", max-min, self.values[self.valuesIdx]];
+            [weakSelf.blowView setNeedsLayout];
         });
     }
+}
+
+- (BOOL)hasRaised {
+    float leftEdgeAvg  = -1.0f;
+    float rightEdgeAvg = -1.0f;
+
+    for (NSUInteger beginIdx = 0, endIdx = JSTBlowViewControllerValuesRange - 1;
+         beginIdx < JSTBlowViewControllerValuesEdgesRange && endIdx > JSTBlowViewControllerValuesRange - JSTBlowViewControllerValuesEdgesRange - 1;
+         ++beginIdx, --endIdx) {
+        leftEdgeAvg  += self.values[beginIdx];
+        rightEdgeAvg += self.values[endIdx];
+    }
+
+    return (leftEdgeAvg/JSTBlowViewControllerValuesEdgesRange < rightEdgeAvg/JSTBlowViewControllerValuesEdgesRange);
 }
 
 @end
