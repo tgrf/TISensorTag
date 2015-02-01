@@ -12,12 +12,16 @@
 #import "JSTRootView.h"
 #import "JSTCadenceViewController.h"
 #import "JSTSafeViewController.h"
-<<<<<<< HEAD
-#import "JSTMorseViewController.h"
-=======
 #import "JSTWandViewController.h"
 #import "JSTHandshakeViewController.h"
->>>>>>> wand + handshake;
+#import "JSTMorseViewController.h"
+#import "JSTDiceViewController.h"
+#import "JSTBlowViewController.h"
+<<<<<<< HEAD
+#import "JSTPressureViewController.h"
+=======
+#import "JSTClickerViewController.h"
+>>>>>>> Fast click
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static int ddLogLevel = DDLogLevelAll;
 
@@ -38,11 +42,11 @@ NSString *JSTRootViewControllerCellIdentifier = @"JSTRootViewTableViewCell";
                 @{ @"name" : @"Safe",       @"class" : NSStringFromClass(JSTSafeViewController.class),              @"icon" : @"icon_name" },
                 @{ @"name" : @"Wand",       @"class" : NSStringFromClass(JSTWandViewController.class),              @"icon" : @"icon_name" },
                 @{ @"name" : @"Handshake",  @"class" : NSStringFromClass(JSTHandshakeViewController.class),         @"icon" : @"icon_name" },
-                @{ @"name" : @"Dice",       @"class" : NSStringFromClass(JSTCadenceViewController.class),           @"icon" : @"icon_name" },
-                @{ @"name" : @"Pressure",   @"class" : NSStringFromClass(JSTCadenceViewController.class),           @"icon" : @"icon_name" },
+                @{ @"name" : @"Dice",       @"class" : NSStringFromClass(JSTDiceViewController.class),              @"icon" : @"icon_name" },
+                @{ @"name" : @"Pressure",   @"class" : NSStringFromClass(JSTPressureViewController.class),          @"icon" : @"icon_name" },
                 @{ @"name" : @"Morse",      @"class" : NSStringFromClass(JSTMorseViewController.class),             @"icon" : @"icon_name" },
-                @{ @"name" : @"Fast click", @"class" : NSStringFromClass(JSTCadenceViewController.class),           @"icon" : @"icon_name" },
-                @{ @"name" : @"Blow",       @"class" : NSStringFromClass(JSTCadenceViewController.class),           @"icon" : @"icon_name" },
+                @{ @"name" : @"Fast click", @"class" : NSStringFromClass(JSTClickerViewController.class),           @"icon" : @"icon_name" },
+                @{ @"name" : @"Blow",       @"class" : NSStringFromClass(JSTBlowViewController.class),              @"icon" : @"icon_name" },
         ];
     }
 

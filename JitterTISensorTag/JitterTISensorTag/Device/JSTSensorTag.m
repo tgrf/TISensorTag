@@ -31,7 +31,6 @@ NSString *const JSTSensorTagConnectionFailureNotificationErrorKey = @"JSTSensorT
 @end
 
 @implementation JSTSensorTag {
-
 }
 
 - (instancetype)initWithPeripheral:(CBPeripheral *)peripheral {
