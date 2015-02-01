@@ -25,7 +25,7 @@ static int ddLogLevel = DDLogLevelAll;
 @property (nonatomic) NSUInteger valuesIdx;
 @end
 
-const NSUInteger JSTPressureViewControllerValuesDifferentialThreshold  = 15;
+const NSUInteger JSTPressureViewControllerValuesDifferentialThreshold  = 20;
 const NSUInteger JSTPressureViewControllerValuesRange  = 10; // 0,1s/value
 const NSUInteger JSTPressureViewControllerValuesEdgesRange  = 3;
 
@@ -80,6 +80,7 @@ const NSUInteger JSTPressureViewControllerValuesEdgesRange  = 3;
     self.sensorTag = sensor;
 
     sensor.pressureSensor.sensorDelegate = self;
+    [sensor.pressureSensor configureWithValue:JSTSensorPressureEnabled];
     [sensor.pressureSensor setPeriodValue:10];
     [sensor.pressureSensor setNotificationsEnabled:YES];
 }
@@ -124,7 +125,7 @@ const NSUInteger JSTPressureViewControllerValuesEdgesRange  = 3;
 
 - (void)sensorDidFinishCalibration:(JSTBaseSensor *)sensor {
     if ([sensor isKindOfClass:[JSTPressureSensor class]]) {
-        JSTPressureSensor *pressureSensor = (JSTPressureSensor *) sensor;
+        JSTPressureSensor *pressureSensor = (JSTPressureSensor *)sensor;
         [pressureSensor configureWithValue:JSTSensorPressureEnabled];
         [pressureSensor setNotificationsEnabled:YES];
     }
@@ -139,8 +140,6 @@ const NSUInteger JSTPressureViewControllerValuesEdgesRange  = 3;
         avg += self.values[idx];
         min = (min > self.values[idx] ? self.values[idx] : min);
         max = (max < self.values[idx] ? self.values[idx] : max);
-
-//        self.minValue = (self.minValue > min ? min : self.minValue);
     }
 
     float diff = max - min;
