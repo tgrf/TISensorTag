@@ -81,21 +81,43 @@ NSString *const JSTSensorTagConnectionFailureNotificationErrorKey = @"JSTSensorT
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
-    DDLogInfo(@"%s %@ %@", __PRETTY_FUNCTION__, peripheral.identifier, service.characteristics);
+    DDLogInfo(@"%s peripheral:%@, service:%@, characteristics: %@", __PRETTY_FUNCTION__, peripheral.identifier, service, service.characteristics);
 
     if (error) {
         DDLogError(@"%s %@", __PRETTY_FUNCTION__, error);
         [[NSNotificationCenter defaultCenter] postNotificationName:JSTSensorTagConnectionFailureNotification object:self userInfo:@{JSTSensorTagConnectionFailureNotificationErrorKey : error}];
     } else {
-        ++self.numberOfDiscoveredServices;
-        if (self.numberOfDiscoveredServices == [JSTSensorTag availableServicesUUIDArray].count) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:JSTSensorTagDidFinishDiscoveryNotification object:self];
+
+        if ([service.UUID.stringRepresentation isEqualToString:@"180a"]) {
+            for (CBCharacteristic *characteristic in service.characteristics) {
+                if ([characteristic.UUID.stringRepresentation isEqualToString:@"2a23"]) {
+                    [peripheral readValueForCharacteristic:characteristic];
+                }
+            }
         }
+        ++self.numberOfDiscoveredServices;
+        [self tryToFinishConnection];
+    }
+}
+
+- (void)tryToFinishConnection {
+    if (self.numberOfDiscoveredServices == [JSTSensorTag availableServicesUUIDArray].count && self.macAddress) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:JSTSensorTagDidFinishDiscoveryNotification object:self];
     }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     DDLogInfo(@"%s %@ %@", __PRETTY_FUNCTION__, peripheral.identifier, characteristic);
+    NSMutableString* tmpString = [NSMutableString string];
+    for (size_t i = characteristic.value.length - 1; i > 0; i -= 1)
+    {
+        Byte byteValue;
+        [characteristic.value getBytes:&byteValue range:NSMakeRange(i, sizeof(Byte))];
+        [tmpString appendFormat:@"%02x", byteValue];
+    }
+    self.macAddress = tmpString;
+
+    [self tryToFinishConnection];
     [[self sensorForCharacteristic:characteristic] processReadFromCharacteristic:characteristic error:error];
 }
 
@@ -129,7 +151,8 @@ NSString *const JSTSensorTagConnectionFailureNotificationErrorKey = @"JSTSensorT
             [CBUUID UUIDWithString:[JSTMagnetometerSensor serviceUUID]],
             [CBUUID UUIDWithString:[JSTPressureSensor serviceUUID]],
             [CBUUID UUIDWithString:[JSTGyroscopeSensor serviceUUID]],
-            [CBUUID UUIDWithString:[JSTKeysSensor serviceUUID]]
+            [CBUUID UUIDWithString:[JSTKeysSensor serviceUUID]],
+            [CBUUID UUIDWithString:@"180A"]
     ];
 }
 

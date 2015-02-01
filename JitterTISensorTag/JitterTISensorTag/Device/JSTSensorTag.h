@@ -22,6 +22,7 @@ extern NSString *const JSTSensorTagDidFinishDiscoveryNotification;
 
 @property(nonatomic) NSInteger rssi;
 
+@property(nonatomic, copy) NSString *macAddress;
 
 @property(nonatomic, readonly) JSTIRSensor *irSensor;
 
