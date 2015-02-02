@@ -13,7 +13,6 @@
 
 @interface JSTDiceViewController ()
 @property(nonatomic, strong) JSTSensorManager *sensorManager;
-@property(nonatomic, strong) JSTSensorTag *sensor;
 @property(nonatomic, strong) JSTDice *dice;
 @end
 
@@ -34,8 +33,8 @@
 }
 
 - (void)dealloc {
-    self.sensor.accelerometerSensor.sensorDelegate = nil;
-    [self.sensorManager disconnectSensor:self.sensor];
+    self.sensorTag.accelerometerSensor.sensorDelegate = nil;
+    [self.sensorManager disconnectSensor:self.sensorTag];
 }
 
 - (void)loadView {
@@ -52,27 +51,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if (self.sensorManager.state == CBCentralManagerStatePoweredOn) {
-        if ([self.sensorManager hasPreviouslyConnectedSensor]) {
-            [self.sensorManager connectLastSensor];
-        } else {
-            [self.sensorManager connectNearestSensor];
-        }
-    }
+    self.sensorTag.accelerometerSensor.sensorDelegate = self;
+    [self.sensorTag.accelerometerSensor setPeriodValue:10];
+    [self.sensorTag.accelerometerSensor configureWithValue:JSTSensorAccelerometer2GRange];
+    [self.sensorTag.accelerometerSensor setNotificationsEnabled:YES];
 }
 
 
 #pragma mark - JSTSensorManagerDelegate
 - (void)manager:(JSTSensorManager *)manager didConnectSensor:(JSTSensorTag *)sensor {
-    self.sensor = sensor;
-    sensor.accelerometerSensor.sensorDelegate = self;
-    [sensor.accelerometerSensor setPeriodValue:10];
-    [sensor.accelerometerSensor configureWithValue:JSTSensorAccelerometer2GRange];
-    [sensor.accelerometerSensor setNotificationsEnabled:YES];
 }
 
-- (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor {
-
+- (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor error:(NSError *)error {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (error) {
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    });
 }
 
 - (void)manager:(JSTSensorManager *)manager didFailToConnectToSensorWithError:(NSError *)error {
@@ -84,13 +79,6 @@
 }
 
 - (void)manager:(JSTSensorManager *)manager didChangeStateTo:(CBCentralManagerState)state {
-    if (self.sensorManager.state == CBCentralManagerStatePoweredOn) {
-        if ([self.sensorManager hasPreviouslyConnectedSensor]) {
-            [self.sensorManager connectLastSensor];
-        } else {
-            [self.sensorManager connectNearestSensor];
-        }
-    }
 }
 
 #pragma mark - JSTBaseSensorDelegate

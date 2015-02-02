@@ -18,7 +18,6 @@ static int ddLogLevel = DDLogLevelAll;
 
 @interface JSTBlowViewController () <JSTSensorManagerDelegate, JSTBaseSensorDelegate>
 @property (nonatomic, strong) JSTSensorManager *sensorManager;
-@property (nonatomic, strong) JSTSensorTag *sensorTag;
 @property (nonatomic) float *values;
 @property (nonatomic) NSUInteger valuesIdx;
 @end
@@ -66,23 +65,22 @@ const NSUInteger JSTBlowViewControllerValuesEdgesRange = 2;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if (self.sensorManager.state == CBCentralManagerStatePoweredOn) {
-        [self.sensorManager connectNearestSensor];
-    }
+    self.sensorTag.humiditySensor.sensorDelegate = self;
+    [self.sensorTag.humiditySensor configureWithValue:JSTSensorHumidityEnabled];
+    [self.sensorTag.humiditySensor setNotificationsEnabled:YES];
 }
 
 #pragma mark - JSTSensorManagerDelegate
 
 - (void)manager:(JSTSensorManager *)manager didConnectSensor:(JSTSensorTag *)sensor {
-    self.sensorTag = sensor;
-
-    sensor.humiditySensor.sensorDelegate = self;
-    [sensor.humiditySensor configureWithValue:JSTSensorHumidityEnabled];
-    [sensor.humiditySensor setNotificationsEnabled:YES];
 }
 
-- (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor {
-
+- (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor error:(NSError *)error {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (error) {
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    });
 }
 
 - (void)manager:(JSTSensorManager *)manager didFailToConnectToSensorWithError:(NSError *)error {
@@ -94,9 +92,6 @@ const NSUInteger JSTBlowViewControllerValuesEdgesRange = 2;
 }
 
 - (void)manager:(JSTSensorManager *)manager didChangeStateTo:(CBCentralManagerState)state {
-    if (manager.state == CBCentralManagerStatePoweredOn) {
-        [manager connectNearestSensor];
-    }
 }
 
 #pragma mark - Sensor delegate

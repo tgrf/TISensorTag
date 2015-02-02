@@ -138,6 +138,7 @@ NSString *const JSTSensorTagConnectionFailureNotificationErrorKey = @"JSTSensorT
 #pragma mark -
 
 - (void)discoverServices {
+    self.numberOfDiscoveredServices = 0;
     [self.peripheral discoverServices:[JSTSensorTag availableServicesUUIDArray]];
 }
 

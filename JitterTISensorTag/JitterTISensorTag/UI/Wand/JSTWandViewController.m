@@ -66,24 +66,23 @@ const float JSTWandViewControllerValuesDifferentialThreshold = 100.0f;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if (self.sensorManager.state == CBCentralManagerStatePoweredOn) {
-        [self.sensorManager connectNearestSensor];
-    }
+    self.sensorTag.magnetometerSensor.sensorDelegate = self;
+    [self.sensorTag.magnetometerSensor configureWithValue:JSTSensorMagnetometerEnabled];
+    [self.sensorTag.magnetometerSensor setPeriodValue:10];
+    [self.sensorTag.magnetometerSensor setNotificationsEnabled:YES];
 }
 
 #pragma mark - JSTSensorManagerDelegate
 
 - (void)manager:(JSTSensorManager *)manager didConnectSensor:(JSTSensorTag *)sensor {
-    self.sensorTag = sensor;
-
-    sensor.magnetometerSensor.sensorDelegate = self;
-    [sensor.magnetometerSensor configureWithValue:JSTSensorMagnetometerEnabled];
-    [sensor.magnetometerSensor setPeriodValue:10];
-    [sensor.magnetometerSensor setNotificationsEnabled:YES];
 }
 
-- (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor {
-
+- (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor error:(NSError *)error {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (error) {
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    });
 }
 
 - (void)manager:(JSTSensorManager *)manager didFailToConnectToSensorWithError:(NSError *)error {
@@ -95,9 +94,6 @@ const float JSTWandViewControllerValuesDifferentialThreshold = 100.0f;
 }
 
 - (void)manager:(JSTSensorManager *)manager didChangeStateTo:(CBCentralManagerState)state {
-    if (manager.state == CBCentralManagerStatePoweredOn) {
-        [manager connectNearestSensor];
-    }
 }
 
 #pragma mark - Sensor delegate

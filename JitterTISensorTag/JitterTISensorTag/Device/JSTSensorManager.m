@@ -171,7 +171,7 @@ NSString *const JSTSensorTagErrorDomain = @"JSTSensorTagErrorDomain";
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
     DDLogInfo(@"%s %@ %@", __PRETTY_FUNCTION__, peripheral, error);
-    [self.delegate manager:self didDisconnectSensor:self.peripherals[peripheral.identifier.UUIDString]];
+    [self.delegate manager:self didDisconnectSensor:self.peripherals[peripheral.identifier.UUIDString] error:error];
 }
 
 - (CBCentralManagerState)state {

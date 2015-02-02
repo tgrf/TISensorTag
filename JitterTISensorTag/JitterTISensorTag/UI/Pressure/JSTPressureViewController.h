@@ -6,6 +6,7 @@
 //  ***REMOVED***
 //
 #import <Foundation/Foundation.h>
+#import "JSTBaseViewController.h"
 
-@interface JSTPressureViewController : UIViewController
+@interface JSTPressureViewController : JSTBaseViewController
 @end

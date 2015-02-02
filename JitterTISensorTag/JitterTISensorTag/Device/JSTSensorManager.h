@@ -13,7 +13,8 @@ typedef enum {
 
 @protocol JSTSensorManagerDelegate<NSObject>
 - (void)manager:(JSTSensorManager *)manager didConnectSensor:(JSTSensorTag *)sensor;
-- (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor;
+
+- (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor error:(NSError *)error;
 - (void)manager:(JSTSensorManager *)manager didFailToConnectToSensorWithError:(NSError *)error;
 - (void)manager:(JSTSensorManager *)manager didDiscoverSensor:(JSTSensorTag *)sensor;
 - (void)manager:(JSTSensorManager *)manager didChangeStateTo:(CBCentralManagerState)state;

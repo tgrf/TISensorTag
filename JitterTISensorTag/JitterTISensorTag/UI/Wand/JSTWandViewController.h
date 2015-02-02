@@ -6,6 +6,7 @@
 //  ***REMOVED***
 //
 #import <Foundation/Foundation.h>
+#import "JSTBaseViewController.h"
 
-@interface JSTWandViewController : UIViewController
+@interface JSTWandViewController : JSTBaseViewController
 @end
