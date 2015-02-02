@@ -35,7 +35,7 @@ const float JSTWandViewControllerValuesDifferentialThreshold = 100.0f;
         self.sensorManager = [JSTSensorManager sharedInstance];
         self.sensorManager.delegate = self;
 
-        self.values = (float *) malloc(JSTWandViewControllerValuesRange * sizeof(float));
+        self.values = (float *)malloc(JSTWandViewControllerValuesRange * sizeof(float));
         self.valuesIdx = 0;
     }
 
