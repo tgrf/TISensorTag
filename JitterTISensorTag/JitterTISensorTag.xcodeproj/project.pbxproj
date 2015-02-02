@@ -13,6 +13,7 @@
 		155655D01A4855FA0041AE4F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 155655CF1A4855FA0041AE4F /* Images.xcassets */; };
 		155655DF1A4855FA0041AE4F /* JitterTISensorTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 155655DE1A4855FA0041AE4F /* JitterTISensorTagTests.m */; };
 		155655EB1A4857280041AE4F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 155655EA1A4857280041AE4F /* Default-568h@2x.png */; };
+		364BE21BCD96184004AB5552 /* JSTDetailsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BEA64787B32970A3C4409 /* JSTDetailsHeaderView.m */; };
 		364BE3EA52189F3AF34C8732 /* JSTRootViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BE556509A4BC93A9DAA5F /* JSTRootViewCell.m */; };
 		364BE4FDE6D6BCBE2F62E439 /* JSTHandshakeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BE8886FF1DBB0A0353739 /* JSTHandshakeViewController.m */; };
 		364BE6A811F5F68BB6BA4311 /* JSTPressureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BEDC013F15EF30F4A7C13 /* JSTPressureViewController.m */; };
@@ -83,6 +84,7 @@
 		155655EA1A4857280041AE4F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		364BE0B83FCE54864BD06DF0 /* JSTRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTRootViewController.h; sourceTree = "<group>"; };
 		364BE20A5FB6FCE0CE5C3C30 /* JSTWandView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTWandView.h; sourceTree = "<group>"; };
+		364BE3279ED9035C7402C15B /* JSTDetailsHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTDetailsHeaderView.h; sourceTree = "<group>"; };
 		364BE3C6FD2A60A6FBE5779A /* JSTRootViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTRootViewCell.h; sourceTree = "<group>"; };
 		364BE4DA2F0ECB6E3B33B5E0 /* JSTWandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTWandView.m; sourceTree = "<group>"; };
 		364BE52908B3E5E6E638098E /* JSTRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTRootViewController.m; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 		364BE8B37A16AC27E0B56B40 /* JSTHandshakeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTHandshakeView.h; sourceTree = "<group>"; };
 		364BE8F46393D86B2568088E /* JSTBlowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTBlowView.m; sourceTree = "<group>"; };
 		364BE930A0451EFA117F4F4A /* JSTBlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTBlowViewController.m; sourceTree = "<group>"; };
+		364BEA64787B32970A3C4409 /* JSTDetailsHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTDetailsHeaderView.m; sourceTree = "<group>"; };
 		364BEB01CE37364DB529A71C /* mce_st_icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file.ttf; path = mce_st_icons.ttf; sourceTree = "<group>"; };
 		364BEB695AEA73CC3363543A /* JSTPressureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTPressureView.h; sourceTree = "<group>"; };
 		364BEBD3306D360251C9C552 /* JSTHandshakeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTHandshakeViewController.h; sourceTree = "<group>"; };
@@ -270,6 +273,8 @@
 				364BE556509A4BC93A9DAA5F /* JSTRootViewCell.m */,
 				364BE3C6FD2A60A6FBE5779A /* JSTRootViewCell.h */,
 				364BEF356313B6B80ADD12D5 /* Utils */,
+				364BEA64787B32970A3C4409 /* JSTDetailsHeaderView.m */,
+				364BE3279ED9035C7402C15B /* JSTDetailsHeaderView.h */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -636,6 +641,7 @@
 				3865311A7CFD967FB7E60B50 /* JSTClickerViewController.m in Sources */,
 				364BE3EA52189F3AF34C8732 /* JSTRootViewCell.m in Sources */,
 				364BEDAD834A059D842E90C0 /* UIColor+JSTExtensions.m in Sources */,
+				364BE21BCD96184004AB5552 /* JSTDetailsHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

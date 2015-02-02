@@ -7,6 +7,9 @@
 //
 #import <Foundation/Foundation.h>
 
+@class JSTDetailsHeaderView;
+
 @interface JSTWandView : UIView
 @property (nonatomic, strong, readonly) UILabel *valuesLabel;
+@property (nonatomic, strong, readonly) JSTDetailsHeaderView *headerView;
 @end
