@@ -39,6 +39,9 @@
     [controller.navigationBar setTintColor:[UIColor darkJSTColor]];
     self.window.rootViewController = controller;
     [self.window makeKeyAndVisible];
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
     // Override point for customization after application launch.
     return YES;
 }
