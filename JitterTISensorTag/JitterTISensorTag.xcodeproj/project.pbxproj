@@ -19,6 +19,7 @@
 		364BE6A811F5F68BB6BA4311 /* JSTPressureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BEDC013F15EF30F4A7C13 /* JSTPressureViewController.m */; };
 		364BE780EBC9A9D2D49D1A59 /* JSTPressureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BEE5FE71857CE961E6E82 /* JSTPressureView.m */; };
 		364BEA5E25D9E57308ACED8E /* JSTWandView.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BE4DA2F0ECB6E3B33B5E0 /* JSTWandView.m */; };
+		364BEA7125FC5FECAC5521EB /* JSTDetailsFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BE678B41E5ACCD23DAF95 /* JSTDetailsFooterView.m */; };
 		364BEB24123CE542BAF2607E /* JSTBlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BE930A0451EFA117F4F4A /* JSTBlowViewController.m */; };
 		364BEBD72C480CA15EFDA362 /* JSTWandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BEE9F091E23C0CF50A3FB /* JSTWandViewController.m */; };
 		364BEBE463E1ACC9EF663D7C /* JSTRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BE52908B3E5E6E638098E /* JSTRootViewController.m */; };
@@ -96,6 +97,7 @@
 		364BE52908B3E5E6E638098E /* JSTRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTRootViewController.m; sourceTree = "<group>"; };
 		364BE556509A4BC93A9DAA5F /* JSTRootViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTRootViewCell.m; sourceTree = "<group>"; };
 		364BE66E70E3D6038BF1717D /* JSTPressureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTPressureViewController.h; sourceTree = "<group>"; };
+		364BE678B41E5ACCD23DAF95 /* JSTDetailsFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTDetailsFooterView.m; sourceTree = "<group>"; };
 		364BE7EAB0DE296131D3328D /* UIColor+JSTExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+JSTExtensions.h"; sourceTree = "<group>"; };
 		364BE804B85008006D58DC4B /* UIColor+JSTExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+JSTExtensions.m"; sourceTree = "<group>"; };
 		364BE8886FF1DBB0A0353739 /* JSTHandshakeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTHandshakeViewController.m; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 		364BED82824039320024CD9E /* JSTWandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTWandViewController.h; sourceTree = "<group>"; };
 		364BEDC013F15EF30F4A7C13 /* JSTPressureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTPressureViewController.m; sourceTree = "<group>"; };
 		364BEDD67A5813E9FE4228D1 /* JSTBlowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTBlowView.h; sourceTree = "<group>"; };
+		364BEDFAD0FC3890FC531BD0 /* JSTDetailsFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTDetailsFooterView.h; sourceTree = "<group>"; };
 		364BEE5FE71857CE961E6E82 /* JSTPressureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTPressureView.m; sourceTree = "<group>"; };
 		364BEE9F091E23C0CF50A3FB /* JSTWandViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTWandViewController.m; sourceTree = "<group>"; };
 		364BEEED4B58374DB306586D /* JSTHandshakeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTHandshakeView.m; sourceTree = "<group>"; };
@@ -293,6 +296,8 @@
 				364BEF356313B6B80ADD12D5 /* Utils */,
 				364BEA64787B32970A3C4409 /* JSTDetailsHeaderView.m */,
 				364BE3279ED9035C7402C15B /* JSTDetailsHeaderView.h */,
+				364BE678B41E5ACCD23DAF95 /* JSTDetailsFooterView.m */,
+				364BEDFAD0FC3890FC531BD0 /* JSTDetailsFooterView.h */,
 				386534237347A7A1AB73C9CB /* Common */,
 				386533E4CF67EC262F600B30 /* Connection */,
 			);
@@ -704,6 +709,7 @@
 				364BE3EA52189F3AF34C8732 /* JSTRootViewCell.m in Sources */,
 				364BEDAD834A059D842E90C0 /* UIColor+JSTExtensions.m in Sources */,
 				364BE21BCD96184004AB5552 /* JSTDetailsHeaderView.m in Sources */,
+				364BEA7125FC5FECAC5521EB /* JSTDetailsFooterView.m in Sources */,
 				38653F4F47BB88FF340C8144 /* JSTBaseViewController.m in Sources */,
 				38653E251B78ECE5D3A1AF6A /* JSTDeviceListCell.m in Sources */,
 				386532FF5329236EAAB4B34F /* JSTDeviceListView.m in Sources */,
