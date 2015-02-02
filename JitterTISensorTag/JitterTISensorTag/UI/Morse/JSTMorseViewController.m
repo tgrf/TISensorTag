@@ -33,6 +33,7 @@
         self.sensorManager.delegate = self;
 
         [self.morseDetector addObserver:self forKeyPath:NSStringFromSelector(@selector(text)) options:NSKeyValueObservingOptionNew context:nil];
+        [self.morseDetector addObserver:self forKeyPath:NSStringFromSelector(@selector(sign)) options:NSKeyValueObservingOptionNew context:nil];
     }
 
     return self;
@@ -43,10 +44,14 @@
     [self.sensorManager disconnectSensor:self.sensor];
 
     [self.morseDetector removeObserver:self forKeyPath:NSStringFromSelector(@selector(text))];
+    [self.morseDetector removeObserver:self forKeyPath:NSStringFromSelector(@selector(sign))];
 }
 
 - (void)loadView {
-    self.view = [[JSTMorseView alloc] init];
+    JSTMorseView *view = [[JSTMorseView alloc] init];
+    view.textLabel.text = [self.morseDetector.text stringByAppendingString:@"#jitter #mceconf"];
+    [view setSymbolMapping:self.morseDetector.symbolMapping];
+    self.view = view;
 }
 
 - (JSTMorseView *)morseView {
@@ -102,14 +107,15 @@
     if (object == self.morseDetector) {
         __weak JSTMorseViewController *weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^{
-            weakSelf.morseView.resultLabel.text = weakSelf.morseDetector.text;
+            weakSelf.morseView.textLabel.text = [weakSelf.morseDetector.text stringByAppendingString:@"#jitter #mceconf"];
+            weakSelf.morseView.currentSignLabel.text = weakSelf.morseDetector.sign;
+            [weakSelf.morseView setActiveSymbol:weakSelf.morseDetector.sign];
             [weakSelf.morseView setNeedsLayout];
         });
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
-
 
 #pragma mark - Sensor delegate
 

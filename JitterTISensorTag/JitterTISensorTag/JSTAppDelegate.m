@@ -12,6 +12,7 @@
 #import "JSTAppDelegate.h"
 #import "JSTSensorManager.h"
 #import "JSTRootViewController.h"
+#import "UIColor+JSTExtensions.h"
 
 @interface JSTAppDelegate ()
 @property (readonly, strong, nonatomic) JSTSensorManager *sensorTagManager;
@@ -35,7 +36,7 @@
                              forBarMetrics:UIBarMetricsDefault];
     controller.navigationBar.shadowImage = [UIImage new];
     controller.navigationBar.translucent = YES;
-
+    [controller.navigationBar setTintColor:[UIColor darkJSTColor]];
     self.window.rootViewController = controller;
     [self.window makeKeyAndVisible];
     // Override point for customization after application launch.

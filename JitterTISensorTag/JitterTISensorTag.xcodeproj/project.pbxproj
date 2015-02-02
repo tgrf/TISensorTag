@@ -53,6 +53,7 @@
 		38653EB9ADED557CF4579587 /* JSTMagnetometerSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 38653CE9A09239C919DAD187 /* JSTMagnetometerSensor.m */; };
 		38653F88434FEF10EDBF6D23 /* JSTSensorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 38653B1E939555F6F37BE245 /* JSTSensorManager.m */; };
 		38653FF3CE1CF4C32D05EF22 /* JSTClickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38653DA08CC9DF525153C353 /* JSTClickerView.m */; };
+		67A1A83B1A7FE24A00D0C092 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A1A83A1A7FE24A00D0C092 /* Accounts.framework */; };
 		67BDBC681A4EE1B7000AF79C /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BDBC671A4EE1B7000AF79C /* CoreBluetooth.framework */; };
 		EF3164A947D847E821A1C3E4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1481FE7D94BCC8BB2B7285B7 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -160,6 +161,7 @@
 		38653F66B0778CDAAD0844B4 /* JSTKeysSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTKeysSensor.h; sourceTree = "<group>"; };
 		38653F8B56D4EA4BCBF0FFDB /* JSTRootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTRootView.m; sourceTree = "<group>"; };
 		38653F94F247463C99445816 /* JSTDice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTDice.h; sourceTree = "<group>"; };
+		67A1A83A1A7FE24A00D0C092 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		67BDBC671A4EE1B7000AF79C /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		78CEF60169CCCE839EF3BA72 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7D5BEF8888945879B4E185CD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67A1A83B1A7FE24A00D0C092 /* Accounts.framework in Frameworks */,
 				67BDBC681A4EE1B7000AF79C /* CoreBluetooth.framework in Frameworks */,
 				EF3164A947D847E821A1C3E4 /* libPods.a in Frameworks */,
 			);
@@ -448,6 +451,7 @@
 		57C63614F9254CC1034E98FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				67A1A83A1A7FE24A00D0C092 /* Accounts.framework */,
 				67BDBC671A4EE1B7000AF79C /* CoreBluetooth.framework */,
 				1481FE7D94BCC8BB2B7285B7 /* libPods.a */,
 			);

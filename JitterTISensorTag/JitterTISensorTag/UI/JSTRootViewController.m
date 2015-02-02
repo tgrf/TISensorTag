@@ -46,6 +46,7 @@ NSString *JSTRootViewControllerCellIdentifier = @"JSTRootViewTableViewCell";
                 @{ @"name" : @"Fast click", @"class" : NSStringFromClass(JSTClickerViewController.class),   @"icon" : @"G" },
                 @{ @"name" : @"Blow",       @"class" : NSStringFromClass(JSTBlowViewController.class),      @"icon" : @"C" },
         ];
+        self.title = @" ";
     }
 
     return self;
@@ -102,7 +103,6 @@ NSString *JSTRootViewControllerCellIdentifier = @"JSTRootViewTableViewCell";
 
     Class controllerClass = NSClassFromString(_gamesConfiguration[(NSUInteger)indexPath.row][@"class"]);
     UIViewController *viewController = (UIViewController *)[controllerClass new];
-
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

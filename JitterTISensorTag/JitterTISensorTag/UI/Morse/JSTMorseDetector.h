@@ -12,4 +12,8 @@
 
 - (NSString *)text;
 
+- (NSString *)sign;
+
+- (NSDictionary *)symbolMapping;
+
 @end
