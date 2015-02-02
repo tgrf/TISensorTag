@@ -5,15 +5,17 @@
 
 #import "JSTRootView.h"
 #import "View+MASAdditions.h"
+#import "UIColor+JSTExtensions.h"
 
 @implementation JSTRootView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor defaultJSTColor];
 
         _gamesTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _gamesTableView.backgroundColor = [UIColor defaultJSTColor];
         [self addSubview:_gamesTableView];
 
         [self updateConstraints];
