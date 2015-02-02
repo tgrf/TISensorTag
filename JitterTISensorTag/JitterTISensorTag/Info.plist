@@ -24,7 +24,7 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>st_icons.ttf</string>
+		<string>mce_st_icons.ttf</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>

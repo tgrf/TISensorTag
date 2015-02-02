@@ -11,15 +11,17 @@
 
 @implementation JSTRootViewCell
 
-const CGFloat JSTRootViewCellIconSize = 64;
+const CGFloat JSTRootViewCellIconSize = 148;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.backgroundColor = [UIColor defaultJSTColor];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
 
         _icon = [[UILabel alloc] initWithFrame:CGRectZero];
         _icon.font = [UIFont fontWithName:@"mce_st_icons" size:JSTRootViewCellIconSize];
+        _icon.layer.shouldRasterize = YES;
         _icon.textColor = [UIColor darkJSTColor];
         _icon.textAlignment = NSTextAlignmentCenter;
         _icon.translatesAutoresizingMaskIntoConstraints = NO;
