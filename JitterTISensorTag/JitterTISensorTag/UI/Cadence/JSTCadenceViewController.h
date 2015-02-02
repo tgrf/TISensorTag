@@ -6,10 +6,11 @@
 #import <Foundation/Foundation.h>
 #import "JSTSensorManager.h"
 #import "JSTBaseSensor.h"
+#import "JSTBaseViewController.h"
 
 @class JSTSensorManager;
 @class JSTSensorTag;
 
 
-@interface JSTCadenceViewController : UIViewController <JSTSensorManagerDelegate, JSTBaseSensorDelegate>
+@interface JSTCadenceViewController : JSTBaseViewController <JSTSensorManagerDelegate, JSTBaseSensorDelegate>
 @end

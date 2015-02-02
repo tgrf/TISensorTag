@@ -20,6 +20,7 @@
 #import "JSTPressureViewController.h"
 #import "JSTClickerViewController.h"
 #import "JSTRootViewCell.h"
+#import "JSTDeviceListViewController.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static int ddLogLevel = DDLogLevelAll;
 
@@ -107,7 +108,9 @@ NSString *JSTRootViewControllerCellIdentifier = @"JSTRootViewTableViewCell";
 
     Class controllerClass = NSClassFromString(_gamesConfiguration[(NSUInteger)indexPath.row][@"class"]);
     UIViewController *viewController = (UIViewController *)[controllerClass new];
-    [self.navigationController pushViewController:viewController animated:YES];
+    JSTDeviceListViewController *deviceListViewController = [[JSTDeviceListViewController alloc] initWithFinalViewController:viewController
+                                                                                                                        icon:_gamesConfiguration[(NSUInteger) indexPath.row][@"icon"]];
+    [self.navigationController pushViewController:deviceListViewController animated:YES];
 }
 
 #pragma mark - JSTSensorManagerDelegate
@@ -120,7 +123,7 @@ NSString *JSTRootViewControllerCellIdentifier = @"JSTRootViewTableViewCell";
     DDLogInfo(@"%s %@", __PRETTY_FUNCTION__, sensor);
 }
 
-- (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor {
+- (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor error:(NSError *)error {
     DDLogInfo(@"%s %@", __PRETTY_FUNCTION__, sensor);
 }
 

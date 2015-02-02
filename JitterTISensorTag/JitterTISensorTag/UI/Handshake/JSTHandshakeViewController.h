@@ -6,6 +6,7 @@
 //  ***REMOVED***
 //
 #import <Foundation/Foundation.h>
+#import "JSTBaseViewController.h"
 
-@interface JSTHandshakeViewController : UIViewController
+@interface JSTHandshakeViewController : JSTBaseViewController
 @end

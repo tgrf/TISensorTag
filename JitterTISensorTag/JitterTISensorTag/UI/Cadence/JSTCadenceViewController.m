@@ -14,7 +14,6 @@
 @interface JSTCadenceViewController ()
 @property(nonatomic, strong) JSTSensorManager *sensorManager;
 @property(nonatomic) BOOL isCalibrated;
-@property(nonatomic, strong) JSTSensorTag *sensor;
 @end
 
 @implementation JSTCadenceViewController {
@@ -32,8 +31,8 @@
 }
 
 - (void)dealloc {
-    self.sensor.gyroscopeSensor.sensorDelegate = nil;
-    [self.sensorManager disconnectSensor:self.sensor];
+    self.sensorTag.gyroscopeSensor.sensorDelegate = nil;
+    [self.sensorManager disconnectSensor:self.sensorTag];
 }
 
 - (void)loadView {
@@ -50,22 +49,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if (self.sensorManager.state == CBCentralManagerStatePoweredOn) {
-        [self.sensorManager connectNearestSensor];
-    }
+    self.sensorTag.gyroscopeSensor.sensorDelegate = self;
+    [self.sensorTag.gyroscopeSensor configureWithValue:JSTSensorGyroscopeAllAxis];
+    [self.sensorTag.gyroscopeSensor setPeriodValue:10];
+    [self.sensorTag.gyroscopeSensor setNotificationsEnabled:YES];
 }
 
 #pragma mark - Sensor manager delegate
 - (void)manager:(JSTSensorManager *)manager didConnectSensor:(JSTSensorTag *)sensor {
-    self.sensor = sensor;
-    sensor.gyroscopeSensor.sensorDelegate = self;
-    [sensor.gyroscopeSensor configureWithValue:JSTSensorGyroscopeAllAxis];
-    [sensor.gyroscopeSensor setPeriodValue:10];
-    [sensor.gyroscopeSensor setNotificationsEnabled:YES];
+
 }
 
-- (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor {
-
+- (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor error:(NSError *)error {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (error) {
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    });
 }
 
 - (void)manager:(JSTSensorManager *)manager didFailToConnectToSensorWithError:(NSError *)error {
@@ -77,9 +77,6 @@
 }
 
 - (void)manager:(JSTSensorManager *)manager didChangeStateTo:(CBCentralManagerState)state {
-    if (manager.state == CBCentralManagerStatePoweredOn) {
-        [manager connectNearestSensor];
-    }
 }
 
 #pragma mark - Sensor delegate

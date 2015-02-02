@@ -65,24 +65,23 @@ const NSUInteger JSTHandshakeViewControllerValuesRange  = 20; // 0,1s/value
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if (self.sensorManager.state == CBCentralManagerStatePoweredOn) {
-        [self.sensorManager connectNearestSensor];
-    }
+    self.sensorTag.irSensor.sensorDelegate = self;
+    [self.sensorTag.irSensor configureWithValue:JSTSensorIRTemperatureEnabled];
+    [self.sensorTag.irSensor setPeriodValue:10];
+    [self.sensorTag.irSensor setNotificationsEnabled:YES];
 }
 
 #pragma mark - JSTSensorManagerDelegate
 
 - (void)manager:(JSTSensorManager *)manager didConnectSensor:(JSTSensorTag *)sensor {
-    self.sensorTag = sensor;
-
-    sensor.irSensor.sensorDelegate = self;
-    [sensor.irSensor configureWithValue:JSTSensorIRTemperatureEnabled];
-    [sensor.irSensor setPeriodValue:10];
-    [sensor.irSensor setNotificationsEnabled:YES];
 }
 
-- (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor {
-
+- (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor error:(NSError *)error {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (error) {
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    });
 }
 
 - (void)manager:(JSTSensorManager *)manager didFailToConnectToSensorWithError:(NSError *)error {
@@ -94,9 +93,6 @@ const NSUInteger JSTHandshakeViewControllerValuesRange  = 20; // 0,1s/value
 }
 
 - (void)manager:(JSTSensorManager *)manager didChangeStateTo:(CBCentralManagerState)state {
-    if (manager.state == CBCentralManagerStatePoweredOn) {
-        [manager connectNearestSensor];
-    }
 }
 
 #pragma mark - Sensor delegate

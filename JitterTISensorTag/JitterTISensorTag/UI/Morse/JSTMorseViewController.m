@@ -18,7 +18,6 @@
 @interface JSTMorseViewController ()
 @property(nonatomic, strong) JSTMorseDetector *morseDetector;
 @property(nonatomic, strong) JSTSensorManager *sensorManager;
-@property(nonatomic, strong) JSTSensorTag *sensor;
 @end
 
 @implementation JSTMorseViewController {
@@ -40,8 +39,8 @@
 }
 
 - (void)dealloc {
-    self.sensor.keysSensor.sensorDelegate = nil;
-    [self.sensorManager disconnectSensor:self.sensor];
+    self.sensorTag.keysSensor.sensorDelegate = nil;
+    [self.sensorManager disconnectSensor:self.sensorTag];
 
     [self.morseDetector removeObserver:self forKeyPath:NSStringFromSelector(@selector(text))];
     [self.morseDetector removeObserver:self forKeyPath:NSStringFromSelector(@selector(sign))];
@@ -64,25 +63,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if (self.sensorManager.state == CBCentralManagerStatePoweredOn) {
-        if ([self.sensorManager hasPreviouslyConnectedSensor]) {
-            [self.sensorManager connectLastSensor];
-        } else {
-            [self.sensorManager connectNearestSensor];
-        }
-    }
+    self.sensorTag.keysSensor.sensorDelegate = self;
+    [self.sensorTag.keysSensor setNotificationsEnabled:YES];
 }
 
 #pragma mark - Sensor manager delegate
 
 - (void)manager:(JSTSensorManager *)manager didConnectSensor:(JSTSensorTag *)sensor {
-    self.sensor = sensor;
-    self.sensor.keysSensor.sensorDelegate = self;
-    [self.sensor.keysSensor setNotificationsEnabled:YES];
 }
 
-- (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor {
-
+- (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor error:(NSError *)error {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (error) {
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    });
 }
 
 - (void)manager:(JSTSensorManager *)manager didFailToConnectToSensorWithError:(NSError *)error {
@@ -94,13 +89,6 @@
 }
 
 - (void)manager:(JSTSensorManager *)manager didChangeStateTo:(CBCentralManagerState)state {
-    if (manager.state == CBCentralManagerStatePoweredOn) {
-        if ([manager hasPreviouslyConnectedSensor]) {
-            [manager connectLastSensor];
-        } else {
-            [manager connectNearestSensor];
-        }
-    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

@@ -6,11 +6,12 @@
 #import <Foundation/Foundation.h>
 #import "JSTSensorManager.h"
 #import "JSTClicker.h"
+#import "JSTBaseViewController.h"
 
 @class JSTSensorManager;
 @class JSTSensorTag;
 @class JSTClicker;
 
 
-@interface JSTClickerViewController : UIViewController <JSTSensorManagerDelegate, JSTClickerDelegate>
+@interface JSTClickerViewController : JSTBaseViewController <JSTSensorManagerDelegate, JSTClickerDelegate>
 @end

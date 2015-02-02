@@ -6,11 +6,12 @@
 #import <Foundation/Foundation.h>
 #import "JSTSensorManager.h"
 #import "JSTBaseSensor.h"
+#import "JSTBaseViewController.h"
 
 @class JSTMorseDetector;
 @class JSTSensorManager;
 @class JSTSensorTag;
 
 
-@interface JSTMorseViewController : UIViewController <JSTSensorManagerDelegate, JSTBaseSensorDelegate>
+@interface JSTMorseViewController : JSTBaseViewController <JSTSensorManagerDelegate, JSTBaseSensorDelegate>
 @end

@@ -69,24 +69,23 @@ const NSUInteger JSTPressureViewControllerValuesEdgesRange  = 3;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if (self.sensorManager.state == CBCentralManagerStatePoweredOn) {
-        [self.sensorManager connectNearestSensor];
-    }
+    self.sensorTag.pressureSensor.sensorDelegate = self;
+    [self.sensorTag.pressureSensor configureWithValue:JSTSensorPressureEnabled];
+    [self.sensorTag.pressureSensor setPeriodValue:10];
+    [self.sensorTag.pressureSensor setNotificationsEnabled:YES];
 }
 
 #pragma mark - JSTSensorManagerDelegate
 
 - (void)manager:(JSTSensorManager *)manager didConnectSensor:(JSTSensorTag *)sensor {
-    self.sensorTag = sensor;
-
-    sensor.pressureSensor.sensorDelegate = self;
-    [sensor.pressureSensor configureWithValue:JSTSensorPressureEnabled];
-    [sensor.pressureSensor setPeriodValue:10];
-    [sensor.pressureSensor setNotificationsEnabled:YES];
 }
 
-- (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor {
-
+- (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor error:(NSError *)error {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (error) {
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    });
 }
 
 - (void)manager:(JSTSensorManager *)manager didFailToConnectToSensorWithError:(NSError *)error {
@@ -98,9 +97,6 @@ const NSUInteger JSTPressureViewControllerValuesEdgesRange  = 3;
 }
 
 - (void)manager:(JSTSensorManager *)manager didChangeStateTo:(CBCentralManagerState)state {
-    if (manager.state == CBCentralManagerStatePoweredOn) {
-        [manager connectNearestSensor];
-    }
 }
 
 #pragma mark - Sensor delegate
