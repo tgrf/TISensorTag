@@ -70,8 +70,6 @@ NSString *JSTRootViewControllerCellIdentifier = @"JSTRootViewTableViewCell";
     self.rootView.gamesTableView.dataSource = self;
     [self.rootView.gamesTableView registerClass:[JSTRootViewCell class]
                          forCellReuseIdentifier:JSTRootViewControllerCellIdentifier];
-    self.rootView.gamesTableView.estimatedRowHeight = 100;
-    self.rootView.gamesTableView.rowHeight = UITableViewAutomaticDimension;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -82,9 +80,15 @@ NSString *JSTRootViewControllerCellIdentifier = @"JSTRootViewTableViewCell";
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 150;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _gamesConfiguration.count;
 }
+
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     JSTRootViewCell *tableViewCell = [self.rootView.gamesTableView dequeueReusableCellWithIdentifier:JSTRootViewControllerCellIdentifier

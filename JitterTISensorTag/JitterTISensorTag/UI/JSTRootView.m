@@ -16,6 +16,7 @@
 
         _gamesTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _gamesTableView.backgroundColor = [UIColor defaultJSTColor];
+        _gamesTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self addSubview:_gamesTableView];
 
         [self updateConstraints];
