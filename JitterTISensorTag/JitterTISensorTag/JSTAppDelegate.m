@@ -30,7 +30,13 @@
     _sensorTagManager = [[JSTSensorManager alloc] init];
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[JSTRootViewController alloc] init]];
+    UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:[[JSTRootViewController alloc] init]];
+    [controller.navigationBar setBackgroundImage:[UIImage new]
+                             forBarMetrics:UIBarMetricsDefault];
+    controller.navigationBar.shadowImage = [UIImage new];
+    controller.navigationBar.translucent = YES;
+
+    self.window.rootViewController = controller;
     [self.window makeKeyAndVisible];
     // Override point for customization after application launch.
     return YES;
