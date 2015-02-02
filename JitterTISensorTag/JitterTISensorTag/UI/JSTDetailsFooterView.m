@@ -43,6 +43,7 @@
 - (void)updateConstraints {
     CGFloat width = UIScreen.mainScreen.bounds.size.width;
     [_connectionIcon mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.mas_top).with.offset(0.06f*width);
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.connectionLabel.mas_left);
         make.centerY.equalTo(self.mas_bottom).with.offset(-0.096f*width);

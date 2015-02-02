@@ -9,9 +9,11 @@
 
 @class JSTDetailsHeaderView;
 @class JSTDetailsFooterView;
+@class JSTDetailsResultView;
 
 @interface JSTWandView : UIView
 @property (nonatomic, strong, readonly) UILabel *valuesLabel;
 @property (nonatomic, strong, readonly) JSTDetailsHeaderView *headerView;
+@property (nonatomic, strong, readonly) JSTDetailsResultView *resultView;
 @property (nonatomic, strong, readonly) JSTDetailsFooterView *footerView;
 @end

@@ -67,6 +67,7 @@
         make.top.equalTo(self.iconView.mas_bottom).with.offset(0.1f*width);
         make.left.equalTo(self.mas_left).with.offset(0.136f*width);
         make.right.equalTo(self.mas_right).with.offset(-0.136f*width);
+        make.bottom.equalTo(self.mas_bottom).with.offset(-0.06f*width);
     }];
 
     [super updateConstraints];

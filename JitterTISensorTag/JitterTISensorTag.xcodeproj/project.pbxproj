@@ -13,6 +13,7 @@
 		155655D01A4855FA0041AE4F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 155655CF1A4855FA0041AE4F /* Images.xcassets */; };
 		155655DF1A4855FA0041AE4F /* JitterTISensorTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 155655DE1A4855FA0041AE4F /* JitterTISensorTagTests.m */; };
 		155655EB1A4857280041AE4F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 155655EA1A4857280041AE4F /* Default-568h@2x.png */; };
+		364BE1DC5CF9DBE9E381D326 /* JSTDetailsResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BE1225BABB25389C44303 /* JSTDetailsResultView.m */; };
 		364BE21BCD96184004AB5552 /* JSTDetailsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BEA64787B32970A3C4409 /* JSTDetailsHeaderView.m */; };
 		364BE3EA52189F3AF34C8732 /* JSTRootViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BE556509A4BC93A9DAA5F /* JSTRootViewCell.m */; };
 		364BE4FDE6D6BCBE2F62E439 /* JSTHandshakeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 364BE8886FF1DBB0A0353739 /* JSTHandshakeViewController.m */; };
@@ -90,8 +91,10 @@
 		155655DE1A4855FA0041AE4F /* JitterTISensorTagTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JitterTISensorTagTests.m; sourceTree = "<group>"; };
 		155655EA1A4857280041AE4F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		364BE0B83FCE54864BD06DF0 /* JSTRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTRootViewController.h; sourceTree = "<group>"; };
+		364BE1225BABB25389C44303 /* JSTDetailsResultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTDetailsResultView.m; sourceTree = "<group>"; };
 		364BE20A5FB6FCE0CE5C3C30 /* JSTWandView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTWandView.h; sourceTree = "<group>"; };
 		364BE3279ED9035C7402C15B /* JSTDetailsHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTDetailsHeaderView.h; sourceTree = "<group>"; };
+		364BE3713BA81E61B6364465 /* JSTDetailsResultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTDetailsResultView.h; sourceTree = "<group>"; };
 		364BE3C6FD2A60A6FBE5779A /* JSTRootViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTRootViewCell.h; sourceTree = "<group>"; };
 		364BE4DA2F0ECB6E3B33B5E0 /* JSTWandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTWandView.m; sourceTree = "<group>"; };
 		364BE52908B3E5E6E638098E /* JSTRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTRootViewController.m; sourceTree = "<group>"; };
@@ -300,6 +303,8 @@
 				364BEDFAD0FC3890FC531BD0 /* JSTDetailsFooterView.h */,
 				386534237347A7A1AB73C9CB /* Common */,
 				386533E4CF67EC262F600B30 /* Connection */,
+				364BE1225BABB25389C44303 /* JSTDetailsResultView.m */,
+				364BE3713BA81E61B6364465 /* JSTDetailsResultView.h */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -716,6 +721,7 @@
 				38653DA97AD133D02C0CF215 /* JSTDeviceListViewController.m in Sources */,
 				38653487730CF4A7E27C4475 /* JSTConnectionView.m in Sources */,
 				38653A5E35719EE0BFB32CB6 /* JSTConnectionViewController.m in Sources */,
+				364BE1DC5CF9DBE9E381D326 /* JSTDetailsResultView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
