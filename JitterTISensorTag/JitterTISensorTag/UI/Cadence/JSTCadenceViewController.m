@@ -96,7 +96,15 @@
 
             __weak JSTCadenceViewController *weakSelf = self;
             dispatch_async(dispatch_get_main_queue(), ^{
-                weakSelf.cadenceView.resultLabel.text = [NSString stringWithFormat:@"Cadence: %f", cadence];
+                NSString *arrow;
+                if (cadence < 29) {
+                    arrow = @"\u25B2";
+                } else if (cadence > 31){
+                    arrow = @"\u25BC";
+                } else {
+                    arrow = @"\u2713";
+                }
+                weakSelf.cadenceView.resultLabel.text = [NSString stringWithFormat:@"%.0f RPM %@", cadence, arrow];
                 [weakSelf.cadenceView setNeedsLayout];
             });
         }
