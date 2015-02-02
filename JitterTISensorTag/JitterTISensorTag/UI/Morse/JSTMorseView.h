@@ -7,5 +7,10 @@
 
 
 @interface JSTMorseView : UIView
-@property(nonatomic, readonly) UILabel *resultLabel;
+@property(nonatomic, readonly) UILabel *currentSignLabel;
+@property(nonatomic, readonly) UILabel *textLabel;
+
+- (void)setSymbolMapping:(NSDictionary *)mapping;
+
+- (void)setActiveSymbol:(NSString *)symbol;
 @end
