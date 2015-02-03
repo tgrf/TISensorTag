@@ -7,8 +7,11 @@
 
 @class JSTDetailsHeaderView;
 @class JSTDetailsFooterView;
+@class JSTDetailsResultView;
 
 
 @interface JSTCadenceView : UIView
-@property(nonatomic, readonly) UILabel *resultLabel;
+@property (nonatomic, strong, readonly) JSTDetailsHeaderView *headerView;
+@property (nonatomic, strong, readonly) JSTDetailsResultView *resultView;
+@property (nonatomic, strong, readonly) JSTDetailsFooterView *footerView;
 @end

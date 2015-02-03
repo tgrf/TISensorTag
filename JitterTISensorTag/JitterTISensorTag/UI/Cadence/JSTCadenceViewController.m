@@ -9,7 +9,9 @@
 #import "JSTSensorTag.h"
 #import "JSTGyroscopeSensor.h"
 #import "JSTAppDelegate.h"
-
+#import "JSTDetailsResultView.h"
+#import "DDLogMacros.h"
+static int ddLogLevel = DDLogLevelError;
 
 @interface JSTCadenceViewController ()
 @property(nonatomic, strong) JSTSensorManager *sensorManager;
@@ -92,7 +94,7 @@
             float length = gyroscopeSensor.value.x * gyroscopeSensor.value.x + gyroscopeSensor.value.y * gyroscopeSensor.value.y + gyroscopeSensor.value.z * gyroscopeSensor.value.z;
             length = sqrtf(length);
             cadence = length / 6.f; // length / 360 deg * 60s (to get RPM)
-            NSLog(@"Values %f %f %f length %f cadence %f", gyroscopeSensor.value.x, gyroscopeSensor.value.y, gyroscopeSensor.value.z, length, cadence);
+            DDLogDebug(@"Values %f %f %f length %f cadence %f", gyroscopeSensor.value.x, gyroscopeSensor.value.y, gyroscopeSensor.value.z, length, cadence);
 
             __weak JSTCadenceViewController *weakSelf = self;
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -104,7 +106,7 @@
                 } else {
                     arrow = @"\u2713";
                 }
-                weakSelf.cadenceView.resultLabel.text = [NSString stringWithFormat:@"%.0f RPM %@", cadence, arrow];
+                weakSelf.cadenceView.resultView.resultLabel.text = [NSString stringWithFormat:@"%.0f RPM %@", cadence, arrow];
                 [weakSelf.cadenceView setNeedsLayout];
             });
         }
