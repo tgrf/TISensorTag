@@ -11,6 +11,7 @@
 #import "JSTMagnetometerSensor.h"
 #import "JSTAppDelegate.h"
 #import "JSTWandView.h"
+#import "JSTDetailsResultView.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 static int ddLogLevel = DDLogLevelAll;
@@ -21,6 +22,7 @@ static int ddLogLevel = DDLogLevelAll;
 @property (nonatomic) BOOL isCalibrated;
 @property (nonatomic) float *values;
 @property (nonatomic) NSUInteger valuesIdx;
+@property (nonatomic) NSUInteger currentPercentageState;
 @end
 
 const NSUInteger JSTWandViewControllerValuesRange  = 5; // 0,1s/value
@@ -37,6 +39,7 @@ const float JSTWandViewControllerValuesDifferentialThreshold = 100.0f;
 
         self.values = (float *)malloc(JSTWandViewControllerValuesRange * sizeof(float));
         self.valuesIdx = 0;
+        self.currentPercentageState = 0;
     }
 
     return self;
@@ -135,10 +138,14 @@ const float JSTWandViewControllerValuesDifferentialThreshold = 100.0f;
         min = (min > self.values[idx] ? self.values[idx] : min);
         max = (max < self.values[idx] ? self.values[idx] : max);
     }
-    if (max - min > JSTWandViewControllerValuesDifferentialThreshold && !(self.valuesIdx % 10)) {
+    if (max - min > JSTWandViewControllerValuesDifferentialThreshold && !(self.valuesIdx % 10) && self.currentPercentageState < 100) {
+        self.currentPercentageState += 10;
         __weak JSTWandViewController *weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^{
-            weakSelf.wandView.valuesLabel.text = [NSString stringWithFormat:@"Magia kurwaaaa! %f", max-min];
+            weakSelf.wandView.resultView.resultLabel.text = (self.currentPercentageState != 100
+                    ? [NSString stringWithFormat:@"%ld%%", (long)self.currentPercentageState]
+                    : @"Yo!"
+            );
             [weakSelf.wandView setNeedsLayout];
         });
     }

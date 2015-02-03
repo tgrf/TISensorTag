@@ -51,6 +51,8 @@
     [_resultView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.footerView.mas_top);
         make.centerX.equalTo(self.mas_centerX);
+        make.left.equalTo(self.mas_left);
+        make.right.equalTo(self.mas_right);
     }];
 
     [_footerView mas_remakeConstraints:^(MASConstraintMaker *make) {
