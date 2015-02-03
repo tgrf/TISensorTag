@@ -3,7 +3,7 @@
 //  JitterTISensorTag
 //
 //  Created by Tomasz Grynfelder on 01/02/15.
-//  ***REMOVED***
+//  Copyright (c) 2015 Polidea Sp. z o.o. All rights reserved.
 //
 #import "UIColor+JSTExtensions.h"
 

@@ -1,11 +1,10 @@
 //
 // Created by Blazej Marcinkiewicz on 20/01/15.
-// ***REMOVED***
+// Copyright (c) 2015 mceconf.com. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
 
 @interface JSTRootView : UIView
-@property(nonatomic, strong, readonly) UITableView *gamesTableView;
 @end

@@ -10,43 +10,26 @@
 #import "JSTSensorTag.h"
 #import "JSTPressureSensor.h"
 #import "JSTRootView.h"
-#import "JSTCadenceViewController.h"
-#import "JSTSafeViewController.h"
-#import "JSTWandViewController.h"
-#import "JSTHandshakeViewController.h"
-#import "JSTMorseViewController.h"
-#import "JSTDiceViewController.h"
-#import "JSTBlowViewController.h"
-#import "JSTPressureViewController.h"
-#import "JSTClickerViewController.h"
-#import "JSTRootViewCell.h"
 #import "JSTDeviceListViewController.h"
+#import "JSTAppDelegate.h"
+#import "JSTKeysSensor.h"
+#import "JSTGyroscopeSensor.h"
+#import "JSTAccelerometerSensor.h"
+#import "JSTHumiditySensor.h"
+#import "JSTIRSensor.h"
+#import "JSTMagnetometerSensor.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static int ddLogLevel = DDLogLevelAll;
 
 @interface JSTRootViewController () <UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic, strong, readonly) JSTSensorManager *sensorManager;
-@property (nonatomic, strong, readonly) NSArray *gamesConfiguration;
+@property (nonatomic, strong) JSTSensorManager *sensorManager;
 @end
-
-NSString *JSTRootViewControllerCellIdentifier = @"JSTRootViewTableViewCell";
 
 @implementation JSTRootViewController
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        _gamesConfiguration = @[
-                @{ @"name" : @"Cadence",    @"class" : NSStringFromClass(JSTCadenceViewController.class),   @"icon" : @"W" },
-                @{ @"name" : @"Safe",       @"class" : NSStringFromClass(JSTSafeViewController.class),      @"icon" : @"S" },
-                @{ @"name" : @"Wand",       @"class" : NSStringFromClass(JSTWandViewController.class),      @"icon" : @"A" },
-                @{ @"name" : @"Handshake",  @"class" : NSStringFromClass(JSTHandshakeViewController.class), @"icon" : @"P" },
-                @{ @"name" : @"Dice",       @"class" : NSStringFromClass(JSTDiceViewController.class),      @"icon" : @"D" },
-                @{ @"name" : @"Pressure",   @"class" : NSStringFromClass(JSTPressureViewController.class),  @"icon" : @"T" },
-                @{ @"name" : @"Morse",      @"class" : NSStringFromClass(JSTMorseViewController.class),     @"icon" : @"M" },
-                @{ @"name" : @"Fast click", @"class" : NSStringFromClass(JSTClickerViewController.class),   @"icon" : @"G" },
-                @{ @"name" : @"Blow",       @"class" : NSStringFromClass(JSTBlowViewController.class),      @"icon" : @"C" },
-        ];
         self.title = @" ";
     }
 
@@ -65,52 +48,15 @@ NSString *JSTRootViewControllerCellIdentifier = @"JSTRootViewTableViewCell";
     return nil;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    self.rootView.gamesTableView.delegate = self;
-    self.rootView.gamesTableView.dataSource = self;
-    [self.rootView.gamesTableView registerClass:[JSTRootViewCell class]
-                         forCellReuseIdentifier:JSTRootViewControllerCellIdentifier];
-
-    if ([self.rootView.gamesTableView respondsToSelector:@selector(setEstimatedRowHeight:)]
-            && [self.rootView.gamesTableView respondsToSelector:@selector(setRowHeight:)]) {
-        self.rootView.gamesTableView.estimatedRowHeight = 180;
-        self.rootView.gamesTableView.rowHeight = UITableViewAutomaticDimension;
-    }
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+}
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.sensorManager = [JSTSensorManager sharedInstance];
     self.sensorManager.delegate = self;
-}
 
-#pragma mark - UITableViewDelegate & UITableViewDataSource
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 180;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _gamesConfiguration.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    JSTRootViewCell *tableViewCell = [self.rootView.gamesTableView dequeueReusableCellWithIdentifier:JSTRootViewControllerCellIdentifier
-                                                                                        forIndexPath:indexPath];
-    tableViewCell.icon.text = _gamesConfiguration[(NSUInteger)indexPath.row][@"icon"];
-    return tableViewCell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.rootView.gamesTableView deselectRowAtIndexPath:indexPath animated:YES];
-
-    NSString *className = _gamesConfiguration[(NSUInteger)indexPath.row][@"class"];
-    Class controllerClass = NSClassFromString(className);
-    UIViewController *viewController = (UIViewController *)[controllerClass new];
-    JSTDeviceListViewController *deviceListViewController = [[JSTDeviceListViewController alloc] initWithFinalViewController:viewController icon:_gamesConfiguration[(NSUInteger) indexPath.row][@"icon"] type:[className isEqualToString:NSStringFromClass(JSTClickerViewController.class)] ? JSTDeviceListTypeDoubleSelection : JSTDeviceListTypeSingleSelection];
-    [self.navigationController pushViewController:deviceListViewController animated:YES];
 }
 
 #pragma mark - JSTSensorManagerDelegate
@@ -125,6 +71,37 @@ NSString *JSTRootViewControllerCellIdentifier = @"JSTRootViewTableViewCell";
 
 - (void)manager:(JSTSensorManager *)manager didDisconnectSensor:(JSTSensorTag *)sensor error:(NSError *)error {
     DDLogInfo(@"%s %@", __PRETTY_FUNCTION__, sensor);
+    sensor.keysSensor.sensorDelegate = self;
+    [sensor.keysSensor setNotificationsEnabled:YES];
+
+    sensor.gyroscopeSensor.sensorDelegate = self;
+    [sensor.gyroscopeSensor configureWithValue:JSTSensorGyroscopeAllAxis];
+    [sensor.gyroscopeSensor setNotificationsEnabled:YES];
+    // Calibrate on first use
+//    [sensor.gyroscopeSensor calibrate];
+
+    sensor.accelerometerSensor.sensorDelegate = self;
+    [sensor.accelerometerSensor configureWithValue:JSTSensorAccelerometer2GRange];
+    [sensor.accelerometerSensor setNotificationsEnabled:YES];
+
+    sensor.humiditySensor.sensorDelegate = self;
+    [sensor.humiditySensor configureWithValue:JSTSensorHumidityEnabled];
+    [sensor.humiditySensor setNotificationsEnabled:YES];
+
+    sensor.irSensor.sensorDelegate = self;
+    [sensor.irSensor configureWithValue:JSTSensorIRTemperatureEnabled];
+    [sensor.irSensor setNotificationsEnabled:YES];
+
+    sensor.magnetometerSensor.sensorDelegate = self;
+    [sensor.magnetometerSensor configureWithValue:JSTSensorMagnetometerEnabled];
+    [sensor.magnetometerSensor setNotificationsEnabled:YES];
+    // Calibrate on first use
+//    [sensor.magnetometerSensor calibrate];
+
+    sensor.pressureSensor.sensorDelegate = self;
+    // Start calibration flow
+    [sensor.pressureSensor calibrate];
+
 }
 
 - (void)manager:(JSTSensorManager *)manager didFailToConnectToSensorWithError:(NSError *)error {

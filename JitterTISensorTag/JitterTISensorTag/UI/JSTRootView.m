@@ -1,6 +1,6 @@
 //
 // Created by Blazej Marcinkiewicz on 20/01/15.
-// ***REMOVED***
+// Copyright (c) 2015 mceconf.com. All rights reserved.
 //
 
 #import "JSTRootView.h"
@@ -13,24 +13,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor defaultJSTColor];
-
-        _gamesTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        _gamesTableView.backgroundColor = [UIColor defaultJSTColor];
-        _gamesTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [self addSubview:_gamesTableView];
-
-        [self updateConstraints];
     }
 
     return self;
-}
-
-- (void)updateConstraints {
-    [_gamesTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self);
-    }];
-
-    [super updateConstraints];
 }
 
 @end

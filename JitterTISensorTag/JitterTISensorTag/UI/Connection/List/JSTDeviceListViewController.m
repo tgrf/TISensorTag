@@ -1,6 +1,6 @@
 //
 // Created by Blazej Marcinkiewicz on 02/02/15.
-// ***REMOVED***
+// Copyright (c) 2015 mceconf.com. All rights reserved.
 //
 
 #import "JSTDeviceListViewController.h"
