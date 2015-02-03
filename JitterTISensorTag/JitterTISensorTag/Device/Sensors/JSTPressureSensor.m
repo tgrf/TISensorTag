@@ -2,7 +2,7 @@
 #import "JSTPressureSensor.h"
 #import "CBUUID+StringRepresentation.h"
 
-static int ddLogLevel = DDLogLevelDebug;
+static int ddLogLevel = DDLogLevelError;
 
 NSString *const JSTSensorPressureServiceUUID = @"F000AA40-0451-4000-B000-000000000000";
 
