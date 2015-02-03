@@ -12,6 +12,7 @@
 #import "JSTAppDelegate.h"
 #import "JSTPressureView.h"
 #import "JSTPressureSensor.h"
+#import "JSTDetailsResultView.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 static int ddLogLevel = DDLogLevelAll;
@@ -168,7 +169,7 @@ const NSUInteger JSTPressureViewControllerValuesEdgesRange  = 3;
 - (void)stateHasChanged:(BOOL)currentState {
     __weak JSTPressureViewController *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        weakSelf.pressureView.valuesLabel.text = [NSString stringWithFormat:(currentState ? @"Pressed" : @"Released")];
+        weakSelf.pressureView.resultView.resultLabel.text = [NSString stringWithFormat:(currentState ? @"Somebody here" : @"Nobody here")];
         [weakSelf.pressureView setNeedsLayout];
     });
 }
