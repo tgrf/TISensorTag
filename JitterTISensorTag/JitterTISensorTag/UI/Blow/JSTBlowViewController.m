@@ -12,6 +12,7 @@
 #import "JSTAppDelegate.h"
 #import "JSTBlowView.h"
 #import "JSTSensorTag.h"
+#import "JSTDetailsResultView.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 static int ddLogLevel = DDLogLevelAll;
@@ -20,10 +21,11 @@ static int ddLogLevel = DDLogLevelAll;
 @property (nonatomic, strong) JSTSensorManager *sensorManager;
 @property (nonatomic) float *values;
 @property (nonatomic) NSUInteger valuesIdx;
+@property (nonatomic) NSUInteger currentPercentageState;
 @end
 
-const float JSTBlowViewControllerValuesDifferentialThreshold = 20;
-const NSUInteger JSTBlowViewControllerValuesRange = 6; // 0,1s/value
+const float JSTBlowViewControllerValuesDifferentialThreshold = 5;
+const NSUInteger JSTBlowViewControllerValuesRange = 5; // 0,1s/value
 const NSUInteger JSTBlowViewControllerValuesEdgesRange = 2;
 
 @implementation JSTBlowViewController
@@ -36,6 +38,7 @@ const NSUInteger JSTBlowViewControllerValuesEdgesRange = 2;
 
         self.values = (float *) malloc(JSTBlowViewControllerValuesRange * sizeof(float));
         self.valuesIdx = 0;
+        self.currentPercentageState = 0;
     }
 
     return self;
@@ -67,6 +70,7 @@ const NSUInteger JSTBlowViewControllerValuesEdgesRange = 2;
 
     self.sensorTag.humiditySensor.sensorDelegate = self;
     [self.sensorTag.humiditySensor configureWithValue:JSTSensorHumidityEnabled];
+    [self.sensorTag.humiditySensor setPeriodValue:10];
     [self.sensorTag.humiditySensor setNotificationsEnabled:YES];
 }
 
@@ -101,8 +105,6 @@ const NSUInteger JSTBlowViewControllerValuesEdgesRange = 2;
         JSTHumiditySensor *humiditySensor = (JSTHumiditySensor *) sensor;
         self.values[self.valuesIdx] = humiditySensor.humidity;
 
-        NSLog(@"humiditySensor.humidity = %f", humiditySensor.humidity);
-
         self.valuesIdx = (self.valuesIdx + 1) % JSTBlowViewControllerValuesRange;
         [self estimateValues];
     }
@@ -126,11 +128,13 @@ const NSUInteger JSTBlowViewControllerValuesEdgesRange = 2;
         min = (min > self.values[idx] ? self.values[idx] : min);
         max = (max < self.values[idx] ? self.values[idx] : max);
     }
-    if (!self.hasRaised && max - min > JSTBlowViewControllerValuesDifferentialThreshold && !(self.valuesIdx % JSTBlowViewControllerValuesRange)) {
+    if (self.hasRaised && max - min > JSTBlowViewControllerValuesDifferentialThreshold && !(self.valuesIdx % JSTBlowViewControllerValuesRange)) {
+        self.currentPercentageState += 33;
         __weak JSTBlowViewController *weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^{
-            weakSelf.blowView.valuesLabel.text = [NSString stringWithFormat:@"Stop blowing! %f\tHumidity: %f", max-min, self.values[self.valuesIdx]];
-            [weakSelf.blowView setNeedsLayout];
+            weakSelf.blowView.resultView.resultLabel.text = (self.currentPercentageState < 99
+                    ? [NSString stringWithFormat:@"%ld%%", (long)self.currentPercentageState]
+                    : @"Wow!");
         });
     }
 }
