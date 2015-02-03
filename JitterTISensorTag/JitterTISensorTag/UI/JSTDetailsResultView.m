@@ -16,9 +16,10 @@
     if (self) {
         _resultLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         self.resultLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        self.resultLabel.adjustsFontSizeToFitWidth = YES;
         self.resultLabel.textColor = [UIColor lightJSTColor];
         self.resultLabel.font = [UIFont systemFontOfSize:87];
-        self.resultLabel.textAlignment = NSTextAlignmentLeft;
+        self.resultLabel.textAlignment = NSTextAlignmentCenter;
         self.resultLabel.numberOfLines = 0;
         self.resultLabel.text = @"";
         [self addSubview:_resultLabel];
