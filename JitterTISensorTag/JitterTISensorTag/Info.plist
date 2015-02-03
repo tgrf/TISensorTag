@@ -25,6 +25,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>mce_st_icons.ttf</string>
+		<string>fontawesome-webfont.ttf</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>

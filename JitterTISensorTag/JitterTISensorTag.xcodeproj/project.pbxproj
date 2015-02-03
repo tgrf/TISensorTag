@@ -34,6 +34,7 @@
 		386532FF5329236EAAB4B34F /* JSTDeviceListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38653ADB39690D7E3ABEC5A0 /* JSTDeviceListView.m */; };
 		3865332A1FD887DA823AF9D7 /* JSTMorseDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 386532CA90AF2C1D6928E174 /* JSTMorseDetector.m */; };
 		3865335197807DB328DBC7BD /* JSTDiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3865389BF461D4DEA955AFC3 /* JSTDiceViewController.m */; };
+		3865342B563C91B43AA1D531 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 38653BA66FE2A313ED41A675 /* fontawesome-webfont.ttf */; };
 		38653448054449F665EB9404 /* JSTBaseSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 386539A57EEB43A02AA6681D /* JSTBaseSensor.m */; };
 		38653472EA11C4D380748083 /* JSTMorseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 386534282B40AB788CE265EF /* JSTMorseView.m */; };
 		38653487730CF4A7E27C4475 /* JSTConnectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 386534BA0F4888022F6F83DB /* JSTConnectionView.m */; };
@@ -175,6 +176,7 @@
 		38653ADB39690D7E3ABEC5A0 /* JSTDeviceListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTDeviceListView.m; sourceTree = "<group>"; };
 		38653AF687B6DFE9F2BEB5BB /* JSTDeviceListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTDeviceListView.h; sourceTree = "<group>"; };
 		38653B1E939555F6F37BE245 /* JSTSensorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTSensorManager.m; sourceTree = "<group>"; };
+		38653BA66FE2A313ED41A675 /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file.ttf; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		38653BB4782E159E032642C6 /* JSTMorseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTMorseViewController.m; sourceTree = "<group>"; };
 		38653C7FD4D1A9A89B339FBA /* JSTHumiditySensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTHumiditySensor.m; sourceTree = "<group>"; };
 		38653CE9A09239C919DAD187 /* JSTMagnetometerSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTMagnetometerSensor.m; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				364BEB01CE37364DB529A71C /* mce_st_icons.ttf */,
+				38653BA66FE2A313ED41A675 /* fontawesome-webfont.ttf */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -621,6 +624,7 @@
 				155655D01A4855FA0041AE4F /* Images.xcassets in Resources */,
 				155655EB1A4857280041AE4F /* Default-568h@2x.png in Resources */,
 				364BEF7A83A7EEC0441EA534 /* mce_st_icons.ttf in Resources */,
+				3865342B563C91B43AA1D531 /* fontawesome-webfont.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

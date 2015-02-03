@@ -19,4 +19,8 @@
 - (int)currentSafeValue;
 
 - (BOOL)isCombinationCorrect;
+
+- (int)numberOfCorrectValuesFromStart;
+
+- (void)reset;
 @end
