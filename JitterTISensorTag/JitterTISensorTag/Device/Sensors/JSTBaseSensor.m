@@ -2,6 +2,7 @@
 #import "JSTBaseSensor.h"
 #import "CBUUID+StringRepresentation.h"
 #import "DDLog.h"
+#import "JSTSensorManager.h"
 
 static int ddLogLevel = DDLogLevelDebug;
 
@@ -27,6 +28,7 @@ static int ddLogLevel = DDLogLevelDebug;
         [self.peripheral writeValue:[NSData dataWithBytes:&value length:sizeof(value)] forCharacteristic:configurationCharacteristic type:CBCharacteristicWriteWithResponse];
     } else {
         DDLogError(@"Cannot configure value for sensor %@", self);
+        [self.sensorDelegate sensorDidFailCommunicating:self withError:[NSError errorWithDomain:JSTSensorTagErrorDomain code:JSTSensorTagOptionUnavailable userInfo:nil]];
     }
 }
 
@@ -36,6 +38,7 @@ static int ddLogLevel = DDLogLevelDebug;
         [self.peripheral writeValue:[NSData dataWithBytes:&periodValue length:sizeof(periodValue)] forCharacteristic:configurationCharacteristic type:CBCharacteristicWriteWithResponse];
     } else {
         DDLogError(@"Cannot configure period for sensor %@", self);
+        [self.sensorDelegate sensorDidFailCommunicating:self withError:[NSError errorWithDomain:JSTSensorTagErrorDomain code:JSTSensorTagOptionUnavailable userInfo:nil]];
     }
 }
 

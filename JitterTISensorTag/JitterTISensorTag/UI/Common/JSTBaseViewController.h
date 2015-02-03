@@ -10,4 +10,5 @@
 
 @interface JSTBaseViewController : UIViewController
 @property (nonatomic, strong) JSTSensorTag *sensorTag;
+- (void)setSensors:(NSArray *)sensors;
 @end

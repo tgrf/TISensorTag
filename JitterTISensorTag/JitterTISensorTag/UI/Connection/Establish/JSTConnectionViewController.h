@@ -13,6 +13,6 @@
 
 @interface JSTConnectionViewController : UIViewController <JSTSensorManagerDelegate>
 
-- (instancetype)initWithSensor:(JSTSensorTag *)sensorTag iconName:(NSString *)iconName finalViewController:(JSTBaseViewController *)finalViewController;
+- (instancetype)initWithSensors:(NSArray *)sensors iconName:(NSString *)iconName finalViewController:(JSTBaseViewController *)finalViewController;
 
 @end

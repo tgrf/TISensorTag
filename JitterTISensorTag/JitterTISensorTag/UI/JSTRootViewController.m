@@ -106,10 +106,10 @@ NSString *JSTRootViewControllerCellIdentifier = @"JSTRootViewTableViewCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.rootView.gamesTableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    Class controllerClass = NSClassFromString(_gamesConfiguration[(NSUInteger)indexPath.row][@"class"]);
+    NSString *className = _gamesConfiguration[(NSUInteger)indexPath.row][@"class"];
+    Class controllerClass = NSClassFromString(className);
     UIViewController *viewController = (UIViewController *)[controllerClass new];
-    JSTDeviceListViewController *deviceListViewController = [[JSTDeviceListViewController alloc] initWithFinalViewController:viewController
-                                                                                                                        icon:_gamesConfiguration[(NSUInteger) indexPath.row][@"icon"]];
+    JSTDeviceListViewController *deviceListViewController = [[JSTDeviceListViewController alloc] initWithFinalViewController:viewController icon:_gamesConfiguration[(NSUInteger) indexPath.row][@"icon"] type:[className isEqualToString:NSStringFromClass(JSTClickerViewController.class)] ? JSTDeviceListTypeDoubleSelection : JSTDeviceListTypeSingleSelection];
     [self.navigationController pushViewController:deviceListViewController animated:YES];
 }
 

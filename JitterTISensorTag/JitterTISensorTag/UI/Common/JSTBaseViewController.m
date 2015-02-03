@@ -10,4 +10,8 @@
 @implementation JSTBaseViewController {
 
 }
+- (void)setSensors:(NSArray *)sensors {
+    self.sensorTag = [sensors firstObject];
+}
+
 @end

@@ -9,7 +9,11 @@
 @class JSTSensorManager;
 @class JSTBaseViewController;
 
+typedef enum {
+    JSTDeviceListTypeSingleSelection,
+    JSTDeviceListTypeDoubleSelection
+} JSTDeviceListType;
 
 @interface JSTDeviceListViewController : UIViewController <JSTSensorManagerDelegate, UITableViewDelegate, UITableViewDataSource>
-- (instancetype)initWithFinalViewController:(JSTBaseViewController *)viewController icon:(NSString *)icon;
+- (instancetype)initWithFinalViewController:(JSTBaseViewController *)viewController icon:(NSString *)icon type:(JSTDeviceListType)type;
 @end
