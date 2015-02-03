@@ -5,6 +5,9 @@
 
 #import <Foundation/Foundation.h>
 
+@class JSTDetailsHeaderView;
+@class JSTDetailsFooterView;
+
 
 @interface JSTClickerView : UIView
 

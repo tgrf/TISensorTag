@@ -19,12 +19,14 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 @property(nonatomic, copy) NSString *icon;
 @property(nonatomic, strong) JSTBaseViewController *finalViewController;
 @property(nonatomic, strong) JSTSensorManager *sensorManager;
+@property(nonatomic) JSTDeviceListType type;
+@property(nonatomic, strong) NSMutableArray *selectedSensors;
 @end
 
 @implementation JSTDeviceListViewController {
 
 }
-- (instancetype)initWithFinalViewController:(JSTBaseViewController *)viewController icon:(NSString *)icon {
+- (instancetype)initWithFinalViewController:(JSTBaseViewController *)viewController icon:(NSString *)icon type:(JSTDeviceListType)type {
     self = [self init];
     if (self) {
         self.icon = icon;
@@ -32,6 +34,10 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
         self.sensorManager = [JSTSensorManager sharedInstance];
         self.sensorManager.delegate = self;
+        
+        self.type = type;
+        
+        self.selectedSensors = [NSMutableArray array];
     }
     return self;
 }
@@ -78,6 +84,21 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
 
 #pragma mark - Table view
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (self.type == JSTDeviceListTypeSingleSelection) {
+        return @"Pick one device to connect";
+    } else {
+        return @"Pick two devices to connect";
+    }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    view.tintColor = [UIColor clearColor];
+    UITableViewHeaderFooterView *headerFooterView = (UITableViewHeaderFooterView *) view;
+    headerFooterView.contentView.backgroundColor = [UIColor clearColor];
+    headerFooterView.textLabel.textColor = [UIColor darkJSTColor];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.sensorManager.sensors.count;
 }
@@ -89,12 +110,27 @@ static NSString *const reuseIdentifier = @"reuseIdentifier";
     cell.textLabel.text = [sensorTag.peripheral.identifier UUIDString];
     cell.detailTextLabel.textColor = [UIColor lightJSTColor];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"RSSI: %d", sensorTag.rssi];
+
+    if ([self.selectedSensors containsObject:sensorTag]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    JSTConnectionViewController *viewController = [[JSTConnectionViewController alloc] initWithSensor:self.sensorManager.sensors[(NSUInteger) indexPath.row] iconName:self.icon finalViewController:self.finalViewController];
-    [self.navigationController pushViewController:viewController animated:YES];
+    JSTSensorTag *sensorTag = self.sensorManager.sensors[(NSUInteger) indexPath.row];
+    if ([self.selectedSensors containsObject:sensorTag]) {
+        [self.selectedSensors removeObject:sensorTag];
+    } else {
+        [self.selectedSensors addObject:sensorTag];
+    }
+
+    if (self.type == JSTDeviceListTypeSingleSelection || (self.type == JSTDeviceListTypeDoubleSelection && self.selectedSensors.count == 2)) {
+        JSTConnectionViewController *viewController = [[JSTConnectionViewController alloc] initWithSensors:self.selectedSensors iconName:self.icon finalViewController:self.finalViewController];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
 }
 
 #pragma mark - Sensor manager delegate

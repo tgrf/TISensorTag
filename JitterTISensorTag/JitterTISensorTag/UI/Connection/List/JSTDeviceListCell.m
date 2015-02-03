@@ -16,6 +16,7 @@
     if (self) {
         self.backgroundColor = [UIColor defaultJSTColor];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.tintColor = [UIColor darkJSTColor];
     }
 
     return self;
