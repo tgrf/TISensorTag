@@ -35,7 +35,7 @@
 
         JSTSafeCombinationValue *value1 = [[JSTSafeCombinationValue alloc] init];
         value1.direction = JSTSafeRotationDirectionLeft;
-        value1.rotationValue = 18;
+        value1.rotationValue = 3;
 
         JSTSafeCombinationValue *value2 = [[JSTSafeCombinationValue alloc] init];
         value2.direction = JSTSafeRotationDirectionRight;
@@ -53,7 +53,15 @@
 }
 
 - (void)loadView {
-    self.view = [[JSTSafeView alloc] init];
+    JSTSafeView *view = [[JSTSafeView alloc] init];
+    [view.startButton addTarget:self action:@selector(calibrate) forControlEvents:UIControlEventTouchUpInside];
+    [view setNumberOfValues:2];
+    self.view = view;
+}
+
+- (void)calibrate {
+    [self.sensorTag.gyroscopeSensor calibrate];
+    [self.safe reset];
 }
 
 - (JSTSafeView *)safeView {
@@ -109,17 +117,8 @@
 
             __weak JSTSafeViewController *weakSelf = self;
             dispatch_async(dispatch_get_main_queue(), ^{
-
-                NSMutableString *valuesString = [[NSMutableString alloc] init];
-                for (JSTSafeCombinationValue *value in [self.safe.values copy]) {
-                    [valuesString appendString:[NSString stringWithFormat:@"%@ %@-", value.direction == JSTSafeRotationDirectionLeft ? @"L" : @"R", @(value.rotationValue)]];
-                }
-                if (valuesString.length > 0) {
-                    [valuesString replaceCharactersInRange:NSMakeRange([valuesString length] - 1, 1) withString:@""];
-                }
-                weakSelf.safeView.resultLabel.text = [NSString stringWithFormat:@"%d %@", self.safe.currentSafeValue, self.safe.isCombinationCorrect ? @"YES" : @"NO"];
-
-                weakSelf.safeView.rotationLabel.text = valuesString;
+                weakSelf.safeView.resultLabel.text = [NSString stringWithFormat:@"%@", self.safe.isCombinationCorrect ? @"\uf09c" : @"\uf023"];
+                [weakSelf.safeView setNumberOfCorrectValues:[weakSelf.safe numberOfCorrectValuesFromStart]];
                 [weakSelf.safeView setNeedsLayout];
             });
         }

@@ -26,6 +26,29 @@
         self.values = @[];
         self.safeCombination = safeCombination;
         self.range = 20;
+
+        NSMutableArray *combination = [NSMutableArray array];
+        int currentValue = 0;
+        for (JSTSafeCombinationValue *value in self.safeCombination) {
+            if (value.direction == JSTSafeRotationDirectionLeft) {
+                currentValue -= value.rotationValue;
+            } else {
+                currentValue += value.rotationValue;
+            }
+
+            if (currentValue < 0) {
+                currentValue += self.range;
+            } else if (currentValue >= self.range) {
+                currentValue -= self.range;
+            }
+
+            JSTSafeCombinationValue *safeValue = [[JSTSafeCombinationValue alloc] init];
+            safeValue.rotationValue = currentValue;
+            safeValue.direction = value.direction;
+            [combination addObject:safeValue];
+        }
+
+        self.safeCombination = combination;
     }
 
     return self;
@@ -35,7 +58,7 @@
     self.currentRead = value;
     
     // Check if move was started
-    float threshold = 25.f;
+    float threshold = 5.f;
     if (fabsf(self.currentRead) < threshold) {
     } else if (self.currentRead > 0) {
         if (self.previousDirection == JSTSafeRotationDirectionRight) {
@@ -63,6 +86,8 @@
         self.currentValue -= self.range;
     }
 
+    NSLog(@"%@", @((int)self.currentValue));
+
     if (self.values.count > self.safeCombination.count) {
         self.values = @[];
     }
@@ -77,8 +102,6 @@
     if (self.safeCombination.count != self.values.count) {
         return NO;
     }
-    NSLog(@"Correct value %@", self.safeCombination);
-    NSLog(@"Current value %@", self.values);
 
     for (int i = 0; i < self.safeCombination.count; ++i) {
         JSTSafeCombinationValue *combinationValue = self.safeCombination[i];
@@ -89,5 +112,24 @@
         }
     }
     return isCorrect;
+}
+
+- (int)numberOfCorrectValuesFromStart {
+    int result = 0;
+    for (int i = 0; i < self.safeCombination.count && i < self.values.count; ++i) {
+        JSTSafeCombinationValue *combinationValue = self.safeCombination[i];
+        JSTSafeCombinationValue *currentValue = self.values[i];
+        if (combinationValue.direction != currentValue.direction || combinationValue.rotationValue != currentValue.rotationValue) {
+            break;
+        }
+        ++result;
+    }
+    return result;
+}
+
+
+- (void)reset {
+    self.currentValue = 0;
+    self.values = @[];
 }
 @end
