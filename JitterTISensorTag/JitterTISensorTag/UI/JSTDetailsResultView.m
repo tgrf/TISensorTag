@@ -20,7 +20,7 @@
         self.resultLabel.textColor = [UIColor lightJSTColor];
         self.resultLabel.font = [UIFont systemFontOfSize:87];
         self.resultLabel.textAlignment = NSTextAlignmentCenter;
-        self.resultLabel.numberOfLines = 0;
+        self.resultLabel.numberOfLines = 3;
         self.resultLabel.text = @"";
         [self addSubview:_resultLabel];
 

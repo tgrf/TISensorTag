@@ -12,6 +12,7 @@
 #import "JSTAppDelegate.h"
 #import "JSTIRSensor.h"
 #import "JSTHandshakeView.h"
+#import "JSTDetailsResultView.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 static int ddLogLevel = DDLogLevelAll;
@@ -21,10 +22,11 @@ static int ddLogLevel = DDLogLevelAll;
 @property (nonatomic, strong) JSTSensorTag *sensorTag;
 @property (nonatomic) float *values;
 @property (nonatomic) NSUInteger valuesIdx;
+@property (nonatomic) NSUInteger currentPercentageState;
 @end
 
-const NSUInteger JSTHandshakeViewControllerValuesDifferentialThreshold  = 15;
-const NSUInteger JSTHandshakeViewControllerValuesRange  = 20; // 0,1s/value
+const NSUInteger JSTHandshakeViewControllerValuesDifferentialThreshold  = 1;
+const NSUInteger JSTHandshakeViewControllerValuesRange  = 5; // 0,1s/value
 
 @implementation JSTHandshakeViewController
 
@@ -124,10 +126,14 @@ const NSUInteger JSTHandshakeViewControllerValuesRange  = 20; // 0,1s/value
         min = (min > self.values[idx] ? self.values[idx] : min);
         max = (max < self.values[idx] ? self.values[idx] : max);
     }
-    if (max - min > JSTHandshakeViewControllerValuesDifferentialThreshold && !(self.valuesIdx % JSTHandshakeViewControllerValuesRange)) {
+    if (max - min > JSTHandshakeViewControllerValuesDifferentialThreshold && !(self.valuesIdx % JSTHandshakeViewControllerValuesRange) && self.currentPercentageState < 100) {
+        self.currentPercentageState += 25;
         __weak JSTHandshakeViewController *weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^{
-            weakSelf.handshakeView.valuesLabel.text = [NSString stringWithFormat:@"Hug me now! %f\tTemp: %f", max-min, self.values[self.valuesIdx]];
+            weakSelf.handshakeView.resultView.resultLabel.text = (self.currentPercentageState != 100
+                    ? [NSString stringWithFormat:@"%ld%%", (long)self.currentPercentageState]
+                    : @"Hug me now!"
+            );
             [weakSelf.handshakeView setNeedsLayout];
         });
     }
