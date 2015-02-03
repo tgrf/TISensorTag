@@ -9,6 +9,7 @@
 #import "JSTSensorTag.h"
 #import "JSTAccelerometerSensor.h"
 #import "JSTDice.h"
+#import "JSTDetailsResultView.h"
 
 
 @interface JSTDiceViewController ()
@@ -89,7 +90,7 @@
         JSTVector3D value = accelerometerSensor.acceleration;
         [self.dice updateWithValue:value];
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.diceView.resultLabel.text = self.dice.value;
+            self.diceView.resultView.resultLabel.text = self.dice.value;
             [self.diceView setNeedsLayout];
         });
     }
