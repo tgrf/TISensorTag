@@ -8,8 +8,8 @@ typedef enum {
 } JSTSensorBarometerConfig;
 
 @interface JSTPressureSensor : JSTBaseSensor
-@property(nonatomic, readonly) int pressure;
-@property(nonatomic, readonly) int temperature;
+@property(nonatomic, readonly) float pressure;
+@property(nonatomic, readonly) float temperature;
 
 - (void)calibrate;
 @end

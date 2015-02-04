@@ -17,9 +17,9 @@ NSString *const JSTSensorPressureCalibrationCharacteristicUUID = @"F000AA43-0451
 @property UInt16 c1,c2,c3,c4;
 ///Calibration values signed
 @property int16_t c5,c6,c7,c8;
-@property(nonatomic, readwrite) int pressure;
+@property(nonatomic, readwrite) float pressure;
 @property(nonatomic) BOOL isCalibrated;
-@property(nonatomic, readwrite) int temperature;
+@property(nonatomic, readwrite) float temperature;
 @property(nonatomic) BOOL isCalibrating;
 @end
 
@@ -65,8 +65,8 @@ NSString *const JSTSensorPressureCalibrationCharacteristicUUID = @"F000AA43-0451
         long long O = (self.c6 * ((long long)1 << 14)) + (((self.c7 * tempTemp)/((long long)1 << 3))) + ((self.c8 * (tempTemp * tempTemp)) / ((long long)1 << 19));
         long long Pa = (((S * (long long)pressure) + O) / ((long long)1 << 14));
 
-        DDLogInfo(@"%s pressure = %ld(%lx)", __PRETTY_FUNCTION__, Pa / 100, Pa / 100);
-        self.pressure = (int) (Pa / 100);
+        DDLogInfo(@"%s pressure = %ld(%lx)", __PRETTY_FUNCTION__, Pa / 100.f, Pa / 100);
+        self.pressure = Pa;
         self.temperature = temperature;
     }
 
